@@ -8,6 +8,7 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.8"
 django = "<3"
+numpy = "^1.19.1"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"
