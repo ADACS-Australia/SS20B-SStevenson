@@ -1,0 +1,50 @@
+body {
+    background-color: #343a40 !important;
+}
+
+*, *:before, *:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.main-content {
+    background-color: #ffffff;
+    padding: 10px 0 20px;
+}
+
+
+.header {
+    top: 10px;
+    padding: 10px 0;
+}
+
+.header-text {
+    color: white;
+    font-size: 45px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.footer-text {
+    color: white;
+}
+
+.page-header {
+    margin: 0 0 20px;
+    padding: 10px;
+    font-size: 30px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+}
+
+.jobtable {
+    font-size: small;
+}
+

@@ -1,0 +1,31 @@
+{% extends 'compasweb/base.html' %}
+{% block content %}
+
+  <div class="jobtable">
+    <table class="table">
+      <thead>
+        <th>Author</th>
+        <th>Name</th>
+        <th>Version</th>
+        <th>Description</th>
+        <th>Publication Date</th>
+        <th>Access</th>
+        <th>Download</th>
+      </thead>
+
+      {% for job in jobs %}
+      <tr>
+        <td>{{ job.author }}</td>
+        <td>{{ job.name }}</td>
+        <td>{{ job.version }}</td>
+        <td>{{ job.description }}</td>
+        <td>{{ job.creation_time }}</td>
+        <td>{{ job.public }}</td>
+        <td>{{ job.download_link }}</td>
+      </tr>
+      {% endfor %}
+
+    </table>
+  </div>
+
+{% endblock content %}

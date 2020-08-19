@@ -130,3 +130,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static/"),
     os.path.join(BASE_DIR, "compasweb/static/"),
 ]
+
+FIXTURE_DIRS = (
+   os.path.join(BASE_DIR, "compasweb/fixtures/"),
+)

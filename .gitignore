@@ -146,4 +146,6 @@ dmypy.json
 venv*/
 .env.development
 .vscode
+.idea/
+*.DS_Store
 

@@ -1,0 +1,16 @@
+{% extends 'compasweb/_base.html' %}
+{% block main_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col col-md-12">
+                 <div class="page-header">
+                     {% block page_header %}
+                     Job Information
+                     {% endblock page_header %}
+                 </div>
+                {% block content %}
+                {% endblock content %}
+            </div>
+        </div>
+    </div>
+{% endblock main_content %}
