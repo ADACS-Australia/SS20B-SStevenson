@@ -8,6 +8,7 @@ services:
     container_name: django
     environment:
       - DEBUG=False
+      - ROOT_SUBDIRECTORY_PATH
     volumes:
       - ./src/static:/code/static-files
     command: >
@@ -26,5 +27,8 @@ services:
     container_name: nginx
     depends_on:
       - django
+    environment:
+      - ROOT_SUBDIRECTORY_PATH
+    entrypoint: ["/nginx-entrypoint.sh"]
     volumes:
       - ./src/static:/static
