@@ -1,0 +1,6 @@
+src/.env.*
+# speed up build time
+.venv
+# make sure to not include development dbs in docker
+src/db.sqlite
+src/db.sqlite3-journal
