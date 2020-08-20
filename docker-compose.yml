@@ -9,7 +9,7 @@ services:
     environment:
       - DEBUG=False
     volumes:
-      - ./src/static:/static
+      - ./src/static:/code/static-files
     command: >
       ash -c "python manage.py migrate
       && python manage.py collectstatic --noinput
