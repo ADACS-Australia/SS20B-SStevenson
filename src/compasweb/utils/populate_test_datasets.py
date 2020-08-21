@@ -29,16 +29,15 @@ COMPASJob.objects.all().delete()
 
 for i in range(entries):
     author = data['author'][i]
-    name = data['name'][i]
+    title = data['title'][i]
     description = data['description'][i]
-    version = data['version'][i]
     public = bool(data['access'][i])
     date = convert_datetime(data['date'][i])
     print(date)
     download = data['link'][i]
 
     # add entry to the database
-    job = COMPASJob.objects.get_or_create(author=author,name=name,description=description,
-                                          creation_time=date,version=version,public=public,
+    job = COMPASJob.objects.get_or_create(author=author,title=title,description=description,
+                                          creation_time=date,public=public,
                                           download_link=download)[0]
 

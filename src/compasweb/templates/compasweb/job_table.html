@@ -5,7 +5,7 @@
     <table class="table">
       <thead>
         <th>Author</th>
-        <th>Name</th>
+        <th>Title</th>
         <th>Version</th>
         <th>Description</th>
         <th>Publication Date</th>
@@ -16,7 +16,7 @@
       {% for job in jobs %}
       <tr>
         <td>{{ job.author }}</td>
-        <td>{{ job.name }}</td>
+        <td>{{ job.title}}</td>
         <td>{{ job.version }}</td>
         <td>{{ job.description }}</td>
         <td>{{ job.creation_time }}</td>
