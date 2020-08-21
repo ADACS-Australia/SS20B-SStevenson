@@ -29,6 +29,5 @@ services:
       - django
     environment:
       - ROOT_SUBDIRECTORY_PATH
-    entrypoint: ["/nginx-entrypoint.sh"]
     volumes:
       - ./src/static:/static
