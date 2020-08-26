@@ -1,5 +1,6 @@
 from django.conf.urls import url
-from .views.jobs import job_table
+from .views.job.jobs import KeywordView
+
 urlpatterns = [
-    url(r'^$', job_table, name='jobtable'),
+    url(r'^$', KeywordView.as_view(), name='jobtable'),
 ]

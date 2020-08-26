@@ -4,6 +4,10 @@ from django.db import models
 class Keyword(models.Model):
     tag = models.CharField(max_length=255, blank=False, null=False)
 
+    def __str__(self):
+        return self.tag
+
+
 
 class COMPASJob(models.Model):
     author = models.CharField(max_length=255, blank=False, null=False)
@@ -21,4 +25,9 @@ class COMPASJob(models.Model):
     download_link = models.TextField(blank=True, null=True)
     arxiv_id = models.CharField(max_length=255, blank=False)
     keywords = models.ManyToManyField(Keyword)
+
+    @classmethod
+    def filter_by_keyword(cls, keyword=None):
+        return cls.objects.all().filter(keywords__tag=keyword) if keyword else cls.objects.all()
+
 

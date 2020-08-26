@@ -1,5 +1,6 @@
-author,title,description,date,access,link
-Vigna-Gómez,Common–Envelope Episodes that lead to Double Neutron Star formation, ,2019-12-27-09:00:00,1,zenodo arxiv 
-van Son et al.,Polluting the pair-instability mass gap for binary black holes through super-Eddington accretion in isolated binaries, ,2020-04-10-09:00:00,1, zenodo arxiv
-Stevenson,Formation of the first three gravitational-wave observations through isolated binary evolution, ,2019-08-02-09:00:00,1,zenodo arxiv
-Vigna-Gómez,On the formation history of Galactic double neutron stars, ,2019-08-02-09:00:00,1,zenodo arxiv
+author,title,description,published,year,journal,journal_DOI,dataset_DOI,date,public,link,arxiv_id,keywords
+Vigna-Gómez,Common–Envelope Episodes that lead to Double Neutron Star formation, ,1,2020, , ,10.5281/zenodo.3906421,2019-12-27-09:00:00,1,zenodo arxiv,2001.09829,DNS;CE
+van Son et al.,Polluting the pair-instability mass gap for binary black holes through super-Eddington accretion in isolated binaries, ,1,2020,ApJ,10.3847/1538-4357/ab9809,10.5281/zenodo.3871801,2020-04-10-09:00:00,1,zenodo arxiv,2004.05187,GW;Mass-Gap;BBH
+Stevenson,Formation of the first three gravitational-wave observations through isolated binary evolution, ,1,2017,Nature Communications,10.1038/ncomms14906,10.5281/zenodo.3358319,2019-08-02-09:00:00,1,zenodo arxiv,1704.01352,GW;BBH;CE
+Vigna-Gómez,On the formation history of Galactic double neutron stars, ,1,2018,MNRAS,10.1093/mnras/sty2463,10.5281/zenodo.3358304,2019-08-02-09:00:00,1,zenodo arxiv,1805.07974,DNS
+
