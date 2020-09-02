@@ -152,3 +152,7 @@ venv*/
 .idea/
 *.DS_Store
 
+# keep files directory and ignore its contents
+files/*
+!files/.gitkeep 
+

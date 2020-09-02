@@ -128,6 +128,10 @@ STATIC_URL = os.path.join('/', ROOT_SUBDIRECTORY_PATH, 'static/')
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static-files/')
 
+MEDIA_ROOT = os.path.join(BASE_DIR, '../files/')
+
+MEDIA_URL = '/' + ROOT_SUBDIRECTORY_PATH + 'files/'
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static/"),
     os.path.join(BASE_DIR, "compasweb/static/"),
