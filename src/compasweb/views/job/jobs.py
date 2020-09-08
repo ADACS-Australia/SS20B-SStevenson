@@ -11,21 +11,25 @@ from django.shortcuts import render
 from django.views import generic
 from ...models import COMPASJob, Keyword
 
+
 class KeywordView(generic.ListView):
     """
     Display job based on chosen keyword.
     """
+
     context_object_name = "jobs"
     ordering = "year"
     template_name = "compasweb/job/job_table.html"
 
     def get_queryset(self):
-        return COMPASJob.filter_by_keyword(keyword=self.request.GET.get("keyword_filter")).order_by(self.ordering)
+        return COMPASJob.filter_by_keyword(
+            keyword=self.request.GET.get("keyword_filter")
+        ).order_by(self.ordering)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["keyword_list"] = Keyword.objects.order_by('tag')
-        context["keyword"] = self.request.GET.get('keyword_filter')
+        context["keyword_list"] = Keyword.objects.order_by("tag")
+        context["keyword"] = self.request.GET.get("keyword_filter")
         return context
 
 
