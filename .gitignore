@@ -154,5 +154,4 @@ venv*/
 
 # keep files directory and ignore its contents
 files/*
-!files/.gitkeep 
-
+!files/.gitkeep

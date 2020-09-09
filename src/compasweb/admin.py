@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import COMPASJob, Keyword
+from .models import COMPASJob, Keyword, Upload
 
 @admin.register(COMPASJob)
 class COMPASJobAdmin(admin.ModelAdmin):
@@ -15,7 +15,12 @@ class COMPASJobAdmin(admin.ModelAdmin):
         return (", ".join([keyword.tag for keyword in obj.keywords.all()]))
     dataset_keywords.short_description = 'Tags'
 
- 
+
 @admin.register(Keyword)
 class KeywordAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Upload)
+class UploadAdmin(admin.ModelAdmin):
     pass

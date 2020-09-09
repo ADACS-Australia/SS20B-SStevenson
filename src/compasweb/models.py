@@ -22,7 +22,7 @@ def job_directory_path(instance, filename):
     # Use Dataset DOI as directory name for dataset files, replace any slashes with dots
     dir_name = instance.dataset_DOI.replace("/", ".")
     # dataset files will be saved in MEDIA_ROOT/datasets/dataset.doi/
-    return "{0}/{1}".format(f"datasets/{dir_name}", fname)
+    return f"datasets/{dir_name}/{fname}"
 
 
 class COMPASJob(models.Model):
@@ -60,26 +60,29 @@ class COMPASJob(models.Model):
         # Check file name is not empty after saving the model and uploading file
         if self.files.name:
             self.decompress_tar_file()
-        
+
 
     def decompress_tar_file(self):
         # Get the actual path for uploaded file
-        dataset_tar_path = os.path.join(settings.MEDIA_ROOT, self.files.name)
-        # Get the parent directory to compress the tarball into
-        dataset_dir = os.path.dirname(dataset_tar_path)
+        dataset_dir = os.path.dirname(self.files.path)
         # Check the uploaded file could be decompressed using tarfile
-        if tarfile.is_tarfile(dataset_tar_path):
-            dataset_tar = tarfile.open(dataset_tar_path)
+        if tarfile.is_tarfile(self.files.path):
+            dataset_tar = tarfile.open(self.files.path)
             dataset_tar.extractall(dataset_dir)
             dataset_tar.close()
             # remove the tar file after decompression
-            os.remove(dataset_tar_path)
+            os.remove(self.files.path)
+            for unpacked_file in os.listdir(dataset_dir):
+                upload = Upload()
+                upload.file = os.path.join(dataset_dir, unpacked_file)
+                upload.compasjob = self
+                upload.save()
 
-    def get_available_files(self):
-        listing = []
-        if self.files.name:
-            dataset_tar_path = os.path.join(settings.MEDIA_ROOT, self.files.name)
-            dataset_dir = os.path.dirname(dataset_tar_path)
-            listing = os.listdir(dataset_dir)
-        return listing
+
+class Upload(models.Model):
+    file = models.FileField(upload_to=job_directory_path, blank=True, null=True)
+    compasjob = models.ForeignKey(COMPASJob, models.CASCADE)
+
+    def __str__(self):
+        return os.path.basename(self.file.name)
 

@@ -41,12 +41,6 @@ class JobDetailView(generic.DetailView):
     model = COMPASJob
     template_name = "compasweb/job/job_detail.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        job = self.get_object()
-        context["files"] = job.get_available_files()
-        return context
-
 # def job_table(request):
 #
 #     current_jobs = COMPASJob.objects.order_by('year')
