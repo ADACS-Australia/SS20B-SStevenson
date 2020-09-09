@@ -75,3 +75,11 @@ class COMPASJob(models.Model):
             # remove the tar file after decompression
             os.remove(dataset_tar_path)
 
+    def get_available_files(self):
+        listing = []
+        if self.files.name:
+            dataset_tar_path = os.path.join(settings.MEDIA_ROOT, self.files.name)
+            dataset_dir = os.path.dirname(dataset_tar_path)
+            listing = os.listdir(dataset_dir)
+        return listing
+

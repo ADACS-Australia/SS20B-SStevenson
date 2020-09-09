@@ -1,0 +1,24 @@
+{% extends 'compasweb/base/base.html' %}
+{% block content %}
+<h3>{{ job.title }}</h3>
+
+<p>This is a place holder job detail view.</p>
+
+<h4>Description</h4>
+<p>{{ job.description }}</p>
+
+<h4>Files</h4>
+{% if files %}
+<ol>
+
+{% load static %}
+{% get_media_prefix as MEDIA_PREFIX %}
+{% for file in files %}
+<li><a href="{{ MEDIA_PREFIX }}{{ file }}">{{ file }}</a></li>
+{% endfor %}
+</ol>
+{% else %}
+No file were uploaded.
+{% endif %}
+
+{% endblock content %}

@@ -11,6 +11,7 @@ services:
       - ROOT_SUBDIRECTORY_PATH
     volumes:
       - ./src/static:/code/static-files
+      - ./src/files:/files
     command: >
       ash -c "python manage.py migrate
       && python manage.py collectstatic --noinput
@@ -31,3 +32,4 @@ services:
       - ROOT_SUBDIRECTORY_PATH
     volumes:
       - ./src/static:/static
+      - ./src/files:/files

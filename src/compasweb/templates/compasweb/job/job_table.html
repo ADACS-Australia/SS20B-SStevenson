@@ -26,7 +26,7 @@
       <thead>
         <th>Author</th>
         <th>Title</th>
-        <th>Description</th>
+        <th>Details</th>
         <th>Publication</th>
         <th>Dataset</th>
         <th>Creation Date</th>
@@ -38,17 +38,25 @@
       <tr>
         <td>{{ job.author }}</td>
         <td>{{ job.title}}</td>
-        <td>{{ job.description }}</td>
+        <td><a href="{% url 'job_detail' job.id %}">view</a></td>
         <td>
 
             Year: {{ job.year }} <br/>
             Journal: {{ job.journal }} <br/>
-            DOI: {{ job.journal_DOI }} <br/>
-            Arxiv: {{ job.arxiv_id }}
+            {% if job.journal_DOI %}
+              DOI: <a href="https://doi.org/{{ job.journal_DOI }}">{{ job.journal_DOI }}</a> <br/>
+            {% endif %}
+            {% if job.arxiv_id %}
+              Arxiv: <a href="https://arxiv.org/abs/{{ job.arxiv_id }}">{{ job.arxiv_id }}</a>
+            {% endif %}
 
 
         </td>
-        <td>DOI: {{ job.dataset_DOI }}</td>
+        <td>
+        {% if job.dataset_DOI %}
+          DOI: <a href="https://doi.org/{{ job.dataset_DOI }}">{{ job.dataset_DOI }}</a>
+        {% endif %}
+        </td>
         <td>{{ job.creation_time }}</td>
         <td>
           {% if job.public == True %}
