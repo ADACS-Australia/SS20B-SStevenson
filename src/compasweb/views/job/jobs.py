@@ -9,7 +9,7 @@
 
 from django.shortcuts import render
 from django.views import generic
-from ...models import COMPASJob, Keyword
+from ...models import COMPASJob, Keyword, COMPASDatasetModel
 
 
 class KeywordView(generic.ListView):
@@ -37,9 +37,16 @@ class JobDetailView(generic.DetailView):
     """
     Display details of a job. Currently largely a placeholder.
     """
+
     context_object_name = "job"
     model = COMPASJob
     template_name = "compasweb/job/job_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # request.session['compasmodel'] =
+        return context
+
 
 # def job_table(request):
 #

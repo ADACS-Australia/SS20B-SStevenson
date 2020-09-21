@@ -9,12 +9,20 @@
 <p>{{ job.description }}</p>
 
 <h4>Files</h4>
-<ol>
-{% for file in job.upload_set.all %}
-<li><a href="{{ file.file.url }}">{{ file }}</a></li>
+
+{% for datasetmodel in job.compasdatasetmodel_set.all %}
+<b>Model: {{ datasetmodel.compasmodel.name }}</b>
+<ul>
+    {% for upload in datasetmodel.upload_set.all %}
+    <li><a href="{{ upload.file.url }}">{{ upload }}</a></li>
+    {% empty %}
+    No files were uploaded.
+    {% endfor%}
+</ul>
+<br />
 {% empty %}
-No files were uploaded.
+No models.
 {% endfor %}
-</ol>
+
 
 {% endblock content %}

@@ -12,7 +12,7 @@ from django.http import HttpResponseRedirect
 from django.test import TestCase, Client
 from django.test import override_settings
 
-from .models import COMPASJob, Keyword
+from .models import COMPASJob, Keyword, COMPASModel, COMPASDatasetModel
 
 
 class BaseModelTestCase(TestCase):
@@ -64,6 +64,18 @@ class BaseModelTestCase(TestCase):
         cls.job2.keywords.add(cls.keyword1)  # BBH
         cls.job2.save()
 
+        cls.compasmodel1 = COMPASModel(
+            name="Feducial",
+            summary="Feducial Summary",
+            description="Feducial Description",
+        )
+        cls.compasmodel1.save()
+
+        cls.datasetmodel1 = COMPASDatasetModel(
+            compasjob=cls.job1, compasmodel=cls.compasmodel1,
+        )
+        cls.datasetmodel1.save()
+
 
 class KeywordModelTestCase(BaseModelTestCase):
     def test_created_properly(self):
@@ -88,13 +100,18 @@ class COMPASJobModelTestCase(BaseModelTestCase):
         """
         Uploading a simple text file on the fly
         """
-        self.job1.files = SimpleUploadedFile(
+        self.datasetmodel1.files = SimpleUploadedFile(
             "myfile.txt", b"these are the file contents!"
         )
-        self.job1.save()
-        self.assertEqual(self.job1.files, "datasets/10.5281.zenodo.3358304/myfile.txt")
+        self.datasetmodel1.save()
+        self.assertEqual(
+            self.datasetmodel1.files,
+            f"datasets/{self.job1.id}/{self.compasmodel1.id}/myfile.txt",
+        )
 
-        dataset_file_path = os.path.join(settings.MEDIA_ROOT, self.job1.files.name)
+        dataset_file_path = os.path.join(
+            settings.MEDIA_ROOT, self.datasetmodel1.files.name
+        )
         self.assertEqual(os.path.exists(dataset_file_path), True)
 
     @override_settings(MEDIA_ROOT="/tmp/django_test")
@@ -125,19 +142,24 @@ class COMPASJobModelTestCase(BaseModelTestCase):
         tf.add(filename1)
         tf.close()
 
-        self.job1.files = UploadedFile(
+        self.datasetmodel1.files = UploadedFile(
             file=open(file=tarfilepath, mode="rb")  # , content_type="application/gzip",
         )
-        self.job1.save()
+        self.datasetmodel1.save()
 
         os.remove(filename)
         os.remove(filename1)
         os.remove(tarfilepath)
 
-        dataset_file_path = os.path.join(settings.MEDIA_ROOT, self.job1.files.name)
+        dataset_file_path = os.path.join(
+            settings.MEDIA_ROOT, self.datasetmodel1.files.name
+        )
         dir_name = os.path.dirname(dataset_file_path)
 
-        self.assertEqual(self.job1.files, "datasets/10.5281.zenodo.3358304/test.tar.gz")
+        self.assertEqual(
+            self.datasetmodel1.files,
+            f"datasets/{self.job1.id}/{self.compasmodel1.id}/test.tar.gz",
+        )
         self.assertEqual(os.path.exists(os.path.join(dir_name, filename)), True)
         self.assertEqual(os.path.exists(os.path.join(dir_name, filename1)), True)
         self.assertEqual(os.path.exists(dataset_file_path), False)
