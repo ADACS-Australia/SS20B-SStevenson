@@ -1,3 +1,25 @@
+/********************************************/
+/*                                          */
+/*          customized properties           */
+/*                                          */
+/********************************************/
+/* The following color codes are taken from CAS Research Colors in CAS Research Team in figma. */
+
+:root{
+    /* --nav-background: #373737; */
+    --gray2: #4F4F4F;
+    --gray3: #828282;
+    --gray5: #E0E0E0;
+    --gray6: #F2F2F2;
+    --title1-font: normal bold 45px Roboto, sans-serif;
+    --title1-shadow: 0px 24px 100px rgba(0, 0, 0, 0.14), 0px 11px 15px rgba(0, 0, 0, 0.2);
+    --p-md-font: normal 500 22px Roboto, sans-serif;
+    --p-md-height: 32px;
+    --button1-font: normal bold 30px Roboto, sans-serif;
+    --button1-height: 40px;
+}
+
+
 body {
     background-color: #343a40 !important;
 }
@@ -13,16 +35,43 @@ body {
     padding: 10px 0 20px;
 }
 
+@media (max-width: 768px) { 
+    
+    .navbar .collapse a {
+        padding-top: 1px !important;
+        padding-bottom: 1px !important;
+        padding-left: 0 !important;
 
-.header {
-    top: 10px;
-    padding: 10px 0;
+    }
 }
 
-.header-text {
-    color: white;
-    font-size: 45px;
+
+
+/********************************************/
+/*                                          */
+/*                 navbar                   */
+/*                                          */
+/********************************************/
+
+.navbar-brand .logo{
+    height: 100px;
+    vertical-align: middle;
 }
+
+.nav-item-left .nav-item .nav-link {
+    color: var(--gray5);
+}
+    
+
+.nav-item-right .nav-item .nav-link {
+    color: var(--gray5);
+}
+
+/********************************************/
+/*                                          */
+/*                 footer                   */
+/*                                          */
+/********************************************/
 
 .footer {
     left: 0;
@@ -35,15 +84,55 @@ body {
     color: white;
 }
 
-.page-header {
+/********************************************/
+/*                                          */
+/*                 others                   */
+/*                                          */
+/********************************************/
+.jumbotron{
+    background-color: var(--gray6);
+    ;
+}
+
+.title-lg{
+    color: var(--gray2);
+    font: var(--title1-font);
+    text-shadow: var(--title1-shadow);
+}
+
+.p-text-md{
+    color: var(--gray2);
+    font: var(--p-md-font);
+    line-height: var(--p-md-height);
+}
+
+.btn-home{
+    background-color: var(--gray2);
+    font: var(--button1-font);
+    line-height: var(--button1-height);
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border: 1px solid #BDBDBD;
+    border-radius: 20px;
+    width:320px;
+    height: 180px;
+}
+
+
+
+
+
+/* work in process */
+.jobtable {
+    font-size: small;
+}
+
+/* .page-header {
     margin: 0 0 20px;
     padding: 10px;
     font-size: 30px;
     text-align: left;
     border-bottom: 1px dotted #cccccc;
-}
-
-.jobtable {
-    font-size: small;
-}
+} */
 

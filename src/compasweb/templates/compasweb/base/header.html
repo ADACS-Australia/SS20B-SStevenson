@@ -1,8 +1,40 @@
 {% load static %}
-<div class="container">
-    <div class="row">
-        <div class="header col text-center">
-            <div class="header-text">COMPAS Web Portal</div>
-        </div>
-    </div>
-</div>
+
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <!-- <div class="container"></div> -->
+  <a class="navbar-brand" href="#">
+    <img class="logo"
+             src="{% static 'compasweb/images/compas-logo.png' %}"></a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+     
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav nav-item-left">       
+          <li class="nav-item" >
+              <a class="nav-link px-3 pt-5" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-3 pt-5" href="#">Run COMPAS Model</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link px-3 pt-5" href="#">Explore Published Models</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-3 pt-5" href="#">About</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ml-auto nav-item-right">
+        <li class="nav-item">
+          <a class="nav-link pb-5" href="https://gwdc.org.au/">GWDC</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link pb-5" href="https://adacs.org.au/">ADACS</a>
+        </li>
+      </ul>       
+  </div>  
+               
+</nav>
+<!-- </div> -->
