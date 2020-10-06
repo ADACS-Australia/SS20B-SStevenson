@@ -11,12 +11,24 @@
     --gray3: #828282;
     --gray5: #E0E0E0;
     --gray6: #F2F2F2;
+    --linecolor: #BDBDBD;
     --title1-font: normal bold 45px Roboto, sans-serif;
     --title1-shadow: 0px 24px 100px rgba(0, 0, 0, 0.14), 0px 11px 15px rgba(0, 0, 0, 0.2);
+    --title2-font: normal 500 36px Roboto, sans-serif;
+    --title2-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    --title2-height: 48px;
+    --title3-font: normal 500 30px Roboto, sans-serif;
+    --title3-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    --title4-font: normal 500 24px Roboto, sans-serif;
     --p-md-font: normal 500 22px Roboto, sans-serif;
     --p-md-height: 32px;
     --button1-font: normal bold 30px Roboto, sans-serif;
     --button1-height: 40px;
+    --button2-font: normal bold 16px Roboto, sans-serif;
+    --button2-height: 24px;
+    --table-font: normal 500 20px Roboto, sans-serif;
+    --table-height: 23.5px;
+    
 }
 
 
@@ -86,9 +98,59 @@ body {
 
 /********************************************/
 /*                                          */
+/*               page header                */
+/*                                          */
+/********************************************/
+
+.page-header {
+    font: var(--title2-font);
+    text-shadow: var(--title2-shadow);
+    line-height: var(--title2-height);
+    text-align: center;
+    margin-top: 70px;
+    margin-bottom: 30px;
+}
+
+/********************************************/
+/*                                          */
+/*              datasets table              */
+/*                                          */
+/********************************************/
+
+#datasets-table {
+    font: small;
+}
+
+#datasets-table th {
+    vertical-align: middle;
+    text-align: center;
+}
+
+#btn-in-table {
+    text-align: center;
+    vertical-align: middle;    
+}
+
+#btn-in-table a {
+    background-color: var(--gray2);
+    font: var(--button2-font);
+    display: flex;
+    align-items: center;
+    text-align: center;
+    line-height: var(--button2-height);
+    border: 1px solid var(--gray2);
+    border-radius: 3px;
+    width:60px;
+    height: 50px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); 
+}
+
+/********************************************/
+/*                                          */
 /*                 others                   */
 /*                                          */
 /********************************************/
+
 .jumbotron{
     background-color: var(--gray6);
     ;
@@ -100,6 +162,16 @@ body {
     text-shadow: var(--title1-shadow);
 }
 
+.title-md{
+    color: var(--gray2);
+    font: var(--title3-font);
+    text-shadow: var(--title3-shadow);
+}
+
+.title-sm{
+    color: var(--gray3);
+    font: var(--title4-font);
+}
 .p-text-md{
     color: var(--gray2);
     font: var(--p-md-font);
@@ -121,18 +193,20 @@ body {
 
 
 
+.dashed-line{
+    border:1px dashed var(--linecolor);
+}
+
+.info-card{
+    padding: 20px 35px;
+}
 
 
 /* work in process */
-.jobtable {
+.datasets-table {
     font-size: small;
+   
 }
 
-/* .page-header {
-    margin: 0 0 20px;
-    padding: 10px;
-    font-size: 30px;
-    text-align: left;
-    border-bottom: 1px dotted #cccccc;
-} */
+
 

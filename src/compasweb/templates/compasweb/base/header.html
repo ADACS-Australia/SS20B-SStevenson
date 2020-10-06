@@ -2,7 +2,7 @@
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
   <!-- <div class="container"></div> -->
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" href="{% url 'homepage' %}">
     <img class="logo"
              src="{% static 'compasweb/images/compas-logo.png' %}"></a>
 
@@ -13,13 +13,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav nav-item-left">       
           <li class="nav-item" >
-              <a class="nav-link px-3 pt-5" href="#">Home</a>
+              <a class="nav-link px-3 pt-5" href="{% url 'homepage' %}">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link px-3 pt-5" href="#">Run COMPAS Model</a>
           </li>
         <li class="nav-item">
-          <a class="nav-link px-3 pt-5" href="#">Explore Published Models</a>
+          <a class="nav-link px-3 pt-5" href="{% url 'published_job' %}">Explore Published Models</a>
         </li>
         <li class="nav-item">
           <a class="nav-link px-3 pt-5" href="#">About</a>

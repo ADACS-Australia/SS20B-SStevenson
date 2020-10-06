@@ -19,7 +19,7 @@ class KeywordView(generic.ListView):
 
     context_object_name = "jobs"
     ordering = "year"
-    template_name = "compasweb/job/job_table.html"
+    template_name = "compasweb/published_job/job_datasets.html"
 
     def get_queryset(self):
         return COMPASJob.filter_by_keyword(
@@ -40,7 +40,7 @@ class JobDetailView(generic.DetailView):
 
     context_object_name = "job"
     model = COMPASJob
-    template_name = "compasweb/job/job_detail.html"
+    template_name = "compasweb/published_job/job_detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
