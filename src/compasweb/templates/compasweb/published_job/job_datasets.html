@@ -28,23 +28,21 @@
 
 <!-- filters -->
 <div class="container">
-  <div class="form-group">
-    <form action="" method="get">
-      <div class="form-group">
-        <label for="keywords">Keyword Filter</lablel>
-          <select class="form-control" id="keywords" name="keyword_filter" onchange="this.form.submit()">
-            <option value="">All</option>
-            {% for kw in keyword_list %}
-            {% if keyword == kw.tag|stringformat:"s" %}
-            <option value={{ kw.tag }} selected>{{ kw.tag }}</option>
-            {% else %}
-            <option value={{ kw.tag }}>{{ kw.tag }}</option>
-            {% endif %}
-            {% endfor %}
-          </select>
+  <form class="form-group row" action="" method="get">
+    <label id="KeywordLabel" for="keywords">Keyword Filter</lablel>
+      <div class="col-md-2"></div>
+        <select class="form-control custom-select my-1 mr-sm-2" id="keywords" name="keyword_filter" onchange="this.form.submit()">
+          <option value="">All</option>
+          {% for kw in keyword_list %}
+          {% if keyword == kw.tag|stringformat:"s" %}
+          <option value={{ kw.tag }} selected>{{ kw.tag }}</option>
+          {% else %}
+          <option value={{ kw.tag }}>{{ kw.tag }}</option>
+          {% endif %}
+          {% endfor %}
+        </select>
       </div>
-    </form>
-  </div>
+  </form>
 </div>
 
 <!-- dataset table -->

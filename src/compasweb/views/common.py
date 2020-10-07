@@ -21,6 +21,17 @@ def index(request):
         "compasweb/common/index.html",
     )
 
+def about(request):
+    """
+    Render the about view.
+    :param request: Django request object.
+    :return: Rendered template
+    """
+    return render(
+        request,
+        "compasweb/common/about.html",
+    )
+
 # def job_table(request):
 #
 #     current_jobs = COMPASJob.objects.order_by('year')

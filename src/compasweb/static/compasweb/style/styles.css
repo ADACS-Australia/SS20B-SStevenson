@@ -117,7 +117,7 @@ body {
 /*                                          */
 /********************************************/
 
-#datasets-table {
+.datasets-table {
     font: small;
 }
 
@@ -201,12 +201,13 @@ body {
     padding: 20px 35px;
 }
 
+#keywordLabel {
+    margin-left: 0;
+    padding-right: 20px;
+}
 
 /* work in process */
-.datasets-table {
-    font-size: small;
-   
-}
+
 
 
 
