@@ -12,7 +12,7 @@ from django.http import HttpResponseRedirect
 from django.test import TestCase, Client
 from django.test import override_settings
 
-from .models import COMPASJob, Keyword, COMPASModel, COMPASDatasetModel
+from ..models import COMPASJob, Keyword, COMPASModel, COMPASDatasetModel, Upload
 
 
 class BaseModelTestCase(TestCase):
@@ -121,7 +121,7 @@ class COMPASJobModelTestCase(BaseModelTestCase):
         Upload them to one of the jobs
         Check the file is uploaded and decompressed successfully then removed
         """
-        print(os.getcwd())
+        # coverage reportprint(os.getcwd())
         # filename = tempfile.mkstemp()[1]
         filename = "file1.txt"
         f = open(filename, "w")
@@ -164,6 +164,9 @@ class COMPASJobModelTestCase(BaseModelTestCase):
         self.assertEqual(os.path.exists(os.path.join(dir_name, filename1)), True)
         self.assertEqual(os.path.exists(dataset_file_path), False)
 
+        self.assertEqual(len(Upload.objects.filter(file__icontains=filename1)), 1)
+        self.assertEqual(len(Upload.objects.filter(file__icontains=filename)), 1)
+
     @classmethod
     @override_settings(MEDIA_ROOT="/tmp/django_test")
     def tearDownClass(cls):
@@ -176,29 +179,3 @@ class COMPASJobModelTestCase(BaseModelTestCase):
             onerror=None,
         )
 
-
-# class KeywordViewTest(BaseModelTestCase):
-#     # Use this fixture to populate test database
-#     # fixtures = ["test_data.json"]
-#     client = Client()
-
-#     def test_number_of_datasets(self):
-#         response = self.client.get(reverse("jobtable"))
-#         self.assertEqual(response.status_code, 200)
-#         # check number of datasets returned in the context object "jobs"
-#         # Question: what the contect object return extra 2 objects????
-#         self.assertEqual(len(response.context[-1]["object_list"]), 4)
-
-#     def test_keyword_filter_BBH(self):
-#         response = self.client.get(
-#             reverse("jobtable", kwargs={"keyword_filter": "BBH"})
-#         )
-#         print(len(response.context))
-#         self.assertEqual(response.status_code, 200)
-#         self.assertEqual(len(response.context["jobs"]), 4)
-
-# def test_keyword_filter_CE(self):
-#     response = self.client.get(reverse("jobtable", kwargs={"keyword_filter": "CE"}))
-#     print(len(response.context[-1]["object_list"]))
-#     self.assertEqual(response.status_code, 200)
-#     self.assertEqual(len(response.context[-1]["object_list"]), 3)

@@ -7,7 +7,7 @@
 # from django.shortcuts import redirect, get_object_or_404
 # from django.core.paginator import Paginator
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from ...models import COMPASJob, Keyword, COMPASDatasetModel
 
@@ -33,19 +33,23 @@ class KeywordView(generic.ListView):
         return context
 
 
-class JobDetailView(generic.DetailView):
+class DatasetDetailView(generic.DetailView):
     """
     Display details of a job. Currently largely a placeholder.
     """
 
     context_object_name = "job"
     model = COMPASJob
-    template_name = "compasweb/published_job/job_detail.html"
+    template_name = "compasweb/published_job/dataset_detail.html"
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # request.session['compasmodel'] =
-        return context
+        try:
+            context = super().get_context_data(**kwargs)
+            context["job"] = get_object_or_404(COMPASJob, id=self.kwargs["pk"])
+            return context
+        except Exception as e:
+            print(e)
+            return context
 
 
 # def job_table(request):

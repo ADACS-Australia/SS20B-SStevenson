@@ -22,6 +22,8 @@
     --title4-font: normal 500 24px Roboto, sans-serif;
     --p-md-font: normal 500 22px Roboto, sans-serif;
     --p-md-height: 32px;
+    --div-sm-font: normal 500 18px Roboto, sans-serif;
+    --div-sm-height: 20px;
     --button1-font: normal bold 30px Roboto, sans-serif;
     --button1-height: 40px;
     --button2-font: normal bold 16px Roboto, sans-serif;
@@ -140,9 +142,34 @@ body {
     line-height: var(--button2-height);
     border: 1px solid var(--gray2);
     border-radius: 3px;
-    width:60px;
+    /* width:60px; */
     height: 50px;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); 
+}
+
+#btn-in-table div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wide-btn {
+    width: 80px;
+}
+
+/********************************************/
+/*                                          */
+/*              dataset models table              */
+/*                                          */
+/********************************************/
+
+.datasetmodels-table {
+    font: small;
+}
+
+#datasetmodels-table th {
+    vertical-align: middle;
+    text-align: center;
 }
 
 /********************************************/
@@ -176,6 +203,17 @@ body {
     color: var(--gray2);
     font: var(--p-md-font);
     line-height: var(--p-md-height);
+}
+.div-text-sm-underline{
+    /* color: var(--gray3);
+    font: var(--div-sm-font);
+    line-height: var(--div-sm-height); */
+    text-decoration: underline;
+}
+.div-text-sm{
+    color: var(--gray3);
+    font: var(--div-sm-font);
+    line-height: var(--div-sm-height);
 }
 
 .btn-home{

@@ -10,13 +10,14 @@
   <h3 class="jumbotron-heading text-left title-sm">Instruction</h3>
   <hr class="dashed-line">
   <p class="p-text-md"><span>How to explore the datasets</span>:
-    <div class="container">
-      <ul>
-        <li>filters</li>
-        <li>structure of the dataset (each dataset contains multiple models) </li>
-      </ul>
-    </div>    
-    <span>Plots</span>: different types of plots (grouped by physics) 
+  <div class="container">
+    <ul>
+      <li>filters</li>
+      <li>structure of the dataset (each dataset contains multiple models) </li>
+      <li>plots: : different types of plots (grouped by physics)</li>
+    </ul>
+  </div>
+  <!-- <span>Plots</span>: different types of plots (grouped by physics) -->
   </p>
 </div>
 
@@ -31,24 +32,25 @@
   <form class="form-group row" action="" method="get">
     <label id="KeywordLabel" for="keywords">Keyword Filter</lablel>
       <div class="col-md-2"></div>
-        <select class="form-control custom-select my-1 mr-sm-2" id="keywords" name="keyword_filter" onchange="this.form.submit()">
-          <option value="">All</option>
-          {% for kw in keyword_list %}
-          {% if keyword == kw.tag|stringformat:"s" %}
-          <option value={{ kw.tag }} selected>{{ kw.tag }}</option>
-          {% else %}
-          <option value={{ kw.tag }}>{{ kw.tag }}</option>
-          {% endif %}
-          {% endfor %}
-        </select>
-      </div>
-  </form>
+      <select class="form-control custom-select my-1 mr-sm-2" id="keywords" name="keyword_filter"
+        onchange="this.form.submit()">
+        <option value="">All</option>
+        {% for kw in keyword_list %}
+        {% if keyword == kw.tag|stringformat:"s" %}
+        <option value={{ kw.tag }} selected>{{ kw.tag }}</option>
+        {% else %}
+        <option value={{ kw.tag }}>{{ kw.tag }}</option>
+        {% endif %}
+        {% endfor %}
+      </select>
+</div>
+</form>
 </div>
 
 <!-- dataset table -->
 <div id="datasets-table">
   <table class="table table-responsive-md table-bordered">
-    <thead >      
+    <thead>
       <th>Title</th>
       <th>Author</th>
       <th>Description</th>
@@ -64,24 +66,24 @@
     <tr scope="row">
       <td>{{ job.title}}</td>
       <td>{{ job.author }}</td>
-      <td> </td>     
+      <td> </td>
       <td>
 
-          Year: {{ job.year }} <br/>
-          Journal: {{ job.journal }} <br/>
-          {% if job.journal_DOI %}
-            DOI: <a href="https://doi.org/{{ job.journal_DOI }}">{{ job.journal_DOI }}</a> <br/>
-          {% endif %}
-          {% if job.arxiv_id %}
-            Arxiv: <a href="https://arxiv.org/abs/{{ job.arxiv_id }}">{{ job.arxiv_id }}</a>
-          {% endif %}
+        Year: {{ job.year }} <br />
+        Journal: {{ job.journal }} <br />
+        {% if job.journal_DOI %}
+        DOI: <a href="https://doi.org/{{ job.journal_DOI }}">{{ job.journal_DOI }}</a> <br />
+        {% endif %}
+        {% if job.arxiv_id %}
+        Arxiv: <a href="https://arxiv.org/abs/{{ job.arxiv_id }}">{{ job.arxiv_id }}</a>
+        {% endif %}
 
 
       </td>
       <td>
-      {% if job.dataset_DOI %}
+        {% if job.dataset_DOI %}
         DOI: <a href="https://doi.org/{{ job.dataset_DOI }}">{{ job.dataset_DOI }}</a>
-      {% endif %}
+        {% endif %}
       </td>
       <td>{{ job.creation_time }}</td>
       <td>
@@ -94,7 +96,8 @@
       <td>
         {{ job.keywords.all|join:", " }}
       </td>
-      <td id="btn-in-table"><a class="btn btn btn-primary btn-in-table text-center" href="{% url 'job_detail' job.id %}">view</a></td>
+      <td id="btn-in-table"><a class="btn btn btn-primary btn-in-table text-center"
+          href="{% url 'dataset_detail' job.id %}">view</a></td>
     </tr>
     {% endfor %}
 

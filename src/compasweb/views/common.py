@@ -7,8 +7,9 @@
 # from django.shortcuts import redirect, get_object_or_404
 # from django.core.paginator import Paginator
 
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.views import generic
+
 
 def index(request):
     """
@@ -16,10 +17,8 @@ def index(request):
     :param request: Django request object.
     :return: Rendered template
     """
-    return render(
-        request,
-        "compasweb/common/index.html",
-    )
+    return render(request, "compasweb/common/index.html",)
+
 
 def about(request):
     """
@@ -27,10 +26,14 @@ def about(request):
     :param request: Django request object.
     :return: Rendered template
     """
-    return render(
-        request,
-        "compasweb/common/about.html",
-    )
+    return render(request, "compasweb/common/about.html",)
+
+
+# def error_404_view(request, exception, template_name="compasweb/common/error_404.html"):
+#     response = render_to_response(template_name)
+#     response.status_code = 404
+#     return response
+
 
 # def job_table(request):
 #

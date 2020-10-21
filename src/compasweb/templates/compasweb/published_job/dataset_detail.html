@@ -1,0 +1,60 @@
+{% extends 'compasweb/base/base.html' %}
+{% load static %}
+
+{% block page_header %}
+<h1>Published COMPAS Models</h1>
+{%endblock page_header%}
+
+{% block content %}
+
+<!-- Dataset information card on the top -->
+<div class="jumbotron info-card">
+    <h3 class="jumbotron-heading text-left title-sm">Dataset info</h3>
+    <hr class="dashed-line">
+    <p class="p-text-md">
+
+    <div class="container">
+        <div class="div-text-sm"><span class="div-text-sm-underline">Title:</span> {{ job.title }}</div>
+        <div class="div-text-sm"><span class="div-text-sm-underline">Author:</span> {{ job.author }}</div>
+        <div class="div-text-sm"><span class="div-text-sm-underline">Creation Date:</span> {{ job.creation_time }}</div>
+        <div class="div-text-sm"><span class="div-text-sm-underline">Description:</span> {{ job.description }}</div>
+    </div>
+    </p>
+</div>
+
+<!-- table title -->
+<div class="title-md">
+    <h2 class="text-left ">Models</h2>
+    <hr class="dashed-line">
+</div>
+
+{% if job.compasdatasetmodel_set.exists %}
+<!-- dataset models table -->
+<div id="datasetmodels-table">
+    <table class="table table-responsive-md table-bordered">
+        <thead>
+            <tr class="d-flex">
+                <th class="col-md-2">Model</th>
+                <th class="col-md-8">Summary</th>
+                <th class="col-md-2">Details</th>
+            </tr>
+        </thead>
+
+        {% for datasetmodel in job.compasdatasetmodel_set.all %}
+        <tr scope="row" class="d-flex">
+            <td class="col-md-2">{{ datasetmodel.compasmodel.name }}</td>
+            <td class="col-md-8">{{ datasetmodel.compasmodel.summary }}</td>
+            <td class="col-md-2" id="btn-in-table">
+                <div><a class="btn btn btn-primary btn-in-table wide-btn"
+                        href="{% url 'dataset_detail' datasetmodel.id %}">Explore</a></div>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>
+{% else %}
+No Models
+{% endif %}
+
+{% endblock content %}
