@@ -14,7 +14,7 @@ from ...models import COMPASJob, Keyword, COMPASDatasetModel
 
 class KeywordView(generic.ListView):
     """
-    Display job based on chosen keyword.
+    Display published dataset based on chosen keyword.
     """
 
     context_object_name = "jobs"
@@ -50,6 +50,28 @@ class DatasetDetailView(generic.DetailView):
         except Exception as e:
             print(e)
             return context
+
+class ModelDetailView(generic.DetailView):
+    """
+    Display details of a chosen model. Currently it's a placeholder only.
+    """
+
+    context_object_name = "datasetmodel"
+    model = COMPASDatasetModel
+    template_name = "compasweb/published_job/model_detail.html"
+
+
+    def get_context_data(self, **kwargs):
+        try:
+            context = super().get_context_data(**kwargs)
+            context["datasetmodel"] = get_object_or_404(COMPASDatasetModel, id=self.kwargs["pk"])
+            context["qs"] = context["datasetmodel"].get_rundetails().get()
+            context["compas_setting"] = context["qs"].get_content()
+            return context
+        except Exception as e:
+            print(e)
+            return context
+
 
 
 # def job_table(request):

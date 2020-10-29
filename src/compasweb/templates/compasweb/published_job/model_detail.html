@@ -1,0 +1,73 @@
+{% extends 'compasweb/base/base.html' %}
+{% load static %}
+
+{% block page_header %}
+<h1>Published COMPAS Models</h1>
+{%endblock page_header%}
+
+{% block content %}
+
+<!-- Dataset information card on the top -->
+<div class="jumbotron info-card">
+    <h3 class="jumbotron-heading text-left title-sm">Dataset</h3>
+    <hr class="dashed-line">
+    <p class="p-text-md">
+
+    <div class="container">
+        <div class="div-text-sm"><span class="div-text-sm-underline">Title:</span> {{ datasetmodel.compasjob.title }}</div>
+        <div class="div-text-sm"><span class="div-text-sm-underline">Author:</span> {{ datasetmodel.compasjob.author }}</div>
+        <div class="div-text-sm"><span class="div-text-sm-underline">Creation Date:</span> {{ datasetmodel.compasjob.creation_time }}</div>
+        <div class="div-text-sm"><span class="div-text-sm-underline">Description:</span> {{ datasetmodel.compasjob.description }}</div>
+    </div>
+    </p>
+</div>
+
+<!-- table title -->
+<div class="title-md">
+    <h2 class="text-left ">Details</h2>
+    <hr class="dashed-line">
+</div>
+
+  <ul class="nav nav-tabs" id="modeldetailTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="setting-tab" data-toggle="tab" href="#setting" role="tab" aria-controls="setting" aria-selected="false">COMPAS Setting</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="statistics-tab" data-toggle="tab" href="#statistics" role="tab" aria-controls="statistics" aria-selected="false">Key Statistics</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="visualization-tab" data-toggle="tab" href="#visualization" role="tab" aria-controls="visualization" aria-selected="false">Visualization</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="download-tab" data-toggle="tab" href="#download" role="tab" aria-controls="download" aria-selected="false">Download</a>
+  </li>
+</ul>
+<div class="tab-content" id="modeldetailTabContent">
+  <!--    description content-->
+  <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+  <p>test1</p>
+  </div>
+
+
+  <div class="tab-pane fade" id="setting" role="tabpanel" aria-labelledby="setting-tab">
+ {{ compas_setting }}
+  </div>
+
+  <div class="tab-pane fade" id="statistics" role="tabpanel" aria-labelledby="statistics-tab">
+      {{ qs }}
+  </div>
+
+    <div class="tab-pane fade" id="visualization" role="tabpanel" aria-labelledby="visualization-tab">
+      <p>test4</p>
+  </div>
+
+  <div class="tab-pane fade" id="download" role="tabpanel" aria-labelledby="download-tab">
+      <p>test5</p>
+  </div>
+</div>
+
+
+{% endblock content %}

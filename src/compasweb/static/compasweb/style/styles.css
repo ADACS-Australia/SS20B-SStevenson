@@ -30,6 +30,9 @@
     --button2-height: 24px;
     --table-font: normal 500 20px Roboto, sans-serif;
     --table-height: 23.5px;
+    --tab-font: normal 500 24px Roboto, sans-serif;
+    --tab-height: 48px;
+    --tab-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     
 }
 
@@ -159,7 +162,7 @@ body {
 
 /********************************************/
 /*                                          */
-/*              dataset models table              */
+/*           dataset models table           */
 /*                                          */
 /********************************************/
 
@@ -171,6 +174,24 @@ body {
     vertical-align: middle;
     text-align: center;
 }
+
+/********************************************/
+/*                                          */
+/*                nav tab                   */
+/*                                          */
+/********************************************/
+/* #detaildes {
+    font: var(--tab-font) !important;
+} */
+
+.nav-tabs > li.active > a {
+  color: #3c5a78;
+  font: var(--tab-font) !important;
+}
+.nav-tabs > li > a {
+  color: #575757;
+}
+
 
 /********************************************/
 /*                                          */

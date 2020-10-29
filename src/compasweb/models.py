@@ -60,7 +60,7 @@ class COMPASJob(models.Model):
 class COMPASModel(models.Model):
     name = models.CharField(max_length=50, null=True, blank=True)
     summary = models.CharField(max_length=255, null=True, blank=True)
-    description = models.CharField(max_length=1024)
+    description = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -88,6 +88,7 @@ class COMPASDatasetModel(models.Model):
         dataset_dir = os.path.dirname(self.files.path)
         # Check the uploaded file could be decompressed using tarfile
         if tarfile.is_tarfile(self.files.path):
+            # decompress the uploaded file
             dataset_tar = tarfile.open(self.files.path)
             dataset_tar.extractall(dataset_dir)
             dataset_tar.close()
@@ -101,10 +102,23 @@ class COMPASDatasetModel(models.Model):
                 upload.datasetmodel = self
                 upload.save()
 
+    def get_rundetails(self):
+        return self.upload_set.filter(file__iendswith="Run_Details.txt")
+
 
 class Upload(models.Model):
     file = models.FileField(upload_to=job_directory_path, blank=True, null=True)
     datasetmodel = models.ForeignKey(COMPASDatasetModel, models.CASCADE)
 
+
     def __str__(self):
         return os.path.basename(self.file.name)
+
+    def get_content(self):
+        file_path = self.file.path
+
+        f = open(file_path, 'r')
+        file_content = f.read()
+        f.close()
+        return file_content
+
