@@ -82,33 +82,46 @@ class COMPASDatasetModel(models.Model):
         super().save(*args, **kwargs)
         # Check file name is not empty after saving the model and uploading file
         if self.files.name:
-            self.decompress_tar_file()
+            # Check the uploaded file could be decompressed using tarfile
+            if tarfile.is_tarfile(self.files.path):
+                self.decompress_tar_file()
+            # If the uploaded file is an individual file
+            else:
+                self.create_upload(self.files.name)
 
     def decompress_tar_file(self):
         # Get the actual path for uploaded file
         dataset_dir = os.path.dirname(self.files.path)
-        # Check the uploaded file could be decompressed using tarfile
-        if tarfile.is_tarfile(self.files.path):
-            # decompress the uploaded file
-            dataset_tar = tarfile.open(self.files.path)
-            dataset_tar.extractall(dataset_dir)
-            dataset_tar.close()
-            # remove the tar file after decompression
-            os.remove(self.files.path)
-            for unpacked_file in os.listdir(dataset_dir):
-                upload = Upload()
-                upload.file = os.path.join(
-                    os.path.dirname(self.files.name), unpacked_file
+        dataset_tar = tarfile.open(self.files.path)
+        # dataset_tar.extractall(dataset_dir)
+        for member in dataset_tar.getmembers():
+            # ignore any directory but include its contnets
+            if not member.isdir():
+                # extract files into dataset directory (this will create subdirectories as well, exactly as in the tarball)
+                dataset_tar.extract(member, dataset_dir)
+                self.create_upload(
+                    os.path.join(os.path.dirname(self.files.name), member.name)
                 )
-                upload.datasetmodel = self
-                upload.save()
+        dataset_tar.close()
+        # remove the tar file after decompression
+        os.remove(self.files.path)
+
+    # create an Upload model for an uploaded file
+    def create_upload(self, filepath):
+        """
+        filepath is the relative path of the uploaded file within MEDIA_ROOT
+        """
+        upload = Upload()
+        upload.file = filepath
+        upload.datasetmodel = self
+        upload.save()
 
     def get_rundetails(self):
         return self.upload_set.filter(file__iendswith="Run_Details.txt")
 
 
 class Upload(models.Model):
-    file = models.FileField(upload_to=job_directory_path, blank=True, null=True)
+    file = models.FileField(blank=True, null=True)
     datasetmodel = models.ForeignKey(COMPASDatasetModel, models.CASCADE)
 
     def __str__(self):

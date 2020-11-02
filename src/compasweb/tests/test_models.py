@@ -100,19 +100,21 @@ class COMPASJobModelTestCase(BaseModelTestCase):
         """
         Uploading a simple text file on the fly
         """
+        filename = "myfile.txt"
         self.datasetmodel1.files = SimpleUploadedFile(
-            "myfile.txt", b"these are the file contents!"
+            filename, b"these are the file contents!"
         )
         self.datasetmodel1.save()
-        self.assertEqual(
-            self.datasetmodel1.files,
-            f"datasets/{self.job1.id}/{self.compasmodel1.id}/myfile.txt",
-        )
+
+        filepath = f"datasets/{self.job1.id}/{self.compasmodel1.id}/{filename}"
+
+        self.assertEqual(self.datasetmodel1.files, filepath)
 
         dataset_file_path = os.path.join(
             settings.MEDIA_ROOT, self.datasetmodel1.files.name
         )
         self.assertEqual(os.path.exists(dataset_file_path), True)
+        self.assertEqual(len(Upload.objects.filter(file__icontains=filepath)), 1)
 
     @override_settings(MEDIA_ROOT="/tmp/django_test")
     def test_upload_tarball(self):
@@ -164,8 +166,60 @@ class COMPASJobModelTestCase(BaseModelTestCase):
         self.assertEqual(os.path.exists(os.path.join(dir_name, filename1)), True)
         self.assertEqual(os.path.exists(dataset_file_path), False)
 
-        self.assertEqual(len(Upload.objects.filter(file__icontains=filename1)), 1)
-        self.assertEqual(len(Upload.objects.filter(file__icontains=filename)), 1)
+        file_path = f"datasets/{self.job1.id}/{self.compasmodel1.id}/{filename}"
+        file_path1 = f"datasets/{self.job1.id}/{self.compasmodel1.id}/{filename1}"
+        self.assertEqual(len(Upload.objects.filter(file__icontains=file_path1)), 1)
+        self.assertEqual(len(Upload.objects.filter(file__icontains=file_path)), 1)
+
+    @override_settings(MEDIA_ROOT="/tmp/django_test")
+    def test_upload_tarball_with_subdirectory(self):
+        """
+        Create a tarball on the fly with a text file in a subdirectory
+        Upload them to one of the jobs
+        Check the file is uploaded and decompressed successfully then removed
+        """
+        dirname = "testdir"
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)
+
+        filename = "file1.txt"
+        f = open(os.path.join(dirname, filename), "w")
+        f.write("These are the file contents")
+        f.close()
+        print()
+
+        # Use absolute path to make sure UploadedFile uses the right directory (MEDIA_ROOT)
+        tarfilepath = os.path.join(os.getcwd(), "test.tar.gz")
+        tf = tarfile.open(tarfilepath, mode="w:gz")
+        tf.add(dirname)
+        tf.close()
+
+        self.datasetmodel1.files = UploadedFile(
+            file=open(file=tarfilepath, mode="rb")  # , content_type="application/gzip",
+        )
+        self.datasetmodel1.save()
+
+        shutil.rmtree(dirname)
+        os.remove(tarfilepath)
+
+        dataset_file_path = os.path.join(
+            settings.MEDIA_ROOT, self.datasetmodel1.files.name
+        )
+        dir_name = os.path.dirname(dataset_file_path)
+
+        self.assertEqual(
+            self.datasetmodel1.files,
+            f"datasets/{self.job1.id}/{self.compasmodel1.id}/test.tar.gz",
+        )
+        self.assertEqual(
+            os.path.exists(os.path.join(dir_name, dirname, filename)), True
+        )
+        self.assertEqual(os.path.exists(dataset_file_path), False)
+
+        file_path = (
+            f"datasets/{self.job1.id}/{self.compasmodel1.id}/{dirname}/{filename}"
+        )
+        self.assertEqual(len(Upload.objects.filter(file__icontains=file_path)), 1)
 
     @classmethod
     @override_settings(MEDIA_ROOT="/tmp/django_test")
