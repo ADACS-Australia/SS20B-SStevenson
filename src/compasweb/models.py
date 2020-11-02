@@ -5,6 +5,7 @@ from django.db import models
 from django.core.files.uploadedfile import UploadedFile
 
 import tarfile
+from bokeh.embed import server_document
 
 
 class Keyword(models.Model):
@@ -110,15 +111,21 @@ class Upload(models.Model):
     file = models.FileField(upload_to=job_directory_path, blank=True, null=True)
     datasetmodel = models.ForeignKey(COMPASDatasetModel, models.CASCADE)
 
-
     def __str__(self):
         return os.path.basename(self.file.name)
 
     def get_content(self):
         file_path = self.file.path
 
-        f = open(file_path, 'r')
-        file_content = f.read()
-        f.close()
+        if os.path.isfile(file_path):
+            f = open(file_path, "r")
+            file_content = f.read()
+            f.close()
+        else:
+            file_content = "File not found"
         return file_content
+
+    def get_plots(self):
+        script = server_document("http://localhost:5006/compas_hebinplot")
+        return script
 
