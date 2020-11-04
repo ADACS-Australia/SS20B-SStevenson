@@ -6,7 +6,7 @@
 # from django.db.models import Q
 # from django.shortcuts import redirect, get_object_or_404
 # from django.core.paginator import Paginator
-
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from ...models import COMPASJob, Keyword, COMPASDatasetModel
@@ -68,13 +68,14 @@ class ModelDetailView(generic.DetailView):
             context["qs"] = context["datasetmodel"].get_rundetails().get()
             context["compas_setting"] = context["qs"].get_content()
             context["bokeh_autoload"] = context["qs"].get_plots()
+            context["download_files"] = context["datasetmodel"].upload_set.all()
             return context
         except Exception as e:
             print(e)
             return context
 
 
-# def job_table(request):
+    # def job_table(request):
 #
 #     current_jobs = COMPASJob.objects.order_by('year')
 #     keyword_list = Keyword.objects.order_by('tag')

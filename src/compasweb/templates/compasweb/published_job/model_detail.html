@@ -53,11 +53,12 @@
 
 
   <div class="tab-pane fade" id="setting" role="tabpanel" aria-labelledby="setting-tab">
- {{ compas_setting }}
+ {{ compas_setting | linebreaks }}
+
   </div>
 
   <div class="tab-pane fade" id="statistics" role="tabpanel" aria-labelledby="statistics-tab">
-      {{ qs }}
+      {{ qs.file.file }}
   </div>
 
     <div class="tab-pane fade" id="visualization" role="tabpanel" aria-labelledby="visualization-tab">
@@ -65,7 +66,16 @@
   </div>
 
   <div class="tab-pane fade" id="download" role="tabpanel" aria-labelledby="download-tab">
-      <p>test5</p>
+  <ol>
+     {% for file in download_files %}
+        <li><a  href="{{ file.file.url }}" download="{{ file.file.url }}">{{ file }}</a></li>
+     {% endfor %}
+
+  </ol>
+
+
+
+
   </div>
 </div>
 

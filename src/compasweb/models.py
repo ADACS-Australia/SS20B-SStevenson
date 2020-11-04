@@ -128,15 +128,24 @@ class Upload(models.Model):
         return os.path.basename(self.file.name)
 
     def get_content(self):
-        file_path = self.file.path
+# <<<<<<< Updated upstream
+#         file_path = self.file.path
+#
+#         if os.path.isfile(file_path):
+#             f = open(file_path, "r")
+#             file_content = f.read()
+#             f.close()
+#         else:
+#             file_content = "File not found"
+#         return file_content
+# =======
+        if self.file.storage.exists(self.file.name):
 
-        if os.path.isfile(file_path):
-            f = open(file_path, "r")
-            file_content = f.read()
-            f.close()
+            with self.file.open('r') as f:
+                return f.read()
         else:
-            file_content = "File not found"
-        return file_content
+            return "File not found"
+
 
     def get_plots(self):
         script = server_document("http://localhost:5006/compas_hebinplot")
