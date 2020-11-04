@@ -78,30 +78,17 @@ WSGI_APPLICATION = "compas.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    }
-}
+DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": os.path.join(BASE_DIR, "db.sqlite3"),}}
 
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
 
@@ -142,10 +129,7 @@ FIXTURE_DIRS = (os.path.join(BASE_DIR, "compasweb/fixtures/"),)
 # Bokeh server configuration. If not specified, assume a default local server which means the COMPAS_HOST needs to be empty
 COMPAS_HOST = env("COMPAS_HOST", default="")
 if COMPAS_HOST:
-    BOKEH_SERVER = os.path.join(
-        COMPAS_HOST, ROOT_SUBDIRECTORY_PATH, "bokeh/compas_hebinplot"
-    )
+    BOKEH_SERVER = os.path.join(COMPAS_HOST, ROOT_SUBDIRECTORY_PATH, "bokeh/compas_hebinplot")
 else:
     # assume local development
     BOKEH_SERVER = "http://localhost:5006/compas_hebinplot"
-

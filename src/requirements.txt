@@ -1,11 +1,14 @@
 bokeh==2.2.2
+cached-property==1.5.2
 django==2.2.14
 django-environ==0.4.5
 environ==1.0
 gunicorn==20.0.4
+h5py==3.0.0
 jinja2==2.11.2
 markupsafe==1.1.1
 numpy==1.19.1
+numpy==1.19.4
 packaging==20.4
 pillow==7.2.0
 pyparsing==2.4.7

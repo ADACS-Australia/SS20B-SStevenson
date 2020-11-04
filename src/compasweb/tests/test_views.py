@@ -13,9 +13,7 @@ class PublishedDatasetsViewsTest(TestCase):
         self.assertTemplateUsed(response, "compasweb/published_job/job_datasets.html")
 
     def test_published_job_view_with_keyword_filter(self):
-        response = self.client.get(
-            reverse("published_job", kwargs={"keyword_filter": "BBH"})
-        )
+        response = self.client.get(reverse("published_job", kwargs={"keyword_filter": "BBH"}))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "compasweb/published_job/job_datasets.html")
 

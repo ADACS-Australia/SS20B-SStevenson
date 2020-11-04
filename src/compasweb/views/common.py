@@ -28,6 +28,7 @@ def about(request):
     """
     return render(request, "compasweb/common/about.html",)
 
+
 def modelexample(request):
     """
     Temporarily showing an example of model details layout.

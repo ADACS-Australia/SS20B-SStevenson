@@ -65,15 +65,11 @@ class BaseModelTestCase(TestCase):
         cls.job2.save()
 
         cls.compasmodel1 = COMPASModel(
-            name="Feducial",
-            summary="Feducial Summary",
-            description="Feducial Description",
+            name="Feducial", summary="Feducial Summary", description="Feducial Description",
         )
         cls.compasmodel1.save()
 
-        cls.datasetmodel1 = COMPASDatasetModel(
-            compasjob=cls.job1, compasmodel=cls.compasmodel1,
-        )
+        cls.datasetmodel1 = COMPASDatasetModel(compasjob=cls.job1, compasmodel=cls.compasmodel1,)
         cls.datasetmodel1.save()
 
 
@@ -101,18 +97,14 @@ class COMPASJobModelTestCase(BaseModelTestCase):
         Uploading a simple text file on the fly
         """
         filename = "myfile.txt"
-        self.datasetmodel1.files = SimpleUploadedFile(
-            filename, b"these are the file contents!"
-        )
+        self.datasetmodel1.files = SimpleUploadedFile(filename, b"these are the file contents!")
         self.datasetmodel1.save()
 
         filepath = f"datasets/{self.job1.id}/{self.compasmodel1.id}/{filename}"
 
         self.assertEqual(self.datasetmodel1.files, filepath)
 
-        dataset_file_path = os.path.join(
-            settings.MEDIA_ROOT, self.datasetmodel1.files.name
-        )
+        dataset_file_path = os.path.join(settings.MEDIA_ROOT, self.datasetmodel1.files.name)
         self.assertEqual(os.path.exists(dataset_file_path), True)
         self.assertEqual(len(Upload.objects.filter(file__icontains=filepath)), 1)
 
@@ -153,14 +145,11 @@ class COMPASJobModelTestCase(BaseModelTestCase):
         os.remove(filename1)
         os.remove(tarfilepath)
 
-        dataset_file_path = os.path.join(
-            settings.MEDIA_ROOT, self.datasetmodel1.files.name
-        )
+        dataset_file_path = os.path.join(settings.MEDIA_ROOT, self.datasetmodel1.files.name)
         dir_name = os.path.dirname(dataset_file_path)
 
         self.assertEqual(
-            self.datasetmodel1.files,
-            f"datasets/{self.job1.id}/{self.compasmodel1.id}/test.tar.gz",
+            self.datasetmodel1.files, f"datasets/{self.job1.id}/{self.compasmodel1.id}/test.tar.gz",
         )
         self.assertEqual(os.path.exists(os.path.join(dir_name, filename)), True)
         self.assertEqual(os.path.exists(os.path.join(dir_name, filename1)), True)
@@ -202,23 +191,16 @@ class COMPASJobModelTestCase(BaseModelTestCase):
         shutil.rmtree(dirname)
         os.remove(tarfilepath)
 
-        dataset_file_path = os.path.join(
-            settings.MEDIA_ROOT, self.datasetmodel1.files.name
-        )
+        dataset_file_path = os.path.join(settings.MEDIA_ROOT, self.datasetmodel1.files.name)
         dir_name = os.path.dirname(dataset_file_path)
 
         self.assertEqual(
-            self.datasetmodel1.files,
-            f"datasets/{self.job1.id}/{self.compasmodel1.id}/test.tar.gz",
+            self.datasetmodel1.files, f"datasets/{self.job1.id}/{self.compasmodel1.id}/test.tar.gz",
         )
-        self.assertEqual(
-            os.path.exists(os.path.join(dir_name, dirname, filename)), True
-        )
+        self.assertEqual(os.path.exists(os.path.join(dir_name, dirname, filename)), True)
         self.assertEqual(os.path.exists(dataset_file_path), False)
 
-        file_path = (
-            f"datasets/{self.job1.id}/{self.compasmodel1.id}/{dirname}/{filename}"
-        )
+        file_path = f"datasets/{self.job1.id}/{self.compasmodel1.id}/{dirname}/{filename}"
         self.assertEqual(len(Upload.objects.filter(file__icontains=file_path)), 1)
 
     @classmethod
@@ -228,8 +210,5 @@ class COMPASJobModelTestCase(BaseModelTestCase):
         Removes all media files from temp MEDIA ROOT
         """
         shutil.rmtree(
-            os.path.join(settings.MEDIA_ROOT, "datasets"),
-            ignore_errors=False,
-            onerror=None,
+            os.path.join(settings.MEDIA_ROOT, "datasets"), ignore_errors=False, onerror=None,
         )
-

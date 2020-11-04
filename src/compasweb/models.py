@@ -6,6 +6,7 @@ from django.core.files.uploadedfile import UploadedFile
 
 import tarfile
 from bokeh.embed import server_document
+import h5py
 
 
 class Keyword(models.Model):
@@ -48,11 +49,7 @@ class COMPASJob(models.Model):
 
     @classmethod
     def filter_by_keyword(cls, keyword=None):
-        return (
-            cls.objects.all().filter(keywords__tag=keyword)
-            if keyword
-            else cls.objects.all()
-        )
+        return cls.objects.all().filter(keywords__tag=keyword) if keyword else cls.objects.all()
 
     def __str__(self):
         return self.title
@@ -70,9 +67,7 @@ class COMPASModel(models.Model):
 class COMPASDatasetModel(models.Model):
     compasjob = models.ForeignKey(COMPASJob, models.CASCADE)
     compasmodel = models.ForeignKey(COMPASModel, models.CASCADE)
-    files = models.FileField(
-        upload_to=job_directory_path, blank=True, null=True
-    )
+    files = models.FileField(upload_to=job_directory_path, blank=True, null=True)
 
     def __str__(self):
         return f"{self.compasjob.title} - {self.compasmodel.name}"
@@ -101,9 +96,7 @@ class COMPASDatasetModel(models.Model):
             if not member.isdir():
                 # extract files into dataset directory (this will create subdirectories as well, exactly as in the tarball)
                 dataset_tar.extract(member, dataset_dir)
-                self.create_upload(
-                    os.path.join(os.path.dirname(self.files.name), member.name)
-                )
+                self.create_upload(os.path.join(os.path.dirname(self.files.name), member.name))
         dataset_tar.close()
         # remove the tar file after decompression
         os.remove(self.files.path)
@@ -119,7 +112,16 @@ class COMPASDatasetModel(models.Model):
         upload.save()
 
     def get_rundetails(self):
+        """
+        query file: "run_details.txt"
+        """
         return self.upload_set.filter(file__iendswith="Run_Details.txt")
+
+    def get_data(self):
+        """
+        query file: "*.h5"
+        """
+        return self.upload_set.filter(file__iendswith=".h5")
 
 
 class Upload(models.Model):
@@ -130,6 +132,9 @@ class Upload(models.Model):
         return os.path.basename(self.file.name)
 
     def get_content(self):
+        """
+       get the content of a file; will be called only on txt files
+       """
         if self.file.storage.exists(self.file.name):
 
             with self.file.open("r") as f:
@@ -141,3 +146,17 @@ class Upload(models.Model):
         script = server_document(settings.BOKEH_SERVER)
         return script
 
+    def read_stats(self):
+        """
+        read data length in h5 file
+        """
+        data_stats = {}
+
+        if self.file.storage.exists(self.file.name):
+            data = h5py.File(self.file, 'r')
+            for key in data.keys():
+                prim_key = list(data[key])[0]
+                stat = len(data[key][prim_key])
+                data_stats[key] = stat
+
+        return data_stats

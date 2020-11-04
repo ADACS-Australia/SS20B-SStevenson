@@ -26,4 +26,3 @@ class TestURLs(TestCase):
     def test_index_url_resolves(self):
         url = reverse("homepage")
         self.assertEqual(resolve(url).func, index)
-

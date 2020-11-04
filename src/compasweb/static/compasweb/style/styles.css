@@ -33,6 +33,7 @@
     --tab-font: normal 500 24px Roboto, sans-serif;
     --tab-height: 48px;
     --tab-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
     
 }
 
@@ -180,18 +181,34 @@ body {
 /*                nav tab                   */
 /*                                          */
 /********************************************/
-/* #detaildes {
-    font: var(--tab-font) !important;
-} */
+ #detaildes {
+    /* padding: 50px 35px;
+    border: 50px 35px; */
+    margin: 50px;
+}  
 
-.nav-tabs > li.active > a {
-  color: #3c5a78;
-  font: var(--tab-font) !important;
+.nav-tabs > li > a.active {
+  color: var(--gray2);
+  font: var(--tab-font);
+  text-shadow: var(--tab-shadow);
+  line-height: var(--tab-height);
+    
 }
 .nav-tabs > li > a {
-  color: #575757;
+  color: var(--gray3);
+  font: var(--tab-font);
+  text-shadow: var(--tab-shadow);
+  line-height: var(--tab-height);
 }
 
+.tab-content-text {
+    color: var(--gray2);
+    font: var(--tab-font);
+    line-height: var(--tab-height);
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: 10px;
+}
 
 /********************************************/
 /*                                          */
@@ -267,6 +284,9 @@ body {
 
 /* work in process */
 
+.tab-list {
+    margin-left: 20px;
+}
 
 
 

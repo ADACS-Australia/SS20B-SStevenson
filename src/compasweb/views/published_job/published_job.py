@@ -6,7 +6,7 @@
 # from django.db.models import Q
 # from django.shortcuts import redirect, get_object_or_404
 # from django.core.paginator import Paginator
-from django.http import HttpResponse
+# from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from ...models import COMPASJob, Keyword, COMPASDatasetModel
@@ -22,9 +22,7 @@ class KeywordView(generic.ListView):
     template_name = "compasweb/published_job/job_datasets.html"
 
     def get_queryset(self):
-        return COMPASJob.filter_by_keyword(
-            keyword=self.request.GET.get("keyword_filter")
-        ).order_by(self.ordering)
+        return COMPASJob.filter_by_keyword(keyword=self.request.GET.get("keyword_filter")).order_by(self.ordering)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -69,13 +67,16 @@ class ModelDetailView(generic.DetailView):
             context["compas_setting"] = context["qs"].get_content()
             context["bokeh_autoload"] = context["qs"].get_plots()
             context["download_files"] = context["datasetmodel"].upload_set.all()
+            context["data"] = context["datasetmodel"].get_data().get()
+            context["stats"] = context["data"].read_stats()
             return context
         except Exception as e:
             print(e)
             return context
 
-
     # def job_table(request):
+
+
 #
 #     current_jobs = COMPASJob.objects.order_by('year')
 #     keyword_list = Keyword.objects.order_by('tag')

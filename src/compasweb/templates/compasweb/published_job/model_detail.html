@@ -22,12 +22,12 @@
     </p>
 </div>
 
-<!-- table title -->
+<!-- title -->
 <div class="title-md">
     <h2 class="text-left ">Details</h2>
-    <hr class="dashed-line">
 </div>
 
+<!-- tabs -->
   <ul class="nav nav-tabs" id="modeldetailTab" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
@@ -48,7 +48,6 @@
 <div class="tab-content" id="modeldetailTabContent">
   <!--    description content-->
   <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-  <p>test1</p>
   </div>
 
 
@@ -58,7 +57,11 @@
   </div>
 
   <div class="tab-pane fade" id="statistics" role="tabpanel" aria-labelledby="statistics-tab">
-      {{ qs.file.file }}
+      <ul class="tab-content-text">
+      {% for key, value in stats.items %}
+          <li class="tab-list">{{ key }}: {{ value }}</li>
+      {% endfor %}
+      </ul>
   </div>
 
     <div class="tab-pane fade" id="visualization" role="tabpanel" aria-labelledby="visualization-tab">
@@ -66,16 +69,14 @@
   </div>
 
   <div class="tab-pane fade" id="download" role="tabpanel" aria-labelledby="download-tab">
-  <ol>
-     {% for file in download_files %}
-        <li><a  href="{{ file.file.url }}" download="{{ file.file.url }}">{{ file }}</a></li>
-     {% endfor %}
+    <p class="tab-content-text"><span class="div-text-sm-underline">Summary of downloadable files</span>: </p>
+      
+      <ol class="tab-content-text"> 
+         {% for file in download_files %}
+            <li class="tab-list"><a  href="{{ file.file.url }}" download="{{ file.file.url }}">{{ file }}</a></li>
+         {% endfor %}
 
-  </ol>
-
-
-
-
+      </ol>
   </div>
 </div>
 
