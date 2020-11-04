@@ -153,7 +153,7 @@ class Upload(models.Model):
         data_stats = {}
 
         if self.file.storage.exists(self.file.name):
-            data = h5py.File(self.file, 'r')
+            data = h5py.File(self.file, "r")
             for key in data.keys():
                 prim_key = list(data[key])[0]
                 stat = len(data[key][prim_key])

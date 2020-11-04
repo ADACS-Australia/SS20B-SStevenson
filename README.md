@@ -32,3 +32,11 @@ Requirements are managed using [python poetry](https://python-poetry.org/).
 #### Add a development package
 1. Run `poetry add --dev hello` to add development package `hello`
 2. Follow the steps for production package aside from the 1st step
+
+### Contributing
+
+#### Installing black linter for use with arcanist:
+1. Go to the top directory of where you have installed arcanist `cd arcanist_top_dir`
+2. `git clone https://github.com/pinterest/arcanist-linters.git pinterest-linters`
+3. Go to your repo `cd repo_dir`
+4. `ln -s arcanist_top_dir/pinterest-linters .pinterest-linters`

@@ -1,3 +1,6 @@
+# let's keep pinterest-linters as an external dependency
+.pinterest-linters
+
 # static files
 src/static
 
