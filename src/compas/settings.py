@@ -93,9 +93,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
 ]
 
 
@@ -132,3 +138,14 @@ STATICFILES_DIRS = [
 ]
 
 FIXTURE_DIRS = (os.path.join(BASE_DIR, "compasweb/fixtures/"),)
+
+# Bokeh server configuration. If not specified, assume a default local server which means the COMPAS_HOST needs to be empty
+COMPAS_HOST = env("COMPAS_HOST", default="")
+if COMPAS_HOST:
+    BOKEH_SERVER = os.path.join(
+        COMPAS_HOST, ROOT_SUBDIRECTORY_PATH, "bokeh/compas_hebinplot"
+    )
+else:
+    # assume local development
+    BOKEH_SERVER = "http://localhost:5006/compas_hebinplot"
+

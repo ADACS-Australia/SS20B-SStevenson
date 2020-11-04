@@ -70,7 +70,9 @@ class COMPASModel(models.Model):
 class COMPASDatasetModel(models.Model):
     compasjob = models.ForeignKey(COMPASJob, models.CASCADE)
     compasmodel = models.ForeignKey(COMPASModel, models.CASCADE)
-    files = models.FileField(upload_to=job_directory_path, blank=True, null=True)
+    files = models.FileField(
+        upload_to=job_directory_path, blank=True, null=True
+    )
 
     def __str__(self):
         return f"{self.compasjob.title} - {self.compasmodel.name}"
@@ -128,26 +130,14 @@ class Upload(models.Model):
         return os.path.basename(self.file.name)
 
     def get_content(self):
-# <<<<<<< Updated upstream
-#         file_path = self.file.path
-#
-#         if os.path.isfile(file_path):
-#             f = open(file_path, "r")
-#             file_content = f.read()
-#             f.close()
-#         else:
-#             file_content = "File not found"
-#         return file_content
-# =======
         if self.file.storage.exists(self.file.name):
 
-            with self.file.open('r') as f:
+            with self.file.open("r") as f:
                 return f.read()
         else:
             return "File not found"
 
-
     def get_plots(self):
-        script = server_document("http://localhost:5006/compas_hebinplot")
+        script = server_document(settings.BOKEH_SERVER)
         return script
 

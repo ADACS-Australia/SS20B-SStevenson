@@ -1,23 +1,16 @@
 [tool.poetry]
-name = "ss20b-sstevenson"
+name = "plots"
 version = "0.1.0"
-description = ""
-authors = ["GWDC"]
+description = "bokeh plots for compas"
+authors = ["ADACS"]
 license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-django = "<3"
-environ = "^1.0"
-django-environ = "^0.4.5"
-gunicorn = "^20.0.4"
 bokeh = "^2.2.2"
+h5py = "^2.10.0"
 
 [tool.poetry.dev-dependencies]
-black = "^19.10b0"
-pandas = "1.0.3"
-pylint = "^2.5.3"
-coverage = "^5.2.1"
 
 [build-system]
 requires = ["poetry>=0.12"]
