@@ -131,6 +131,10 @@ class Upload(models.Model):
     def __str__(self):
         return os.path.basename(self.file.name)
 
+    @property
+    def filename(self):
+        return os.path.basename(self.file.name)
+
     def get_content(self):
         """
        get the content of a file; will be called only on txt files
