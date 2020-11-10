@@ -44,6 +44,7 @@ services:
     environment:
       - ROOT_SUBDIRECTORY_PATH
     volumes:
+      # note: the mount point has to be the same as in the django container for path resolution to hdf5 fileys to work properly
       - ./files:/files/
     command: >
-      bash -c 'bokeh serve --prefix=$${ROOT_SUBDIRECTORY_PATH}/bokeh --allow-websocket-origin="*" compas_hebinplot.py'
+      bash -c 'bokeh serve --prefix=$${ROOT_SUBDIRECTORY_PATH}/bokeh --allow-websocket-origin="*" compas_hexbinplot.py'
