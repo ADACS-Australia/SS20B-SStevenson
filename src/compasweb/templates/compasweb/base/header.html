@@ -1,7 +1,6 @@
 {% load static %}
-
+<div class="container">
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <!-- <div class="container"></div> -->
   <a class="navbar-brand" href="{% url 'homepage' %}">
     <img class="logo"
              src="{% static 'compasweb/images/compas-logo.png' %}"></a>
@@ -11,30 +10,35 @@
   </button>
      
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav nav-item-left">       
+      <ul class="navbar-nav">       
           <li class="nav-item" >
-              <a class="nav-link px-3 pt-5" href="{% url 'homepage' %}">Home</a>
+              <a class="nav-link " href="{% url 'homepage' %}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link px-3 pt-5" href="#">Run COMPAS Model</a>
+            <a class="nav-link " href="#">Run COMPAS Model</a>
           </li>
         <li class="nav-item">
-          <a class="nav-link px-3 pt-5" href="{% url 'published_job' %}">Explore Published Models</a>
+          <a class="nav-link " href="{% url 'published_job' %}">Explore Published Models</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link px-3 pt-5" href="{% url 'about' %}">About</a>
+          <a class="nav-link " href="{% url 'about' %}">About</a>
         </li>
+        
       </ul>
 
-      <ul class="navbar-nav ml-auto nav-item-right">
-        <li class="nav-item">
-          <a class="nav-link pb-5" href="https://gwdc.org.au/">GWDC</a>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            External Links
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="https://gwdc.org.au/">GWDC</a>
+            <a class="dropdown-item" href="https://adacs.org.au/">ADACS</a>
+          </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link pb-5" href="https://adacs.org.au/">ADACS</a>
-        </li>
-      </ul>       
+      </ul>
+      
   </div>  
                
 </nav>
-<!-- </div> -->
+</div>

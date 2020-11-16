@@ -29,14 +29,6 @@ def about(request):
     return render(request, "compasweb/common/about.html",)
 
 
-def modelexample(request):
-    """
-    Temporarily showing an example of model details layout.
-    *** This function will be removed once ModelDetailView connects with the real models.
-    """
-    return render(request, "compasweb/published_job/model_detail.html",)
-
-
 # def error_404_view(request, exception, template_name="compasweb/common/error_404.html"):
 #     response = render_to_response(template_name)
 #     response.status_code = 404

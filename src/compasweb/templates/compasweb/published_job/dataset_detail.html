@@ -30,31 +30,36 @@
 
 {% if job.compasdatasetmodel_set.exists %}
 <!-- dataset models table -->
-<div id="datasetmodels-table">
-    <table class="table table-responsive-md table-bordered">
+<div id="datasetmodels-table" class="table-responsive">
+    <table class="table table-bordered table-hover">
         <thead>
             <tr class="d-flex">
-                <th class="col-md-2">Model</th>
-                <th class="col-md-8">Summary</th>
-                <th class="col-md-2">Details</th>
+                <th class="col-2">Model</th>
+                <th class="col-8">Summary</th>
+                <th class="col-2">Details</th>
             </tr>
         </thead>
 
         {% for datasetmodel in job.compasdatasetmodel_set.all %}
         <tr scope="row" class="d-flex">
-            <td class="col-md-2">{{ datasetmodel.compasmodel.name }}</td>
-            <td class="col-md-8">{{ datasetmodel.compasmodel.summary }}</td>
-            <td class="col-md-2" id="btn-in-table">
-                <div><a class="btn btn btn-primary btn-in-table wide-btn"
-                        href="{% url 'model_detail' datasetmodel.id %}">Explore</a></div>
+            <td class="col-2">{{ datasetmodel.compasmodel.name }}</td>
+            <td class="col-8">{{ datasetmodel.compasmodel.summary }}</td>
+            <td class="col-2 flex-cell-center">
+                <a class="btn btn btn-dark"
+                        href="{% url 'model_detail' datasetmodel.id %}">Explore</a>
             </td>
         </tr>
         {% endfor %}
-
     </table>
 </div>
 {% else %}
 No Models
 {% endif %}
+
+<!-- navigate back to datasets page -->
+<div>
+    <a class="btn btn btn-dark btn-nav-back"
+                        href="{% url 'published_job' %}">Back to Datasets</a>
+</div>
 
 {% endblock content %}

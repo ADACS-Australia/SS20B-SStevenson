@@ -7,6 +7,7 @@
 
 :root{
     /* --nav-background: #373737; */
+    --gray1: #333333;
     --gray2: #4F4F4F;
     --gray3: #828282;
     --gray5: #E0E0E0;
@@ -25,9 +26,9 @@
     --div-sm-font: normal 500 18px Roboto, sans-serif;
     --div-sm-height: 20px;
     --button1-font: normal bold 30px Roboto, sans-serif;
-    --button1-height: 40px;
+    --button1-height: 1.6;
     --button2-font: normal bold 16px Roboto, sans-serif;
-    --button2-height: 24px;
+    --button2-height: 2;
     --table-font: normal 500 20px Roboto, sans-serif;
     --table-height: 23.5px;
     --tab-font: normal 500 24px Roboto, sans-serif;
@@ -42,6 +43,7 @@ body {
     background-color: #343a40 !important;
 }
 
+
 *, *:before, *:after {
     margin: 0;
     padding: 0;
@@ -53,27 +55,36 @@ body {
     padding: 10px 0 20px;
 }
 
-@media (max-width: 768px) { 
-    
-    .navbar .collapse a {
-        padding-top: 1px !important;
-        padding-bottom: 1px !important;
-        padding-left: 0 !important;
 
+@media only screen and (max-width: 1200px) {
+    * {
+        font-size: .9rem;
+    }
+
+    .page-header span {
+        font-size: x-large;
     }
 }
-
-
 
 /********************************************/
 /*                                          */
 /*                 navbar                   */
 /*                                          */
 /********************************************/
+.navbar {
+    padding: 0px 0px;
+}
+
+.navbar-brand {
+    padding-top: 0px;
+    padding-bottom:0px;
+}
 
 .navbar-brand .logo{
     height: 100px;
     vertical-align: middle;
+    padding-top: 0px;
+    padding-bottom:0px;
 }
 
 .nav-item-left .nav-item .nav-link {
@@ -83,6 +94,43 @@ body {
 
 .nav-item-right .nav-item .nav-link {
     color: var(--gray5);
+}
+
+.dropdown .dropdown-menu {
+    background-color: rgba(55, 60, 66, 1);
+}
+
+.dropdown .dropdown-menu a,
+.dropdown .dropdown-menu a:focus,
+.dropdown .dropdown-menu a:visited {
+    color: rgba(255,255,255,.5);
+}
+
+.dropdown .dropdown-menu a:hover {
+    color: rgba(255,255,255,.8);
+    background-color: rgba(55, 60, 66, 1);
+}
+
+@media only screen and (max-width: 767px) {
+    .navbar-nav .nav-item {
+        border-bottom: 1px dotted rgba(255,255,255,.5);
+    }
+
+    .dropdown .dropdown-menu {
+        border: none;
+        background-color: inherit;
+    }
+}
+
+@media only screen and (max-width: 418px) {
+    .navbar {
+        padding: 0 0 0.5rem 0;
+    }
+
+    .navbar-brand {
+        padding-bottom: 0.3125rem;
+    }
+
 }
 
 /********************************************/
@@ -112,6 +160,7 @@ body {
     font: var(--title2-font);
     text-shadow: var(--title2-shadow);
     line-height: var(--title2-height);
+    color: var(--gray2);
     text-align: center;
     margin-top: 70px;
     margin-bottom: 30px;
@@ -123,59 +172,114 @@ body {
 /*                                          */
 /********************************************/
 
-.datasets-table {
+#datasets-table {
     font: small;
 }
 
 #datasets-table th {
     vertical-align: middle;
     text-align: center;
+    border-bottom-width: 1px;
 }
 
-#btn-in-table {
+td.block-cell-center {
     text-align: center;
     vertical-align: middle;    
 }
 
-#btn-in-table a {
-    background-color: var(--gray2);
-    font: var(--button2-font);
-    display: flex;
-    align-items: center;
-    text-align: center;
-    line-height: var(--button2-height);
-    border: 1px solid var(--gray2);
-    border-radius: 3px;
-    /* width:60px; */
-    height: 50px;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); 
-}
-
-#btn-in-table div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.wide-btn {
-    width: 80px;
-}
 
 /********************************************/
 /*                                          */
-/*           dataset models table           */
+/*              model table                 */
 /*                                          */
 /********************************************/
 
-.datasetmodels-table {
+#datasetmodels-table {
     font: small;
+    word-wrap: break-word;
+}
+
+#datasetmodels-table table {
+    border-collapse: collapse;
 }
 
 #datasetmodels-table th {
     vertical-align: middle;
-    text-align: center;
+    text-align: center; 
+    border-bottom: 1px solid #dee2e6;
 }
 
+#datasetmodels-table th:first-child, td:first-child{
+    border-right: 1px;
+    
+}
+
+
+#datasetmodels-table th:last-child, td:last-child{
+    border-left: 1px;
+}
+
+
+
+#datasetmodels-table tr td {
+   border-top: 0; 
+  
+} 
+
+
+#datasetmodels-table .d-flex {
+    min-width: 768px;
+}
+
+.d-flex > .flex-cell-center {
+    justify-content: center;
+    align-items: center;
+    display: flex; 
+}
+
+/********************************************/
+/*                                          */
+/*                  buttons                 */
+/*                                          */
+/********************************************/
+.btn-dark {
+    background-color: var(--gray2);
+    font: var(--button2-font);
+    line-height: var(--button2-height);
+    border: 1px solid var(--gray2);
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); 
+
+}
+
+.btn-dark:hover {
+    background-color: var(--gray1);
+    border: 1px solid var(--gray1);
+}
+
+.btn-dark:focus {
+    background-color: var(--gray1);
+    border: 1px solid var(--gray1);
+    box-shadow: 0.2rem 0.2rem var(--gray3);
+}
+
+.btn-dark:active {
+    background-color: var(--gray1);
+    border: 1px solid var(--gray1);
+    box-shadow: 0 0 0.2rem var(--gray3);
+}
+
+.btn-home{
+    font: var(--button1-font);
+    line-height: var(--button1-height);
+    border-radius: 20px;
+    width:320px;
+    height: 170px;
+    margin: 10px;
+}
+
+.btn-nav-back{
+    margin: 35px 0;
+}
 /********************************************/
 /*                                          */
 /*                nav tab                   */
@@ -243,9 +347,9 @@ body {
     line-height: var(--p-md-height);
 }
 .div-text-sm-underline{
-    /* color: var(--gray3);
+    color: var(--gray3);
     font: var(--div-sm-font);
-    line-height: var(--div-sm-height); */
+    line-height: var(--div-sm-height);
     text-decoration: underline;
 }
 .div-text-sm{
@@ -254,18 +358,6 @@ body {
     line-height: var(--div-sm-height);
 }
 
-.btn-home{
-    background-color: var(--gray2);
-    font: var(--button1-font);
-    line-height: var(--button1-height);
-    display: flex;
-    align-items: center;
-    text-align: center;
-    border: 1px solid #BDBDBD;
-    border-radius: 20px;
-    width:320px;
-    height: 180px;
-}
 
 
 

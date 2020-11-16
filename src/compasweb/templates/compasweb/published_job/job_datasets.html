@@ -48,26 +48,29 @@
 </div>
 
 <!-- dataset table -->
-<div id="datasets-table">
-  <table class="table table-responsive-md table-bordered">
+<div class="container">
+<div id="datasets-table" class="table-responsive">
+  <table class="table table-bordered table-hover">
     <thead>
-      <th>Title</th>
-      <th>Author</th>
-      <th>Description</th>
-      <th>Publication</th>
-      <th>Dataset</th>
-      <th>Creation Date</th>
-      <th>Access</th>
-      <th>Keywords</th>
-      <th>Models</th>
+      <tr scope="col">
+          <th >Title</th>
+          <th >Author</th>
+          <th >Description</th>
+          <th >Publication</th>
+          <th >Dataset</th>
+          <th >Creation Date</th>
+          <th >Access</th>
+          <th >Keywords</th>
+          <th >Models</th>
+        </tr>
     </thead>
 
     {% for job in jobs %}
-    <tr scope="row">
+    <tr scope="row" >
       <td>{{ job.title}}</td>
-      <td>{{ job.author }}</td>
-      <td> </td>
-      <td>
+      <td >{{ job.author }}</td>
+      <td > </td>
+      <td >
 
         Year: {{ job.year }} <br />
         Journal: {{ job.journal }} <br />
@@ -80,13 +83,13 @@
 
 
       </td>
-      <td>
+      <td >
         {% if job.dataset_DOI %}
         DOI: <a href="https://doi.org/{{ job.dataset_DOI }}">{{ job.dataset_DOI }}</a>
         {% endif %}
       </td>
-      <td>{{ job.creation_time }}</td>
-      <td>
+      <td >{{ job.creation_time }}</td>
+      <td >
         {% if job.public == True %}
         Public
         {% else %}
@@ -96,12 +99,15 @@
       <td>
         {{ job.keywords.all|join:", " }}
       </td>
-      <td id="btn-in-table"><a class="btn btn btn-primary btn-in-table text-center"
-          href="{% url 'dataset_detail' job.id %}">view</a></td>
+      <td class="block-cell-center">
+        <a class="btn btn-dark"
+          href="{% url 'dataset_detail' job.id %}">view</a>        
+      </td>
     </tr>
     {% endfor %}
 
   </table>
+</div>
 </div>
 
 {% endblock content %}
