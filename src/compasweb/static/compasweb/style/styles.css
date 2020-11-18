@@ -177,6 +177,7 @@ body {
 }
 
 #datasets-table th {
+    color: var(--gray2);
     vertical-align: middle;
     text-align: center;
     border-bottom-width: 1px;
@@ -204,6 +205,7 @@ td.block-cell-center {
 }
 
 #datasetmodels-table th {
+    color: var(--gray2);
     vertical-align: middle;
     text-align: center; 
     border-bottom: 1px solid #dee2e6;
@@ -312,6 +314,26 @@ td.block-cell-center {
     margin-top: 50px;
     margin-bottom: 50px;
     margin-left: 10px;
+}
+
+/********************************************/
+/*                                          */
+/*                  card                    */
+/*                                          */
+/********************************************/
+
+.card {
+   background-color: var(--gray6);
+   border: 0;
+   margin-right: 0.1rem;
+   margin-bottom: 2rem;
+   max-width: 33rem;
+}
+
+.card-header{
+    color: var(--gray2);
+    background-color: var(--gray6);
+    border-bottom: 1px dashed var(--linecolor);
 }
 
 /********************************************/

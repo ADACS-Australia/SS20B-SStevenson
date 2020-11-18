@@ -8,20 +8,19 @@
 {% block content %}
 
 <!-- Dataset information card on the top -->
-<div class="jumbotron info-card">
-    <h3 class="jumbotron-heading text-left title-sm">Dataset info</h3>
-    <hr class="dashed-line">
-    <p class="p-text-md">
 
-    <div class="container">
+<div class="card">
+    <h3 class="card-header">Dataset</h3>
+    <div class="card-body">
+      <p class="p-text-md">
         <div class="div-text-sm"><span class="div-text-sm-underline">Title:</span> {{ job.title }}</div>
         <div class="div-text-sm"><span class="div-text-sm-underline">Author:</span> {{ job.author }}</div>
         <div class="div-text-sm"><span class="div-text-sm-underline">Creation Date:</span> {{ job.creation_time }}</div>
         <div class="div-text-sm"><span class="div-text-sm-underline">Description:</span> {{ job.description }}</div>
-    </div>
     </p>
-</div>
-
+    </div>
+  </div>
+  
 <!-- table title -->
 <div class="title-md">
     <h2 class="text-left ">Models</h2>

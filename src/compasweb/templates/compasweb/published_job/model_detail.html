@@ -8,19 +8,37 @@
 {% block content %}
 
 <!-- Dataset information card on the top -->
-<div class="jumbotron info-card">
-    <h3 class="jumbotron-heading text-left title-sm">Dataset</h3>
-    <hr class="dashed-line">
-    <p class="p-text-md">
 
-    <div class="container">
-        <div class="div-text-sm"><span class="div-text-sm-underline">Title:</span> {{ datasetmodel.compasjob.title }}</div>
-        <div class="div-text-sm"><span class="div-text-sm-underline">Author:</span> {{ datasetmodel.compasjob.author }}</div>
-        <div class="div-text-sm"><span class="div-text-sm-underline">Creation Date:</span> {{ datasetmodel.compasjob.creation_time }}</div>
-        <div class="div-text-sm"><span class="div-text-sm-underline">Description:</span> {{ datasetmodel.compasjob.description }}</div>
+  <div class="d-flex justify-content-start align-items-stretch flex-wrap">
+
+
+    <div class="card">
+      <h3 class="card-header">Dataset</h3>
+      <div class="card-body">
+        <p class="p-text-md">
+          <div class="div-text-sm"><span class="div-text-sm-underline">Title:</span> {{ datasetmodel.compasjob.title }}</div>
+          <div class="div-text-sm"><span class="div-text-sm-underline">Author:</span> {{ datasetmodel.compasjob.author }}</div>
+          <div class="div-text-sm"><span class="div-text-sm-underline">Creation Date:</span> {{ datasetmodel.compasjob.creation_time }}</div>
+          <div class="div-text-sm"><span class="div-text-sm-underline">Description:</span> {{ datasetmodel.compasjob.description }}</div>
+      </p>
+      </div>
     </div>
-    </p>
-</div>
+
+    <div class="card">
+      <h3 class="card-header">Model</h3>
+      <div class="card-body">
+        <p class="p-text-md">
+          <div class="div-text-sm"><span class="div-text-sm-underline">Model</span> {{ datasetmodel.compasmodel.name }}</div>
+          <div class="div-text-sm"><span class="div-text-sm-underline">Summary:</span> {{ datasetmodel.compasmodel.summary }}</div>
+          
+      </p>
+      </div>
+    </div>
+
+  </div>
+
+
+    
 
 <!-- title -->
 <div class="title-md">
