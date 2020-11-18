@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from ...models import COMPASJob, Keyword, COMPASDatasetModel
 
+import user_agents
+
 
 class KeywordView(generic.ListView):
     """
@@ -57,7 +59,13 @@ class ModelDetailView(generic.DetailView):
             context["qs"] = context["datasetmodel"].get_rundetails().get()
             context["compas_setting"] = context["qs"].get_content()
             datafile = context["datasetmodel"].get_data().get()
-            context["bokeh_autoload"] = context["qs"].get_plots(datafile.file.path)
+            user_agent_str = self.request.META.get("HTTP_USER_AGENT", None)
+            if user_agent_str:
+                user_agent = user_agents.parse(user_agent_str)
+                is_mobile = user_agent.is_mobile
+            else:
+                is_mobile = False
+            context["bokeh_autoload"] = context["qs"].get_plots(datafile.file.path, is_mobile=is_mobile)
             context["download_files"] = context["datasetmodel"].upload_set.all()
             context["stats"] = datafile.read_stats()
             return context

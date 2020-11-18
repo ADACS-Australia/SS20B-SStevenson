@@ -142,9 +142,9 @@ class Upload(models.Model):
         else:
             return "File not found"
 
-    def get_plots(self, input):
+    def get_plots(self, input, is_mobile=False):
         if input:
-            script = server_document(settings.BOKEH_SERVER, arguments={"filename": input})
+            script = server_document(settings.BOKEH_SERVER, arguments={"filename": input, "is_mobile": is_mobile})
         else:
             script = "<p>No data was provided for plots</p>"
         return script

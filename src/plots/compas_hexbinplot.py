@@ -483,10 +483,16 @@ def layout_and_filters():
 
 
 url_args = curdoc().session_context.request.arguments
+if "is_mobile" in url_args.keys():
+    is_mobile = url_args["is_mobile"][0]
+    if is_mobile == b"True":
+        is_mobile = True
+    else:
+        is_mobile = False
+
 if "filename" in url_args.keys():
     filename = url_args["filename"][0]
     if isinstance(filename, bytes):
-        print("HELLO")
         filename = str(filename, "utf-8")
 
     # Groups in a list
@@ -685,7 +691,11 @@ if "filename" in url_args.keys():
     # Layout on the page - for Mobile phones
     mobile = Panel(child=column(codefeedback, group, axes, available_widgets, p1,), title="Mobile")
 
-    tabs = Tabs(tabs=[web, mobile])
+    # I haven't found a way to select an active tab other than placing the desired tab as the first tab
+    if is_mobile:
+        tabs = Tabs(tabs=[mobile, web])
+    else:
+        tabs = Tabs(tabs=[web, mobile])
 
     # Make space between plot and tools/other items
     p1.min_border_right = 30
