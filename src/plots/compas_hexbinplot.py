@@ -274,21 +274,23 @@ def reformat_data(data):
 
     # Normalized data, use MinMax scaling: transform data into the range [0,1]
     # To avoid division with 0, check that Max value is not 0
-    if data.max(axis=0) != 0:
+    if max(data, default=default_max) != 0:
         # Next, check if Max value is equal to Min value
-        if data.max(axis=0) == data.min(axis=0):
+        if max(data, default=default_max) == min(data, default=default_min):
             # If Min and Max are equal, data contains array of const. values
             # so return (data - data.min) -- this will be always 0 and it
             # will scale with extra_y_ranges and extra_x_ranges
-            data_normed = data - data.min(axis=0)
+            data_normed = data - min(data, default=default_min)
         # In other cases, return MinMax scaling
         else:
-            data_normed = (data - data.min(axis=0)) / (data.max(axis=0) - data.min(axis=0))
+            data_normed = (data - min(data, default=default_min)) / (
+                max(data, default=default_max) - min(data, default=default_min)
+            )
     # If Max value is 0, we need to avoid division with 0
-    elif data.max(axis=0) == 0:
+    elif max(data, default=default_max) == 0:
         # Normalize MinMax using value close to 0, since we have much larger
-        # hexbin size, this doesn"t introduce visible deviations
-        data_normed = (data - data.min(axis=0)) / (0.0001 - data.min(axis=0))
+        # hexbin size, this doesn't introduce visible deviations
+        data_normed = (data - min(data, default=default_min)) / (0.0001 - min(data, default=default_min))
 
     return data_normed
 
@@ -299,7 +301,7 @@ def data_bin_change(attr, old, new):
 
     Parameters
     ----------
-    attr : String, changed attribute"s name.
+    attr : String, changed attribute's name.
     old : Previous value of the attribute.
     new : Updated value of the attribute.
 
@@ -328,13 +330,15 @@ def data_bin_change(attr, old, new):
         # Adding extra axes, to replace our normalized ones. If min/max
         # are equal e.g. we have const. data in array, e.g. Eccentricity>CE is 0
         # we need to add end+1, otherwise the respective axis will not have ticks.
-        if (min(y) == max(y)) or (min(x) == max(x)):
-            p1.extra_y_ranges["yraw"].update(start=min(y), end=max(y) + 1)
-            p1.extra_x_ranges["xraw"].update(start=min(x), end=max(x) + 1)
+        if min(y, default=default_min) == max(y, default=default_max) or min(x, default=default_min) == max(
+            x, default=default_max
+        ):
+            p1.extra_y_ranges['yraw'].update(start=min(y, default=default_min), end=max(y, default=default_max) + 1)
+            p1.extra_x_ranges['xraw'].update(start=min(x, default=default_min), end=max(x, default=default_max) + 1)
 
         else:
-            p1.extra_y_ranges["yraw"].update(start=min(y), end=max(y))
-            p1.extra_x_ranges["xraw"].update(start=min(x), end=max(x))
+            p1.extra_y_ranges['yraw'].update(start=min(y, default=default_min), end=max(y, default=default_max))
+            p1.extra_x_ranges['xraw'].update(start=min(x, default=default_min), end=max(x, default=default_max))
 
         # Use reformat_data function
         x_normed = reformat_data(x)
@@ -343,8 +347,9 @@ def data_bin_change(attr, old, new):
         # Place data into bins of certain hexbin size, this will give (q,r) axial hex coordinate of the tiles.
         bins = hexbin(x_normed, y_normed, hex_size)
 
-        # Update ColumnDataSource with the new data
-        source_bin.data = dict(q=bins.q, r=bins.r, counts=bins.counts)
+        # Populate the ColumnDataSource. Adding +0.0001 onto counts so that if count: max=min=1
+        # colorbar doesn't dissapear. This small value will not change real counts, nor color.
+        source_bin.data = dict(q=bins.q, r=bins.r, counts=bins.counts + 0.0001)
 
         # When a property is changed, plot could be zoomed in/moved so reset
         # back to the proper axes ranges
@@ -528,7 +533,11 @@ if "filename" in url_args.keys():
     # Hexbin size.
     hex_size = 0.005
 
-    # Color of the selected range on the RangeFilter.
+    # Default min/max values if the given data array is empty.
+    default_min = -999
+    default_max = -998
+
+    # Color of the selected range on the RangeFilter.ngeFilter.
     bar_color = "#969696"
 
     # Define fileters for new .h5 file. If they result in KeyError - old file is used, disable filtering.
