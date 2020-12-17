@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "compas",
     "compasweb",
 ]
 
@@ -133,3 +134,13 @@ if COMPAS_HOST:
 else:
     # assume local development
     BOKEH_SERVER = "http://localhost:5006/compas_hexbinplot"
+
+# Celery broker
+CELERY_BROKER_URL = 'redis://localhost:6379'
+
+# Submit file within compas-django folder
+RUN_COMPAS_COMMAND = [
+    'python3',
+    '/home/rdzudzar/compas_check_poetry/ss20b-sstevenson/src/compas/celery_pythonSubmit.py',
+]
+# Set path above
