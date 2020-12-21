@@ -13,6 +13,7 @@ from bokeh.models import Range1d, LinearAxis, Paragraph
 from bokeh.models.widgets import DataTable, TableColumn
 from bokeh.models.formatters import PrintfTickFormatter
 from bokeh.models import Title
+from bokeh.palettes import Viridis256, Cividis256, Magma256, Inferno256, Plasma256
 
 from os.path import basename
 
@@ -333,12 +334,12 @@ def data_bin_change(attr, old, new):
         if min(y, default=default_min) == max(y, default=default_max) or min(x, default=default_min) == max(
             x, default=default_max
         ):
-            p1.extra_y_ranges['yraw'].update(start=min(y, default=default_min), end=max(y, default=default_max) + 1)
-            p1.extra_x_ranges['xraw'].update(start=min(x, default=default_min), end=max(x, default=default_max) + 1)
+            p1.extra_y_ranges["yraw"].update(start=min(y, default=default_min), end=max(y, default=default_max) + 1)
+            p1.extra_x_ranges["xraw"].update(start=min(x, default=default_min), end=max(x, default=default_max) + 1)
 
         else:
-            p1.extra_y_ranges['yraw'].update(start=min(y, default=default_min), end=max(y, default=default_max))
-            p1.extra_x_ranges['xraw'].update(start=min(x, default=default_min), end=max(x, default=default_max))
+            p1.extra_y_ranges["yraw"].update(start=min(y, default=default_min), end=max(y, default=default_max))
+            p1.extra_x_ranges["xraw"].update(start=min(x, default=default_min), end=max(x, default=default_max))
 
         # Use reformat_data function
         x_normed = reformat_data(x)
@@ -448,8 +449,10 @@ def update_colorbar():
 
     """
 
-    cmap = log_cmap("counts", palette=cbar.value, low=1, high=col_max)
-    color_bar.color_mapper.palette = cbar.value
+    for key in colormap_dict:
+        if cbar.value == key:
+            cmap = log_cmap("counts", palette=colormap_dict[cbar.value], low=1, high=col_max)
+            color_bar.color_mapper.palette = colormap_dict[cbar.value]
 
 
 def layout_and_filters():
@@ -627,9 +630,34 @@ if "filename" in url_args.keys():
     # Perceptually Uniform Sequential Colormaps - available in Bokeh.
     cbar = Select(
         title="Choose Colormap",
-        value="Cividis256",
-        options=["Cividis256", "Viridis256", "Magma256", "Plasma256", "Inferno256"],
+        value="Cividis",
+        options=[
+            "Cividis",
+            "Inferno",
+            "Magma",
+            "Plasma",
+            "Viridis",
+            "Cividis_r",
+            "Inferno_r",
+            "Magma_r",
+            "Plasma_r",
+            "Viridis_r",
+        ],
     )
+
+    # Dictionary containing colormap names and their color sequences
+    colormap_dict = {
+        "Cividis": Cividis256,
+        "Inferno": Inferno256,
+        "Magma": Magma256,
+        "Plasma": Plasma256,
+        "Viridis": Viridis256,
+        "Cividis_r": Cividis256[::-1],
+        "Inferno_r": Inferno256[::-1],
+        "Magma_r": Magma256[::-1],
+        "Plasma_r": Plasma256[::-1],
+        "Viridis_r": Viridis256[::-1],
+    }
 
     cbar.on_change("value", lambda attr, old, new: update_colorbar())
 
