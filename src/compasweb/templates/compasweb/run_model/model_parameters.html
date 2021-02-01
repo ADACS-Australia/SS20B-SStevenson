@@ -1,0 +1,93 @@
+{% extends 'compasweb/base/base.html' %}
+{% block page_header %}
+<h1>COMPAS Model Initial Parameters</h1>
+{%endblock page_header%}
+
+{% block content %}
+<!-- information card on the top -->
+<div class="jumbotron info-card">
+    <!-- <h3 class="jumbotron-heading text-left title-sm">Instruction</h3> -->
+    <!-- <hr class="dashed-line"> -->
+    <!-- <p class="p-text-md"><span>How to explore the datasets</span>: -->
+    {% if messages %}
+    <ul class="alert alert-danger">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="container">
+    <form method="post" class="col-md-12 form-group">
+        {% csrf_token %}
+        <div class="container" id='initial_parameters'>
+            {% for field in run_model_form.get_initial_parameters %}
+            <div class="row field
+                        {% if field.field.required %} required {% endif %}
+                        div-{{ field.name }}">
+
+                <!-- Label -->
+                <label class="col col-md-4 col-sm-6 col-sx-6 col-12 mb-2 field-label"
+                    for="{{ field.auto_id }}">
+                    {{ field.label }} &#9737;
+                </label>
+
+                <!-- Field -->
+                <div class="col col-md-3 col-sm-6 col-sx-6 col-12 mb-2">
+                    <div class="{% if field.errors %} error {% endif %}">{{ field }}</div>
+                    <div>{{ field.errors }}</div>
+                </div>
+                <!-- Help text and Errors-->
+                <div class="col col-md-5 col-sm-6 col-sx-6 col-12 mb-2">
+                    <div class='help-text'>{{ field.help_text }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="container" id='advanced_settings' >
+            <div class="title-md">
+                <hr class="dashed-line">
+                <h2 class="jumbotron-heading text-center title-md">Advanced Settings</h2>
+                <hr class="dashed-line">
+            </div>
+            {% for field in run_model_form.get_advanced_settings %}
+            <div class="row field
+                        {% if field.field.required %} required {% endif %}
+                        {% if field.errors %} error {% endif %}
+                        div-{{ field.name }}">
+
+                <!-- Label -->
+                <label class="col col-md-4 col-sm-6 col-sx-6 col-12 mb-2 field-label" 
+                    for="{{ field.auto_id }}">
+                    {{ field.label }}
+                </label>
+
+                <!-- Field -->
+                <div class="col col-md-3 col-sm-6 col-sx-6 col-12 mb-2">
+                    <div class="{% if field.errors %} error {% endif %}">{{ field }}</div>
+                
+                    <!-- <div>{{ field.errors }}</div> -->
+                    {% for err in field.errors%}
+                    <div class="field-error">{{err|escape}}</div>
+                    {% endfor %}
+                </div>
+                <!-- Help text and Errors-->
+                <div class="col col-md-5 col-sm-6 col-sx-6 col-12 mb-2">
+                    <div class='help-text'>{{ field.help_text }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-right">
+            <button type="button" class="btn btn-secondary" id="show_advanced">Show Advanced Settings</button>
+            <button type="reset" class="btn btn-warning" name="reset">Reset</button>
+            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+        </div>
+    </form>
+    </div>
+    <!-- <span>Plots</span>: different types of plots (grouped by physics) -->
+    <!-- </p> -->
+</div>
+
+{% endblock content %}
+
+

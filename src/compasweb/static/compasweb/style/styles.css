@@ -294,17 +294,17 @@ td.block-cell-center {
 }  
 
 .nav-tabs > li > a.active {
-  color: var(--gray2);
-  font: var(--tab-font);
-  text-shadow: var(--tab-shadow);
-  line-height: var(--tab-height);
+    color: var(--gray2);
+    font: var(--tab-font);
+    text-shadow: var(--tab-shadow);
+    line-height: var(--tab-height);
     
 }
 .nav-tabs > li > a {
-  color: var(--gray3);
-  font: var(--tab-font);
-  text-shadow: var(--tab-shadow);
-  line-height: var(--tab-height);
+    color: var(--gray3);
+    font: var(--tab-font);
+    text-shadow: var(--tab-shadow);
+    line-height: var(--tab-height);
 }
 
 .tab-content-text {
@@ -403,4 +403,127 @@ td.block-cell-center {
 }
 
 
+/********************************************/
+/*                                          */
+/*                 Forms                    */
+/*                                          */
+/********************************************/
 
+
+.field  input, select{
+    /* Rectangle */
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    background: #FFFFFF;
+    width: 200px;
+    height: 24px;
+
+    /* Base */
+    border: 1px solid #BDBDBD;
+    box-sizing: border-box;
+    border-radius: 2px;
+    
+    /* text */
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+
+    color: rgba(0, 0, 0, 0.56);
+
+}
+
+
+.help-text {
+    left: 52.12%;
+    right: 28.73%;
+    top: 24%;
+    bottom: 28%;
+
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    /* identical to box height, or 150% */
+    display: flex;
+    align-items: center;
+
+    /* Gray 3 */
+    color: #828282;
+}
+
+.field-label {
+    left: 0%;
+    right: 0%;
+    top: 31.67%;
+    bottom: 31.67%;
+
+    font-family: Inter;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 24px;
+    /* or 150% */
+
+    display: flex;
+    align-items: left;
+    text-align: left;
+
+    /* Gray 2 */
+    color: #4F4F4F;
+}
+.field  input[type=checkbox] {
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    
+    /* Light / White */
+    
+    background: #FFFFFF;
+    /* Light / Gray */
+    
+    border: 2px solid #C3CBCD;
+    box-sizing: border-box;
+}
+
+.field input[type=checkbox]:checked {
+color: #373F41;
+}
+
+.field.required .field-label:after {
+    content: "*";
+    color: red;
+}
+
+/* Field errors */
+
+.field.error input, select::after{
+    border-color: red;
+}
+.error-message {
+    font-size: 3em;
+    padding: 50px 0;
+}
+
+.error-code {
+    color: salmon;
+    font-size: 8em;
+}
+
+.error-details {
+    padding: 50px;
+}
+
+.error {
+    border-color: salmon;
+}
+
+.field-error{
+    font-size: small;
+    color: red;
+}
