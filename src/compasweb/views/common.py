@@ -17,7 +17,10 @@ def index(request):
     :param request: Django request object.
     :return: Rendered template
     """
-    return render(request, "compasweb/common/index.html",)
+    return render(
+        request,
+        "compasweb/common/index.html",
+    )
 
 
 def about(request):
@@ -26,7 +29,10 @@ def about(request):
     :param request: Django request object.
     :return: Rendered template
     """
-    return render(request, "compasweb/common/about.html",)
+    return render(
+        request,
+        "compasweb/common/about.html",
+    )
 
 
 # def error_404_view(request, exception, template_name="compasweb/common/error_404.html"):

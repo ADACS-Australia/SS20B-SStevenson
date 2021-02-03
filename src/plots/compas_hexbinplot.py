@@ -87,7 +87,7 @@ def update_dropdown(attr, old, new):
     Callback to update a group. As group updates it displays the properties within that group on X and Y axis.
     The X and Y axes will be initialised with the [0]th property. Because the X and Y axis should update at the
     same time - use "hold" and "unhold" to callect all events.
-    
+
     Parameters
     ----------
     attr : String, changed attribute"s name.
@@ -262,7 +262,7 @@ def reformat_data(data):
     """
     This function is normalising the data in range from 0 to 1. In special case, data will be reformated.
     This reformating is needed for the proper display of the hexbin plot.
-    
+
     Parameters
     ----------
     data : Data as numpy.ndarray.
@@ -270,7 +270,7 @@ def reformat_data(data):
     Returns
     -------
     data_normed : Reformated data as numpy.ndarray.
-    
+
     """
 
     # Normalized data, use MinMax scaling: transform data into the range [0,1]
@@ -298,7 +298,7 @@ def reformat_data(data):
 
 def data_bin_change(attr, old, new):
     """
-    This function controls what will be displayed on the Figure. 
+    This function controls what will be displayed on the Figure.
 
     Parameters
     ----------
@@ -621,10 +621,19 @@ if "filename" in url_args.keys():
 
     h = p1.hex_tile(q="q", r="r", size=hex_size, line_color=None, source=source_bin, fill_color=cmap)
 
-    hover = HoverTool(tooltips=[("Counts", "@counts")], mode="mouse", point_policy="follow_mouse", renderers=[h],)
+    hover = HoverTool(
+        tooltips=[("Counts", "@counts")],
+        mode="mouse",
+        point_policy="follow_mouse",
+        renderers=[h],
+    )
 
     color_bar = ColorBar(
-        title="Counts", color_mapper=cmap["transform"], location=(0, 0), ticker=LogTicker(), label_standoff=12,
+        title="Counts",
+        color_mapper=cmap["transform"],
+        location=(0, 0),
+        ticker=LogTicker(),
+        label_standoff=12,
     )
 
     # Perceptually Uniform Sequential Colormaps - available in Bokeh.
@@ -726,7 +735,16 @@ if "filename" in url_args.keys():
     web = Panel(child=layout_data, title="Computer")
 
     # Layout on the page - for Mobile phones
-    mobile = Panel(child=column(codefeedback, group, axes, available_widgets, p1,), title="Mobile")
+    mobile = Panel(
+        child=column(
+            codefeedback,
+            group,
+            axes,
+            available_widgets,
+            p1,
+        ),
+        title="Mobile",
+    )
 
     # I haven't found a way to select an active tab other than placing the desired tab as the first tab
     if is_mobile:

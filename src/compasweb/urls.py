@@ -9,7 +9,11 @@ urlpatterns = [
     url(r"^about/", about, name="about"),
     path("published/", KeywordView.as_view(), name="published_job"),
     path("published/<str:keyword_filter>/", KeywordView.as_view(), name="published_job"),
-    path("dataset/<int:pk>/", DatasetDetailView.as_view(), name="dataset_detail",),
+    path(
+        "dataset/<int:pk>/",
+        DatasetDetailView.as_view(),
+        name="dataset_detail",
+    ),
     path("model/<int:pk>/", ModelDetailView.as_view(), name="model_detail"),
     path("model/new/", run_compas_model, name="run_compas_model"),
     path("model/output/<int:job_id>/", compas_model_output, name="compas_model_output"),

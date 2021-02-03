@@ -138,8 +138,8 @@ class Upload(models.Model):
 
     def get_content(self):
         """
-       get the content of a file; will be called only on txt files
-       """
+        get the content of a file; will be called only on txt files
+        """
         if self.file.storage.exists(self.file.name):
 
             with self.file.open("r") as f:
@@ -169,53 +169,190 @@ class Upload(models.Model):
 
         return data_stats
 
+
 class COMPASModelRun(models.Model):
 
     # required input parameters
-    mass1 = models.FloatField(blank=False, null=False, default=0.0, validators=[MinValueValidator(0.0), MaxValueValidator(150.0)], help_text="Mass of the initially more massive star.  0 < Value < 150")
-    mass2 = models.FloatField(blank=False, null=False, default=0.0, validators=[MinValueValidator(0.0), MaxValueValidator(150.0)], help_text="Mass of the initially less massive star. 0 < Value < 150")
-    metallicity = models.FloatField(blank=False, null=False, default=0.0142, validators=[MinValueValidator(1E-4), MaxValueValidator(0.03)], help_text="Metallicity of stars.  1E-4 < Value < 0.03")
-    eccentricity = models.FloatField(blank=False, null=False, default=0.0, validators=[MinValueValidator(0.0), MaxValueValidator(1)], help_text="Orbital eccentricity of the binary. 0 <= Value < 1")
-    seperation = models.FloatField(blank=False, null=False, default=0.0, validators=[MinValueValidator(0.0)], help_text="Orbital separation of the binary. Value > 0")
-    orbital_period = models.FloatField(blank=False, null=False, default=0.0, validators=[MinValueValidator(0.0)], help_text="Orbital period of the binary. Value > 0")
-    max_time = models.FloatField(blank=False, null=False, default=0, validators=[MinValueValidator(0.0), MaxValueValidator(1400)], help_text="Maximum time to evolve binary for. 0 < Value <= 1400")
+    mass1 = models.FloatField(
+        blank=False,
+        null=False,
+        default=0.0,
+        validators=[MinValueValidator(0.0), MaxValueValidator(150.0)],
+        help_text="Mass of the initially more massive star.  0 < Value < 150",
+    )
+    mass2 = models.FloatField(
+        blank=False,
+        null=False,
+        default=0.0,
+        validators=[MinValueValidator(0.0), MaxValueValidator(150.0)],
+        help_text="Mass of the initially less massive star. 0 < Value < 150",
+    )
+    metallicity = models.FloatField(
+        blank=False,
+        null=False,
+        default=0.0142,
+        validators=[MinValueValidator(1e-4), MaxValueValidator(0.03)],
+        help_text="Metallicity of stars.  1E-4 < Value < 0.03",
+    )
+    eccentricity = models.FloatField(
+        blank=False,
+        null=False,
+        default=0.0,
+        validators=[MinValueValidator(0.0), MaxValueValidator(1)],
+        help_text="Orbital eccentricity of the binary. 0 <= Value < 1",
+    )
+    seperation = models.FloatField(
+        blank=False,
+        null=False,
+        default=0.0,
+        validators=[MinValueValidator(0.0)],
+        help_text="Orbital separation of the binary. Value > 0",
+    )
+    orbital_period = models.FloatField(
+        blank=False,
+        null=False,
+        default=0.0,
+        validators=[MinValueValidator(0.0)],
+        help_text="Orbital period of the binary. Value > 0",
+    )
+    max_time = models.FloatField(
+        blank=False,
+        null=False,
+        default=0,
+        validators=[MinValueValidator(0.0), MaxValueValidator(1400)],
+        help_text="Maximum time to evolve binary for. 0 < Value <= 1400",
+    )
 
-    #advanced settings
-    #kicks
-    velocity_random_number = models.FloatField(blank=False, null=False, validators=[MinValueValidator(0.0), MaxValueValidator(1.0)], help_text="0 < Value < 1")
+    # advanced settings
+    # kicks
+    velocity_random_number = models.FloatField(
+        blank=False, null=False, validators=[MinValueValidator(0.0), MaxValueValidator(1.0)], help_text="0 < Value < 1"
+    )
     velocity = models.FloatField(blank=False, null=False, validators=[MinValueValidator(0.0)], help_text=" Value > 0")
-    theta = models.FloatField(blank=False, null=False, validators=[MinValueValidator(0.0), MaxValueValidator(2.0 * math.pi)], help_text="0 < Value < 2pi")
-    phi = models.FloatField(blank=False, null=False, validators=[MinValueValidator(0.0), MaxValueValidator(2.0 * math.pi)], help_text="0 < Value < 2pi")
-    mean_anomaly = models.FloatField(blank=False, null=False, validators=[MinValueValidator(0.0), MaxValueValidator(2.0 * math.pi)], help_text="0 < Value < 2pi")
+    theta = models.FloatField(
+        blank=False,
+        null=False,
+        validators=[MinValueValidator(0.0), MaxValueValidator(2.0 * math.pi)],
+        help_text="0 < Value < 2pi",
+    )
+    phi = models.FloatField(
+        blank=False,
+        null=False,
+        validators=[MinValueValidator(0.0), MaxValueValidator(2.0 * math.pi)],
+        help_text="0 < Value < 2pi",
+    )
+    mean_anomaly = models.FloatField(
+        blank=False,
+        null=False,
+        validators=[MinValueValidator(0.0), MaxValueValidator(2.0 * math.pi)],
+        help_text="0 < Value < 2pi",
+    )
 
-    #common envelope
-    common_envelope_alpha= models.FloatField(blank=False, null=False, default=1.0, validators=[MinValueValidator(0.0)], help_text="Value > 0")
-    common_envelope_lambda_prescription= models.CharField(choices=COMMON_ENVELOPE_LAMBDA_PRESCRIPTION_CHOICES, max_length=55, blank=False, null=False, default=COMMON_ENVELOPE_LAMBDA_PRESCRIPTION_NANJING_VALUE) 
-    common_envelope_lambda= models.FloatField(blank=False, null=False, validators=[MinValueValidator(0.0)], default=0.1, help_text="Value > 0")
+    # common envelope
+    common_envelope_alpha = models.FloatField(
+        blank=False, null=False, default=1.0, validators=[MinValueValidator(0.0)], help_text="Value > 0"
+    )
+    common_envelope_lambda_prescription = models.CharField(
+        choices=COMMON_ENVELOPE_LAMBDA_PRESCRIPTION_CHOICES,
+        max_length=55,
+        blank=False,
+        null=False,
+        default=COMMON_ENVELOPE_LAMBDA_PRESCRIPTION_NANJING_VALUE,
+    )
+    common_envelope_lambda = models.FloatField(
+        blank=False, null=False, validators=[MinValueValidator(0.0)], default=0.1, help_text="Value > 0"
+    )
 
-    #supernova
-    remnant_mass_prescription= models.CharField(choices=REMNANT_MASS_PRESCRIPTION_CHOICES, max_length=55, blank=False, null=False, default=REMNANT_MASS_PRESCRIPTION_FRYER2012_VALUE)
-    fryer_supernova_engine = models.CharField(choices=FRYER_SUPERNOVA_ENGINE_CHOICES, max_length=55, blank=False, null=False, default=FRYER_SUPERNOVA_ENGINE_DELAYED_VALUE)
-    black_hole_kicks= models.CharField(choices=BLACK_HOLE_KICKS_CHOICES, max_length=55, blank=False, null=False, default=BLACK_HOLE_KICKS_FALLBACK_VALUE)
-    Kick_velocity_distribution= models.CharField(choices=KICK_VELOCITY_DISTRIBUTION_CHOICES, max_length=55, blank=False, null=False, default=KICK_VELOCITY_DISTRIBUTION_MAXWELLIAN)
-    kick_velocity_sigma_CCSN_NS = models.FloatField(blank=False, null=False, validators=[MinValueValidator(0.0)], default=256.0, help_text="Value > 0")
-    kick_velocity_sigma_CCSN_BH = models.FloatField(blank=False, null=False, validators=[MinValueValidator(0.0)], default=256.0, help_text="Value > 0")
-    kick_velocity_sigma_ECSN = models.FloatField(blank=False, null=False, validators=[MinValueValidator(0.0)], default=30.0, help_text="Value > 0")
-    kick_velocity_sigma_USSN = models.FloatField(blank=False, null=False, validators=[MinValueValidator(0.0)], default=30.0, help_text="Value > 0")
+    # supernova
+    remnant_mass_prescription = models.CharField(
+        choices=REMNANT_MASS_PRESCRIPTION_CHOICES,
+        max_length=55,
+        blank=False,
+        null=False,
+        default=REMNANT_MASS_PRESCRIPTION_FRYER2012_VALUE,
+    )
+    fryer_supernova_engine = models.CharField(
+        choices=FRYER_SUPERNOVA_ENGINE_CHOICES,
+        max_length=55,
+        blank=False,
+        null=False,
+        default=FRYER_SUPERNOVA_ENGINE_DELAYED_VALUE,
+    )
+    black_hole_kicks = models.CharField(
+        choices=BLACK_HOLE_KICKS_CHOICES,
+        max_length=55,
+        blank=False,
+        null=False,
+        default=BLACK_HOLE_KICKS_FALLBACK_VALUE,
+    )
+    Kick_velocity_distribution = models.CharField(
+        choices=KICK_VELOCITY_DISTRIBUTION_CHOICES,
+        max_length=55,
+        blank=False,
+        null=False,
+        default=KICK_VELOCITY_DISTRIBUTION_MAXWELLIAN,
+    )
+    kick_velocity_sigma_CCSN_NS = models.FloatField(
+        blank=False, null=False, validators=[MinValueValidator(0.0)], default=256.0, help_text="Value > 0"
+    )
+    kick_velocity_sigma_CCSN_BH = models.FloatField(
+        blank=False, null=False, validators=[MinValueValidator(0.0)], default=256.0, help_text="Value > 0"
+    )
+    kick_velocity_sigma_ECSN = models.FloatField(
+        blank=False, null=False, validators=[MinValueValidator(0.0)], default=30.0, help_text="Value > 0"
+    )
+    kick_velocity_sigma_USSN = models.FloatField(
+        blank=False, null=False, validators=[MinValueValidator(0.0)], default=30.0, help_text="Value > 0"
+    )
     pair_instability_supernovae = models.BooleanField(blank=False, null=False, default=True)
-    pisn_lower_limit = models.FloatField(blank=False, null=False, validators=[MinValueValidator(0.0)], default=60.0, help_text="Value > 0")
+    pisn_lower_limit = models.FloatField(
+        blank=False, null=False, validators=[MinValueValidator(0.0)], default=60.0, help_text="Value > 0"
+    )
     pisn_upper_limit = models.FloatField(blank=False, null=False, validators=[MinValueValidator(0.0)], default=135.0)
     pulsational_pair_instability_supernovae = models.BooleanField(blank=False, null=False, default=True)
-    ppi_lower_limit = models.FloatField(blank=False, null=False, validators=[MinValueValidator(0.0)], default=35.0, help_text="Value > 0")
+    ppi_lower_limit = models.FloatField(
+        blank=False, null=False, validators=[MinValueValidator(0.0)], default=35.0, help_text="Value > 0"
+    )
     ppi_upper_limit = models.FloatField(blank=False, null=False, validators=[MinValueValidator(0.0)], default=60.0)
-    pulsational_pair_instability_prescription = models.CharField(choices=PULSATIONAL_PAIR_INSTABILITY_PRESCRIPTION_CHOICES, max_length=55, blank=False, null=False, default=PULSATIONAL_PAIR_INSTABILITY_PRESCRIPTION_MARCHANT)
-    maximum_neutron_star_mass = models.FloatField(blank=False, null=False, validators=[MinValueValidator(0.0)], default=2.5, help_text="Value > 0")
+    pulsational_pair_instability_prescription = models.CharField(
+        choices=PULSATIONAL_PAIR_INSTABILITY_PRESCRIPTION_CHOICES,
+        max_length=55,
+        blank=False,
+        null=False,
+        default=PULSATIONAL_PAIR_INSTABILITY_PRESCRIPTION_MARCHANT,
+    )
+    maximum_neutron_star_mass = models.FloatField(
+        blank=False, null=False, validators=[MinValueValidator(0.0)], default=2.5, help_text="Value > 0"
+    )
 
-    #Mass transfer
-    mass_transfer_angular_momentum_loss_prescription = models.CharField(choices=MASS_TRANSFER_ANGULAR_MOMENTUM_LOSS_PRESCRIPTION_CHOICES, max_length=55, blank=False, null=False, default=MASS_TRANSFER_ANGULAR_MOMENTUM_LOSS_PRESCRIPTION_ISOTROPIC_VALUE)
-    mass_transfer_accertion_efficiency_prescription = models.CharField(choices=MASS_TRANSFER_ACCERTION_EFFICIENCY_PRESCRIPTION_CHOICES, max_length=55, blank=False, null=False, default=MASS_TRANSFER_ACCERTION_EFFICIENCY_PRESCRIPTION_THERMAL_VALUE)
+    # Mass transfer
+    mass_transfer_angular_momentum_loss_prescription = models.CharField(
+        choices=MASS_TRANSFER_ANGULAR_MOMENTUM_LOSS_PRESCRIPTION_CHOICES,
+        max_length=55,
+        blank=False,
+        null=False,
+        default=MASS_TRANSFER_ANGULAR_MOMENTUM_LOSS_PRESCRIPTION_ISOTROPIC_VALUE,
+    )
+    mass_transfer_accertion_efficiency_prescription = models.CharField(
+        choices=MASS_TRANSFER_ACCERTION_EFFICIENCY_PRESCRIPTION_CHOICES,
+        max_length=55,
+        blank=False,
+        null=False,
+        default=MASS_TRANSFER_ACCERTION_EFFICIENCY_PRESCRIPTION_THERMAL_VALUE,
+    )
     # Ideally should only appear if using --mass-transfer-accretion-efficiency-prescription FIXED
-    mass_transfer_fa = models.FloatField(blank=False, null=False, validators=[MinValueValidator(0.0)], default=0.5, help_text='Mass Transfer fraction accreted in FIXED prescription')
+    mass_transfer_fa = models.FloatField(
+        blank=False,
+        null=False,
+        validators=[MinValueValidator(0.0)],
+        default=0.5,
+        help_text='Mass Transfer fraction accreted in FIXED prescription',
+    )
     # Ideally should only appear if using --mass-transfer-angular-momentum-loss-prescription ARBITRARY
-    mass_transfer_jloss = models.FloatField(blank=False, null=False, validators=[MinValueValidator(0.0)], default=1.0, help_text='Specific angular momentum with which the non-accreted system leaves the system')
-
+    mass_transfer_jloss = models.FloatField(
+        blank=False,
+        null=False,
+        validators=[MinValueValidator(0.0)],
+        default=1.0,
+        help_text='Specific angular momentum with which the non-accreted system leaves the system',
+    )

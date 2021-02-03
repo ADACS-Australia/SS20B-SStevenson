@@ -12,7 +12,7 @@ INITIAL_PARAMETERS = [
     'seperation',
     'orbital_period',
     'max_time',
-    ]
+]
 
 ADVANCED_SETTINGS = [
     'velocity_random_number',
@@ -20,32 +20,29 @@ ADVANCED_SETTINGS = [
     'theta',
     'phi',
     'mean_anomaly',
-
-    'common_envelope_alpha', 
-    'common_envelope_lambda_prescription', 
+    'common_envelope_alpha',
+    'common_envelope_lambda_prescription',
     'common_envelope_lambda',
-
-    'remnant_mass_prescription', 
+    'remnant_mass_prescription',
     'fryer_supernova_engine',
-    'black_hole_kicks', 
-    'Kick_velocity_distribution', 
+    'black_hole_kicks',
+    'Kick_velocity_distribution',
     'kick_velocity_sigma_CCSN_NS',
     'kick_velocity_sigma_CCSN_BH',
     'kick_velocity_sigma_ECSN',
     'kick_velocity_sigma_USSN',
-    'pair_instability_supernovae', 
+    'pair_instability_supernovae',
     'pisn_lower_limit',
     'pisn_upper_limit',
-    'pulsational_pair_instability_supernovae', 
-    'ppi_lower_limit', 
+    'pulsational_pair_instability_supernovae',
+    'ppi_lower_limit',
     'ppi_upper_limit',
-    'pulsational_pair_instability_prescription', 
+    'pulsational_pair_instability_prescription',
     'maximum_neutron_star_mass',
-
     'mass_transfer_angular_momentum_loss_prescription',
     'mass_transfer_accertion_efficiency_prescription',
     'mass_transfer_fa',
-    'mass_transfer_jloss', 
+    'mass_transfer_jloss',
 ]
 
 FIELDS = INITIAL_PARAMETERS + ADVANCED_SETTINGS
@@ -65,31 +62,31 @@ FIELDS = INITIAL_PARAMETERS + ADVANCED_SETTINGS
 #     'phi',
 #     'mean_anomaly',
 
-#     'common_envelope_alpha', 
-#     'common_envelope_lambda_prescription', 
+#     'common_envelope_alpha',
+#     'common_envelope_lambda_prescription',
 #     'common_envelope_lambda',
 
-#     'remnant_mass_prescription', 
+#     'remnant_mass_prescription',
 #     'fryer_supernova_engine',
-#     'black_hole_kicks', 
-#     'Kick_velocity_distribution', 
+#     'black_hole_kicks',
+#     'Kick_velocity_distribution',
 #     'kick_velocity_sigma_CCSN_NS',
 #     'kick_velocity_sigma_CCSN_BH',
 #     'kick_velocity_sigma_ECSN',
 #     'kick_velocity_sigma_USSN',
-#     'pair_instability_supernovae', 
+#     'pair_instability_supernovae',
 #     'pisn_lower_limit',
 #     'pisn_upper_limit',
-#     'pulsational_pair_instability_supernovae', 
-#     'ppi_lower_limit', 
+#     'pulsational_pair_instability_supernovae',
+#     'ppi_lower_limit',
 #     'ppi_upper_limit',
-#     'pulsational_pair_instability_prescription', 
+#     'pulsational_pair_instability_prescription',
 #     'maximum_neutron_star_mass',
 
 #     'mass_transfer_angular_momentum_loss_prescription',
 #     'mass_transfer_accertion_efficiency_prescription',
 #     'mass_transfer_fa',
-#     'mass_transfer_jloss', 
+#     'mass_transfer_jloss',
 # ]
 
 LABELS = {
@@ -100,42 +97,38 @@ LABELS = {
     'seperation': _(SEPERATION_LABEL),
     'orbital_period': _(ORBITAL_PERIOD_LABEL),
     'max_time': _(MAX_TIME_LABEL),
-
     'velocity_random_number': _(VELOCITY_RANDOM_NUMBER_LABEL),
     'velocity': _(VELOCITY_LABEL),
     'theta': _(THETA_LABEL),
     'phi': _(PHI_LABEL),
     'mean_anomaly': _(MEAN_ANOMALY_LABEL),
-
-    'common_envelope_alpha': _(COMMON_ENVELOPE_ALPHA_LABEL), 
-    'common_envelope_lambda_prescription': _(COMMON_ENVELOPE_LAMBDA_PRESCRIPTION), 
+    'common_envelope_alpha': _(COMMON_ENVELOPE_ALPHA_LABEL),
+    'common_envelope_lambda_prescription': _(COMMON_ENVELOPE_LAMBDA_PRESCRIPTION),
     'common_envelope_lambda': _(COMMON_ENVELOPE_LAMBDA_LABEL),
-
-    'remnant_mass_prescription': _(REMNANT_MASS_PRESCRIPTION_LABEL), 
+    'remnant_mass_prescription': _(REMNANT_MASS_PRESCRIPTION_LABEL),
     'fryer_supernova_engine': _(FRYER_SUPERNOVA_ENGINE_LABEL),
-    'black_hole_kicks': _(BLACK_HOLE_KICKS_LABEL), 
-    'Kick_velocity_distribution': _(KICK_VELOCITY_DISTRIBUTION_LABEL), 
+    'black_hole_kicks': _(BLACK_HOLE_KICKS_LABEL),
+    'Kick_velocity_distribution': _(KICK_VELOCITY_DISTRIBUTION_LABEL),
     'kick_velocity_sigma_CCSN_NS': _(KICK_VELOCITY_SIGMA_CCSN_NS_LABEL),
     'kick_velocity_sigma_CCSN_BH': _(KICK_VELOCITY_SIGMA_CCSN_BH_LABEL),
     'kick_velocity_sigma_ECSN': (KICK_VELOCITY_SIGMA_ECSN_LABEL),
     'kick_velocity_sigma_USSN': (KICK_VELOCITY_SIGMA_USSN_LABEL),
-    'pair_instability_supernovae': _(PULSATIONAL_PAIR_INSTABILITY_SUPERNOVAE_LABEL), 
+    'pair_instability_supernovae': _(PULSATIONAL_PAIR_INSTABILITY_SUPERNOVAE_LABEL),
     'pisn_lower_limit': _(PISN_LOWER_LIMIT_LABEL),
     'pisn_upper_limit': _(PISN_UPPER_LIMIT_LABEL),
-    'pulsational_pair_instability_supernovae': _(PULSATIONAL_PAIR_INSTABILITY_SUPERNOVAE_LABEL), 
-    'ppi_lower_limit': _(PPI_LOWER_LIMIT_LABEL), 
+    'pulsational_pair_instability_supernovae': _(PULSATIONAL_PAIR_INSTABILITY_SUPERNOVAE_LABEL),
+    'ppi_lower_limit': _(PPI_LOWER_LIMIT_LABEL),
     'ppi_upper_limit': _(PPI_UPPER_LIMIT_LABEL),
-    'pulsational_pair_instability_prescription': _(PULSATIONAL_PAIR_INSTABILITY_PRESCRIPTION_LABEL), 
+    'pulsational_pair_instability_prescription': _(PULSATIONAL_PAIR_INSTABILITY_PRESCRIPTION_LABEL),
     'maximum_neutron_star_mass': _(MAXIMUM_NEUTRON_STAR_MASS_LABEL),
-
     'mass_transfer_angular_momentum_loss_prescription': _(MASS_TRANSFER_ANGULAR_MOMENTUM_LOSS_PRESCRIPTION_LABEL),
     'mass_transfer_accertion_efficiency_prescription': _(MASS_TRANSFER_ACCERTION_EFFICIENCY_PRESCRIPTION_LABEL),
     'mass_transfer_fa': _(MASS_TRANSFER_FA_LABEL),
     'mass_transfer_jloss': _(MASS_TRANSFER_JLOSS_LABEL),
 }
 
-class COMPASModelRunForm(ModelForm):
 
+class COMPASModelRunForm(ModelForm):
     class Meta:
         model = COMPASModelRun
         fields = FIELDS
@@ -155,7 +148,7 @@ class COMPASModelRunForm(ModelForm):
                 yield self[field_name]
 
     def clean(self):
-        
+
         """
         overwrites the default clean behavior before saving field values to model
         Validate some form fields against each other and push error messages to be displayed in template

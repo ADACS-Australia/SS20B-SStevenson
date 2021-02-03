@@ -651,17 +651,17 @@ class pythonProgramOptions:
 
     def generateCommandLineOptionsDict(self):
         """
-        This function generates a dictionary mapping COMPAS options to their specified 
+        This function generates a dictionary mapping COMPAS options to their specified
         values (or empty strings for boolean options). These can be combined into a string
         and run directly as a terminal command, or passed to the stroopwafel interface
-        where some of them may be overwritten. Options not to be included in the command 
+        where some of them may be overwritten. Options not to be included in the command
         line should be set to pythons None (except booleans, which should be set to False)
-    
+
         Parameters
         -----------
         self : pythonProgramOptions
             Contains program options
-    
+
         Returns
         --------
         commands : str or list of strs

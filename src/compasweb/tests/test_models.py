@@ -19,7 +19,7 @@ class BaseModelTestCase(TestCase):
     @classmethod
     def setUpClass(cls):
         """
-        creating two tags and two jobs 
+        creating two tags and two jobs
         """
         super(BaseModelTestCase, cls).setUpClass()
         cls.keyword1 = Keyword(tag="BBH")
@@ -65,11 +65,16 @@ class BaseModelTestCase(TestCase):
         cls.job2.save()
 
         cls.compasmodel1 = COMPASModel(
-            name="Feducial", summary="Feducial Summary", description="Feducial Description",
+            name="Feducial",
+            summary="Feducial Summary",
+            description="Feducial Description",
         )
         cls.compasmodel1.save()
 
-        cls.datasetmodel1 = COMPASDatasetModel(compasjob=cls.job1, compasmodel=cls.compasmodel1,)
+        cls.datasetmodel1 = COMPASDatasetModel(
+            compasjob=cls.job1,
+            compasmodel=cls.compasmodel1,
+        )
         cls.datasetmodel1.save()
 
 
@@ -149,7 +154,8 @@ class COMPASJobModelTestCase(BaseModelTestCase):
         dir_name = os.path.dirname(dataset_file_path)
 
         self.assertEqual(
-            self.datasetmodel1.files, f"datasets/{self.job1.id}/{self.compasmodel1.id}/test.tar.gz",
+            self.datasetmodel1.files,
+            f"datasets/{self.job1.id}/{self.compasmodel1.id}/test.tar.gz",
         )
         self.assertEqual(os.path.exists(os.path.join(dir_name, filename)), True)
         self.assertEqual(os.path.exists(os.path.join(dir_name, filename1)), True)
@@ -195,7 +201,8 @@ class COMPASJobModelTestCase(BaseModelTestCase):
         dir_name = os.path.dirname(dataset_file_path)
 
         self.assertEqual(
-            self.datasetmodel1.files, f"datasets/{self.job1.id}/{self.compasmodel1.id}/test.tar.gz",
+            self.datasetmodel1.files,
+            f"datasets/{self.job1.id}/{self.compasmodel1.id}/test.tar.gz",
         )
         self.assertEqual(os.path.exists(os.path.join(dir_name, dirname, filename)), True)
         self.assertEqual(os.path.exists(dataset_file_path), False)
@@ -210,5 +217,7 @@ class COMPASJobModelTestCase(BaseModelTestCase):
         Removes all media files from temp MEDIA ROOT
         """
         shutil.rmtree(
-            os.path.join(settings.MEDIA_ROOT, "datasets"), ignore_errors=False, onerror=None,
+            os.path.join(settings.MEDIA_ROOT, "datasets"),
+            ignore_errors=False,
+            onerror=None,
         )
