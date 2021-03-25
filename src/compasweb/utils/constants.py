@@ -3,20 +3,27 @@ Mapping model field names and values
 """
 MASS_1_LABEL = 'MASS 1'
 MASS_2_LABEL = 'MASS 2'
-METALICITY_LABEL = 'Metalicity'
+METALICITY_LABEL = 'Metallicity'
 ECCENTRICITY_LABEL = 'Eccentricity'
 ORBITAL_PERIOD_LABEL = 'Period'
-SEPERATION_LABEL = 'Seperation'
+SEPARATION_LABEL = 'Separation'
 MAX_TIME_LABEL = 'Maximum Time'
 
-VELOCITY_RANDOM_NUMBER_LABEL = 'Velocity Random Number'
-VELOCITY_LABEL = 'Velocity'
-THETA_LABEL = 'Theta'
-PHI_LABEL = 'Phi'
-MEAN_ANOMALY_LABEL = 'Mean Anomaly'
+VELOCITY_RANDOM_NUMBER_1_LABEL = 'Velocity Random Number 1'
+VELOCITY_1_LABEL = 'Velocity 1'
+THETA_1_LABEL = 'Theta 1'
+PHI_1_LABEL = 'Phi 1'
+MEAN_ANOMALY_1_LABEL = 'Mean Anomaly 1'
 
+VELOCITY_RANDOM_NUMBER_2_LABEL = 'Velocity Random Number 2'
+VELOCITY_2_LABEL = 'Velocity 2'
+THETA_2_LABEL = 'Theta 2'
+PHI_2_LABEL = 'Phi 2'
+MEAN_ANOMALY_2_LABEL = 'Mean Anomaly 2'
 
+##########################
 # COMMON ENVELOPE
+##########################
 COMMON_ENVELOPE_ALPHA_LABEL = 'common_envelope_alpha'
 COMMON_ENVELOPE_LAMBDA_PRESCRIPTION = 'common_envelope_lambda_prescription'
 COMMON_ENVELOPE_LAMBDA_PRESCRIPTION_FIXED = 'LAMBDA_FIXED'
@@ -39,8 +46,9 @@ COMMON_ENVELOPE_LAMBDA_PRESCRIPTION_CHOICES = [
     (COMMON_ENVELOPE_LAMBDA_PRESCRIPTION_NANJING_VALUE, COMMON_ENVELOPE_LAMBDA_PRESCRIPTION_NANJING),
     (COMMON_ENVELOPE_LAMBDA_PRESCRIPTION_DEWI_VALUE, COMMON_ENVELOPE_LAMBDA_PRESCRIPTION_DEWI),
 ]
-
+##########################
 # Supernova
+##########################
 REMNANT_MASS_PRESCRIPTION_LABEL = 'remnant_mass_prescription'
 REMNANT_MASS_PRESCRIPTION_HURLEY2000 = 'HURLEY2000'
 REMNANT_MASS_PRESCRIPTION_HURLEY2000_VALUE = 'HURLEY2000'
@@ -151,6 +159,9 @@ PULSATIONAL_PAIR_INSTABILITY_PRESCRIPTION_CHOICES = [
 
 MAXIMUM_NEUTRON_STAR_MASS_LABEL = 'maximum_neutron_star_mass'
 
+##########################
+# Mass Transfer
+##########################
 MASS_TRANSFER_ANGULAR_MOMENTUM_LOSS_PRESCRIPTION_LABEL = 'mass-transfer-angular-momentum-loss-prescription'
 MASS_TRANSFER_ANGULAR_MOMENTUM_LOSS_PRESCRIPTION_JEANS = 'JEANS'
 MASS_TRANSFER_ANGULAR_MOMENTUM_LOSS_PRESCRIPTION_JEANS_VALUE = 'JEANS'
@@ -241,3 +252,59 @@ NAME_VALUES.update(
         MASS_TRANSFER_ACCERTION_EFFICIENCY_PRESCRIPTION_FIXED: MASS_TRANSFER_ACCERTION_EFFICIENCY_PRESCRIPTION_FIXED_VALUE,
     }
 )
+
+## Mapping fields names to corresponding COMPAS commands
+FIELD_COMMANDS = dict(
+    {
+        'mass1': '--initial-mass-1',
+        'mass2': '--initial-mass-2',
+        'metallicity': '--metallicity',
+        'eccentricity': '--eccentricity',
+        'separation': '--semi-major-axis',
+        'orbital_period': '--orbital-period',
+        'max_time': '--maximum-evolution-time',
+        'velocity_random_number_1': '--kick-magnitude-random-1',
+        'velocity_random_number_2': '--kick-magnitude-random-2',
+        'velocity_1': '--kick-magnitude-1',
+        'velocity_2': '--kick-magnitude-2',
+        'theta_1': '--kick-theta-1',
+        'theta_2': '--kick-theta-2',
+        'phi_1': '--kick-phi-1',
+        'phi_2': '--kick-phi-2',
+        'mean_anomaly_1': '--kick-mean-anomaly-1',
+        'mean_anomaly_2': '--kick-mean-anomaly-2',
+        'common_envelope_alpha': '--common-envelope-alpha',
+        'common_envelope_lambda_prescription': '--common-envelope-lambda-prescription',
+        'common_envelope_lambda': '--common-envelope-lambda',
+        'remnant_mass_prescription': '--remnant-mass-prescription',
+        'fryer_supernova_engine': '--fryer-supernova-engine',
+        'black_hole_kicks': '--black-hole-kicks',
+        'Kick_velocity_distribution': '--kick-magnitude-distribution',
+        'kick_velocity_sigma_CCSN_NS': '--kick-magnitude-sigma-CCSN-NS',
+        'kick_velocity_sigma_CCSN_BH': '--kick-magnitude-sigma-CCSN-BH',
+        'kick_velocity_sigma_ECSN': '--kick-magnitude-sigma-ECSN',
+        'kick_velocity_sigma_USSN': '--kick-magnitude-sigma-USSN',
+        'pair_instability_supernovae': '--pair-instability-supernovae',
+        'pisn_lower_limit': '--pisn-lower-limit',
+        'pisn_upper_limit': '--pisn-upper-limit',
+        'pulsational_pair_instability_supernovae': '--pulsational-pair-instability',
+        'ppi_lower_limit': '--ppi-lower-limit',
+        'ppi_upper_limit': '--ppi-upper-limit',
+        'pulsational_pair_instability_prescription': '--pulsational-pair-instability-prescription',
+        'maximum_neutron_star_mass': '--maximum-neutron-star-mass',
+        'mass_transfer_angular_momentum_loss_prescription': '--mass-transfer-angular-momentum-loss-prescription',
+        'mass_transfer_accertion_efficiency_prescription': '--mass-transfer-accretion-efficiency-prescription',
+        'mass_transfer_fa': '--mass-transfer-fa',
+        'mass_transfer_jloss': '--mass-transfer-jloss',
+    }
+)
+
+########################
+# CELERY TASK Results
+########################
+TASK_SUCCESS = 'SUCCESS'
+TASK_FAIL = 'FAIL'
+TASK_TIMEOUT = 'TIMEOUT'
+TASK_RUNNING = 'RUNNING'
+# example of added task failure
+TASK_FAIL_OTHER = 'REMOVED'

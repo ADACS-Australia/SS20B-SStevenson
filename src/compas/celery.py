@@ -14,10 +14,11 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
 
-# How long to wait for a job
+
+# Retrieve task timout limits from environment file
 # app.conf.update(
-#    task_soft_time_limit=300,
-#    task_time_limit=360,
+#     task_soft_time_limit = 300,
+#     task_time_limit = 330,
 # )
 
 

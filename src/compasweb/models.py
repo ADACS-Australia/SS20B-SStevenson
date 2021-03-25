@@ -173,6 +173,7 @@ class Upload(models.Model):
 class COMPASModelRun(models.Model):
 
     # required input parameters
+    # --initial-mass-1
     mass1 = models.FloatField(
         blank=False,
         null=False,
@@ -180,6 +181,7 @@ class COMPASModelRun(models.Model):
         validators=[MinValueValidator(0.0), MaxValueValidator(150.0)],
         help_text="Mass of the initially more massive star.  0 < Value < 150",
     )
+    # --initial-mass-2
     mass2 = models.FloatField(
         blank=False,
         null=False,
@@ -187,6 +189,7 @@ class COMPASModelRun(models.Model):
         validators=[MinValueValidator(0.0), MaxValueValidator(150.0)],
         help_text="Mass of the initially less massive star. 0 < Value < 150",
     )
+    # --metalicity
     metallicity = models.FloatField(
         blank=False,
         null=False,
@@ -194,6 +197,7 @@ class COMPASModelRun(models.Model):
         validators=[MinValueValidator(1e-4), MaxValueValidator(0.03)],
         help_text="Metallicity of stars.  1E-4 < Value < 0.03",
     )
+    # --eccentricity
     eccentricity = models.FloatField(
         blank=False,
         null=False,
@@ -201,20 +205,21 @@ class COMPASModelRun(models.Model):
         validators=[MinValueValidator(0.0), MaxValueValidator(1)],
         help_text="Orbital eccentricity of the binary. 0 <= Value < 1",
     )
-    seperation = models.FloatField(
-        blank=False,
-        null=False,
-        default=0.0,
+    # --semi_major_axis
+    separation = models.FloatField(
+        blank=True,
+        null=True,
         validators=[MinValueValidator(0.0)],
-        help_text="Orbital separation of the binary. Value > 0",
+        help_text="Value > 0",
     )
+    # --orbital_period
     orbital_period = models.FloatField(
-        blank=False,
-        null=False,
-        default=0.0,
+        blank=True,
+        null=True,
         validators=[MinValueValidator(0.0)],
-        help_text="Orbital period of the binary. Value > 0",
+        help_text="Value > 0",
     )
+    # --maximum-evolution-time
     max_time = models.FloatField(
         blank=False,
         null=False,
@@ -225,33 +230,68 @@ class COMPASModelRun(models.Model):
 
     # advanced settings
     # kicks
-    velocity_random_number = models.FloatField(
-        blank=False, null=False, validators=[MinValueValidator(0.0), MaxValueValidator(1.0)], help_text="0 < Value < 1"
+    # --kick-magnitude-random-1
+    velocity_random_number_1 = models.FloatField(
+        blank=True, null=True, validators=[MinValueValidator(0.0), MaxValueValidator(1.0)], help_text="0 < Value < 1"
     )
-    velocity = models.FloatField(blank=False, null=False, validators=[MinValueValidator(0.0)], help_text=" Value > 0")
-    theta = models.FloatField(
-        blank=False,
-        null=False,
+    # --kick-magnitude-random-2
+    velocity_random_number_2 = models.FloatField(
+        blank=True, null=True, validators=[MinValueValidator(0.0), MaxValueValidator(1.0)], help_text="0 < Value < 1"
+    )
+    # --kick-magnitude-1
+    velocity_1 = models.FloatField(blank=True, null=True, validators=[MinValueValidator(0.0)], help_text=" Value > 0")
+    # --kick-magnitude-2
+    velocity_2 = models.FloatField(blank=True, null=True, validators=[MinValueValidator(0.0)], help_text=" Value > 0")
+
+    # --kick-theta-1
+    theta_1 = models.FloatField(
+        blank=True,
+        null=True,
         validators=[MinValueValidator(0.0), MaxValueValidator(2.0 * math.pi)],
         help_text="0 < Value < 2pi",
     )
-    phi = models.FloatField(
-        blank=False,
-        null=False,
+    # --kick-theta-2
+    theta_2 = models.FloatField(
+        blank=True,
+        null=True,
         validators=[MinValueValidator(0.0), MaxValueValidator(2.0 * math.pi)],
         help_text="0 < Value < 2pi",
     )
-    mean_anomaly = models.FloatField(
-        blank=False,
-        null=False,
+    # --kick-phi-1
+    phi_1 = models.FloatField(
+        blank=True,
+        null=True,
+        validators=[MinValueValidator(0.0), MaxValueValidator(2.0 * math.pi)],
+        help_text="0 < Value < 2pi",
+    )
+    # --kick-phi-2
+    phi_2 = models.FloatField(
+        blank=True,
+        null=True,
+        validators=[MinValueValidator(0.0), MaxValueValidator(2.0 * math.pi)],
+        help_text="0 < Value < 2pi",
+    )
+    # --kick-mean-anomaly-1
+    mean_anomaly_1 = models.FloatField(
+        blank=True,
+        null=True,
+        validators=[MinValueValidator(0.0), MaxValueValidator(2.0 * math.pi)],
+        help_text="0 < Value < 2pi",
+    )
+    # --kick-mean-anomaly-2
+    mean_anomaly_2 = models.FloatField(
+        blank=True,
+        null=True,
         validators=[MinValueValidator(0.0), MaxValueValidator(2.0 * math.pi)],
         help_text="0 < Value < 2pi",
     )
 
     # common envelope
+    # --common-envelope-alpha
     common_envelope_alpha = models.FloatField(
         blank=False, null=False, default=1.0, validators=[MinValueValidator(0.0)], help_text="Value > 0"
     )
+    # --common-envelope-lambda-prescription
     common_envelope_lambda_prescription = models.CharField(
         choices=COMMON_ENVELOPE_LAMBDA_PRESCRIPTION_CHOICES,
         max_length=55,
@@ -259,11 +299,13 @@ class COMPASModelRun(models.Model):
         null=False,
         default=COMMON_ENVELOPE_LAMBDA_PRESCRIPTION_NANJING_VALUE,
     )
+    # --common-envelope-lambda
     common_envelope_lambda = models.FloatField(
         blank=False, null=False, validators=[MinValueValidator(0.0)], default=0.1, help_text="Value > 0"
     )
 
     # supernova
+    # --remnant-mass-prescription
     remnant_mass_prescription = models.CharField(
         choices=REMNANT_MASS_PRESCRIPTION_CHOICES,
         max_length=55,
@@ -271,6 +313,7 @@ class COMPASModelRun(models.Model):
         null=False,
         default=REMNANT_MASS_PRESCRIPTION_FRYER2012_VALUE,
     )
+    # --fryer-supernova-engine
     fryer_supernova_engine = models.CharField(
         choices=FRYER_SUPERNOVA_ENGINE_CHOICES,
         max_length=55,
@@ -278,6 +321,7 @@ class COMPASModelRun(models.Model):
         null=False,
         default=FRYER_SUPERNOVA_ENGINE_DELAYED_VALUE,
     )
+    # --black-hole-kicks
     black_hole_kicks = models.CharField(
         choices=BLACK_HOLE_KICKS_CHOICES,
         max_length=55,
@@ -285,6 +329,7 @@ class COMPASModelRun(models.Model):
         null=False,
         default=BLACK_HOLE_KICKS_FALLBACK_VALUE,
     )
+    # --kick-magnitude-distribution
     Kick_velocity_distribution = models.CharField(
         choices=KICK_VELOCITY_DISTRIBUTION_CHOICES,
         max_length=55,
@@ -292,28 +337,39 @@ class COMPASModelRun(models.Model):
         null=False,
         default=KICK_VELOCITY_DISTRIBUTION_MAXWELLIAN,
     )
+    # --kick-magnitude-sigma-CCSN-NS
     kick_velocity_sigma_CCSN_NS = models.FloatField(
         blank=False, null=False, validators=[MinValueValidator(0.0)], default=256.0, help_text="Value > 0"
     )
+    # --kick-magnitude-sigma-CCSN-BH
     kick_velocity_sigma_CCSN_BH = models.FloatField(
         blank=False, null=False, validators=[MinValueValidator(0.0)], default=256.0, help_text="Value > 0"
     )
+    # --kick-magnitude-sigma-ECSN
     kick_velocity_sigma_ECSN = models.FloatField(
         blank=False, null=False, validators=[MinValueValidator(0.0)], default=30.0, help_text="Value > 0"
     )
+    # --kick-magnitude-sigma-USSN
     kick_velocity_sigma_USSN = models.FloatField(
         blank=False, null=False, validators=[MinValueValidator(0.0)], default=30.0, help_text="Value > 0"
     )
+    # --pair-instability-supernovae
     pair_instability_supernovae = models.BooleanField(blank=False, null=False, default=True)
+    # --pisn-lower-limit
     pisn_lower_limit = models.FloatField(
         blank=False, null=False, validators=[MinValueValidator(0.0)], default=60.0, help_text="Value > 0"
     )
+    # --pisn-upper-limit
     pisn_upper_limit = models.FloatField(blank=False, null=False, validators=[MinValueValidator(0.0)], default=135.0)
+    # --pulsational-pair-instability
     pulsational_pair_instability_supernovae = models.BooleanField(blank=False, null=False, default=True)
+    # --pisn-lower-limit
     ppi_lower_limit = models.FloatField(
         blank=False, null=False, validators=[MinValueValidator(0.0)], default=35.0, help_text="Value > 0"
     )
+    # --pisn-upper-limit
     ppi_upper_limit = models.FloatField(blank=False, null=False, validators=[MinValueValidator(0.0)], default=60.0)
+    # --pulsational-pair-instability-prescription
     pulsational_pair_instability_prescription = models.CharField(
         choices=PULSATIONAL_PAIR_INSTABILITY_PRESCRIPTION_CHOICES,
         max_length=55,
@@ -321,11 +377,13 @@ class COMPASModelRun(models.Model):
         null=False,
         default=PULSATIONAL_PAIR_INSTABILITY_PRESCRIPTION_MARCHANT,
     )
+    # --maximum-neutron-star-mass
     maximum_neutron_star_mass = models.FloatField(
         blank=False, null=False, validators=[MinValueValidator(0.0)], default=2.5, help_text="Value > 0"
     )
 
     # Mass transfer
+    # --mass-transfer-angular-momentum-loss-prescription
     mass_transfer_angular_momentum_loss_prescription = models.CharField(
         choices=MASS_TRANSFER_ANGULAR_MOMENTUM_LOSS_PRESCRIPTION_CHOICES,
         max_length=55,
@@ -333,6 +391,7 @@ class COMPASModelRun(models.Model):
         null=False,
         default=MASS_TRANSFER_ANGULAR_MOMENTUM_LOSS_PRESCRIPTION_ISOTROPIC_VALUE,
     )
+    # --mass-transfer-accretion-efficiency-prescription
     mass_transfer_accertion_efficiency_prescription = models.CharField(
         choices=MASS_TRANSFER_ACCERTION_EFFICIENCY_PRESCRIPTION_CHOICES,
         max_length=55,
@@ -341,6 +400,7 @@ class COMPASModelRun(models.Model):
         default=MASS_TRANSFER_ACCERTION_EFFICIENCY_PRESCRIPTION_THERMAL_VALUE,
     )
     # Ideally should only appear if using --mass-transfer-accretion-efficiency-prescription FIXED
+    # --mass-transfer-fa
     mass_transfer_fa = models.FloatField(
         blank=False,
         null=False,
@@ -349,6 +409,7 @@ class COMPASModelRun(models.Model):
         help_text='Mass Transfer fraction accreted in FIXED prescription',
     )
     # Ideally should only appear if using --mass-transfer-angular-momentum-loss-prescription ARBITRARY
+    # --mass-transfer-jloss
     mass_transfer_jloss = models.FloatField(
         blank=False,
         null=False,
@@ -356,3 +417,38 @@ class COMPASModelRun(models.Model):
         default=1.0,
         help_text='Specific angular momentum with which the non-accreted system leaves the system',
     )
+
+    def save(self, *args, **kwargs):
+        """
+        overwrites default save model behavior
+        """
+        super().save(*args, **kwargs)
+        self.save_BSE_Grid_file()
+
+    def save_BSE_Grid_file(self):
+        """
+        saves initial parameters and advanced settings in BSE_grid.txt file to filesystem
+        """
+        content = ""
+        for field in self._meta.get_fields():
+            field_value = getattr(self, field.name)
+            if field_value and (field.name in FIELD_COMMANDS):
+                # print(f'{FIELD_COMMANDS[field.name]} {field_value}')
+                content += f'{FIELD_COMMANDS[field.name]} {field_value}' + " "
+
+        # path where the file is saved: media_root/job_key
+        storage_location = os.path.join(settings.MEDIA_ROOT, 'jobs', str(self.id))
+        # create directory
+        if not os.path.exists(storage_location):
+            os.makedirs(storage_location)
+        # name parameter file
+        grid_file_path = os.path.join(storage_location, 'BSE_grid.txt')
+
+        # write parameters string to file
+        with open(grid_file_path, 'w') as f:
+            f.write(content)
+
+        # # save file url to database
+        # self.parameter_file_url = self.job_key + "/galaxia_param"
+        # # save file content to database as bytes
+        # self.parameters = bytes(content, encoding='utf-8')

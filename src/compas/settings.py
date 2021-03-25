@@ -16,7 +16,7 @@ import environ
 env = environ.Env(
     DEBUG=(bool, False),
 )
-environ.Env.read_env(".env.development")
+environ.Env.read_env(".env")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
@@ -151,11 +151,14 @@ else:
     BOKEH_SERVER = "http://localhost:5006/compas_hexbinplot"
 
 # Celery broker
-CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_BROKER_URL = env('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = env('CELERY_RESULT_BACKEND')
 
-# Submit file within compas-django folder
+COMPAS_IO_PATH = os.path.join(MEDIA_ROOT, 'jobs/')
+
+# COMPAS Python Submit command for Celery task
+# TODO update these settigs to work with COMPAS running in Docker container
 RUN_COMPAS_COMMAND = [
     'python3',
-    '/home/rdzudzar/compas_check_poetry/ss20b-sstevenson/src/compas/celery_pythonSubmit.py',
+    os.path.join(BASE_DIR, 'compasweb/utils/celery_pythonSubmit.py'),
 ]
-# Set path above

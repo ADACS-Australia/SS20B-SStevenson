@@ -502,7 +502,7 @@ color: #373F41;
 
 /* Field errors */
 
-.field.error input, select::after{
+.error input, select::after{
     border-color: red;
 }
 .error-message {
@@ -525,5 +525,9 @@ color: #373F41;
 
 .field-error{
     font-size: small;
-    color: red;
+    color: salmon;
+}
+
+.error label{
+    color: salmon;
 }

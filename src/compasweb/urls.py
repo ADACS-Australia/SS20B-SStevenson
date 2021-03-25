@@ -16,5 +16,5 @@ urlpatterns = [
     ),
     path("model/<int:pk>/", ModelDetailView.as_view(), name="model_detail"),
     path("model/new/", run_compas_model, name="run_compas_model"),
-    path("model/output/<int:job_id>/", compas_model_output, name="compas_model_output"),
+    path("model/output/<int:model_id>/", compas_model_output, name="compas_model_output"),
 ]

@@ -80,4 +80,24 @@ let ready = $(document).ready(function() {
             $('.div-mass_transfer_jloss').addClass('d-none')
         }
     }
+
+    
+    //set initial state.
+    // $('#kick_enabled').val(this.checked);
+    
+    $('#kick_enabled').change(function() {
+        if(this.checked) {
+            // alert('enabled')
+            // var returnVal = confirm("Are you sure?");
+            // $(this).prop("checked", returnVal);
+            $('#kick_settings').prop('disabled', false);
+        }
+        else{
+            // alert('disabled')
+            // var returnVal = confirm("Are you sure?");
+            // $(this).prop("checked", returnVal);
+            $('#kick_settings').prop('disabled', true);
+        }
+        //$('#textbox1').val(this.checked);        
+    });
 });

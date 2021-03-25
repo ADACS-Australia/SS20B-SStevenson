@@ -8,8 +8,8 @@ services:
     container_name: django
     environment:
       - DEBUG=False
-      - ROOT_SUBDIRECTORY_PATH
-      - COMPAS_HOST
+      - ROOT_SUBDIRECTORY_PATH=${ROOT_SUBDIRECTORY_PATH}
+      - COMPAS_HOST=${COMPAS_HOST}
     volumes:
       - ./src/static:/code/static-files
       - ./files:/files
@@ -30,7 +30,7 @@ services:
     depends_on:
       - django
     environment:
-      - ROOT_SUBDIRECTORY_PATH
+      - ROOT_SUBDIRECTORY_PATH=${ROOT_SUBDIRECTORY_PATH}
     volumes:
       - ./src/static:/static
       - ./files:/files
@@ -48,3 +48,26 @@ services:
       - ./files:/files/
     command: >
       bash -c 'bokeh serve --prefix=$${ROOT_SUBDIRECTORY_PATH}/bokeh --allow-websocket-origin="*" compas_hexbinplot.py'
+  redis:
+    image: redis:latest
+    container_name: redis_server
+    ports:
+      - '6379:6379'
+  celery:
+    build: 
+      context: .
+      dockerfile: docker/django.Dockerfile
+    restart: always
+    environment: 
+      - CELERY_BROKER_URL:${CELERY_BROKER_URL}
+      - CELERY_RESULT_BACKEND:${CELERY_RESULT_BACKEND}
+    command: celery -A compas worker -l info
+    volumes:
+      - ./files:/files/
+      - ./src:/code/
+    depends_on:
+      - redis
+      - django
+    links: 
+      - redis
+      - django

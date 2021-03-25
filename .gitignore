@@ -160,3 +160,4 @@ files/*
 !files/.gitkeep
 src/static-files/*
 src/plots/COMPAS_CHE_30xZ_3000000.h5
+dump.rdb

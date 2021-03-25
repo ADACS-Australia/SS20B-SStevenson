@@ -10,38 +10,185 @@
     <!-- <hr class="dashed-line"> -->
     <!-- <p class="p-text-md"><span>How to explore the datasets</span>: -->
     {% if messages %}
-    <ul class="alert alert-danger">
+    <div class="alert alert-danger">
         {% for message in messages %}
-        <li>{{ message }}</li>
+        <div>{{message}}</div>
         {% endfor %}
-    </ul>
+    </div>
+
     {% endif %}
     <div class="container">
+
+    
     <form method="post" class="col-md-12 form-group">
         {% csrf_token %}
         <div class="container" id='initial_parameters'>
-            {% for field in run_model_form.get_initial_parameters %}
             <div class="row field
-                        {% if field.field.required %} required {% endif %}
-                        div-{{ field.name }}">
+                        {% if run_model_form.mass1.errors %} error {% endif %} 
+                        {% if run_model_form.mass1.field.required %} required {% endif %}
+                        div-{{ run_model_form.mass1.name }}">
 
                 <!-- Label -->
-                <label class="col col-md-4 col-sm-6 col-sx-6 col-12 mb-2 field-label"
-                    for="{{ field.auto_id }}">
-                    {{ field.label }} &#9737;
+                <label class="col col-md-2 col-sm-6 col-sx-6 col-12 mb-2 field-label"
+                    for="{{ run_model_form.mass1.auto_id }}">
+                    {{ run_model_form.mass1.label }} (M&#9737;)
                 </label>
 
                 <!-- Field -->
-                <div class="col col-md-3 col-sm-6 col-sx-6 col-12 mb-2">
-                    <div class="{% if field.errors %} error {% endif %}">{{ field }}</div>
-                    <div>{{ field.errors }}</div>
+                <div class="col col-md-4 col-sm-6 col-sx-6 col-12 mb-2">
+                    <div >{{ run_model_form.mass1 }}</div>
+                    {% for err in run_model_form.mass1.errors%}
+                    <div class="field-error">{{err|escape}}</div>
+                    {% endfor %}
                 </div>
                 <!-- Help text and Errors-->
-                <div class="col col-md-5 col-sm-6 col-sx-6 col-12 mb-2">
-                    <div class='help-text'>{{ field.help_text }}</div>
+                <div class="col col-md-6 col-sm-6 col-sx-6 col-12 mb-2">
+                    <div class='help-text'>{{ run_model_form.mass1.help_text }}</div>
                 </div>
             </div>
-            {% endfor %}
+            <div class="row field 
+                        {% if run_model_form.mass2.field.required %} required {% endif %} 
+                        {% if run_model_form.mass2.errors %} error {% endif %} 
+                        div-{{ run_model_form.mass2.name }}">
+
+                <!-- Label -->
+                <label class="col col-md-2 col-sm-6 col-sx-6 col-12 mb-2 field-label"
+                    for="{{ run_model_form.mass2.auto_id }}">
+                    {{ run_model_form.mass2.label }} (M&#9737;) 
+                </label>
+
+                <!-- Field -->
+                <div class="col col-md-4 col-sm-6 col-sx-6 col-12 mb-2">
+                    <div >{{ run_model_form.mass2 }} </div>
+                    {% for err in run_model_form.mass2.errors%}
+                    <div class="field-error">{{err|escape}}</div>
+                    {% endfor %}
+                </div>
+                <!-- Help text and Errors-->
+                <div class="col col-md-6 col-sm-6 col-sx-6 col-12 mb-2">
+                    <div class='help-text'>{{ run_model_form.mass2.help_text }}</div>
+                </div>
+            </div>
+            <div class="row field
+                        {% if run_model_form.metallicity.field.required %} required {% endif %} 
+                        {% if run_model_form.metallicity.errors %} error {% endif %} 
+                        div-{{ run_model_form.metallicity.name }}">
+
+                <!-- Label -->
+                <label class="col col-md-2 col-sm-6 col-sx-6 col-12 mb-2 field-label"
+                    for="{{ run_model_form.metallicity.auto_id }}">
+                    {{ run_model_form.metallicity.label }} (Z&#9737;)
+                </label>
+
+                <!-- Field -->
+                <div class="col col-md-4 col-sm-6 col-sx-6 col-12 mb-2">
+                    <div >{{ run_model_form.metallicity }} </div>
+                    {% for err in run_model_form.metallicity.errors%}
+                    <div class="field-error">{{err|escape}}</div>
+                    {% endfor %}
+                </div>
+                <!-- Help texts-->
+                <div class="col col-md-6 col-sm-6 col-sx-6 col-12 mb-2">
+                    <div class='help-text'>{{ run_model_form.metallicity.help_text }}</div>
+                </div>
+            </div>
+            <div class="row field
+                        {% if run_model_form.eccentricity.field.required %} required {% endif %}
+                        {% if run_model_form.eccentricity.errors %} error {% endif %} 
+                        div-{{ run_model_form.eccentricity.name }}">
+
+                <!-- Label -->
+                <label class="col col-md-2 col-sm-6 col-sx-6 col-12 mb-2 field-label"
+                    for="{{ run_model_form.eccentricity.auto_id }}">
+                    {{ run_model_form.eccentricity.label }} 
+                </label>
+
+                <!-- Field -->
+                <div class="col col-md-4 col-sm-6 col-sx-6 col-12 mb-2">
+                    <div>{{ run_model_form.eccentricity }}</div>
+                    {% for err in run_model_form.eccentricity.errors%}
+                    <div class="field-error">{{err|escape}}</div>
+                    {% endfor %}
+                </div>
+                <!-- Help text and Errors-->
+                <div class="col col-md-6 col-sm-6 col-sx-6 col-12 mb-2">
+                    <div class='help-text'>{{ run_model_form.eccentricity.help_text }}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class=" field col col-md-6
+                            {% if run_model_form.separation.field.required %} required {% endif %}
+                            {% if run_model_form.separation.errors %} error {% endif %}
+                            div-{{ run_model_form.separation.name }}">
+                    <div class="row">
+                        <!-- Label -->
+                        <label class=" field-label col col-md-4 "
+                        for="{{ run_model_form.separation.auto_id }}">
+                        {{ run_model_form.separation.label }} (R&#9737;)
+                        </label>
+
+                        <!-- Field -->
+                        <div class="col col-md-6">
+                            <div >{{ run_model_form.separation }}</div>
+                            <!-- Errors -->
+                            {% for err in run_model_form.separation.errors%}
+                            <div class="field-error">{{err|escape}}</div>
+                            {% endfor %}
+                        </div>
+                        <!-- Help text and Errors-->
+                        <div class=" field-label col col-md-1">OR</div>
+                    </div>
+                    
+                </div>
+                
+                <div class="field col col-md-6
+                            {% if run_model_form.orbital_period.field.required %} required {% endif %}
+                            {% if run_model_form.orbital_period.errors %} error {% endif %} 
+                            div-{{ run_model_form.orbital_period.name }}">
+                    <div class="row">
+                        <!-- Label -->
+                        <label class="field-label col col-md-4"
+                            for="{{ run_model_form.orbital_period.auto_id }}">
+                            {{ run_model_form.orbital_period.label }} (days)
+                        </label>
+
+                        <!-- Field -->
+                        <div class="col col-md-5">
+                            <div>{{ run_model_form.orbital_period }}</div>
+                            {% for err in run_model_form.orbital_period.errors%}
+                            <div class="field-error">{{err|escape}}</div>
+                            {% endfor %}
+                        </div>
+                        <!-- Help text and Errors-->
+                        <div class="col col-md-3">
+                            <div class='help-text'>{{ run_model_form.orbital_period.help_text }}</div>
+                        </div>
+                    </div>
+                </div>     
+            </div>
+            <div class="row field
+                        {% if run_model_form.max_time.field.required %} required {% endif %}
+                        {% if run_model_form.max_time.errors %} error {% endif %} 
+                        div-{{ run_model_form.max_time.name }}">
+
+                <!-- Label -->
+                <label class="col col-md-2 col-sm-6 col-sx-6 col-12 mb-2 field-label"
+                    for="{{ run_model_form.max_time.auto_id }}">
+                    {{ run_model_form.max_time.label }} (Myr)
+                </label>
+
+                <!-- Field -->
+                <div class="col col-md-4 col-sm-6 col-sx-6 col-12 mb-2">
+                    <div>{{ run_model_form.max_time }}</div>
+                    {% for err in run_model_form.max_time.errors%}
+                    <div class="field-error">{{err|escape}}</div>
+                    {% endfor %}
+                </div>
+                <!-- Help text and Errors-->
+                <div class="col col-md-6 col-sm-6 col-sx-6 col-12 mb-2">
+                    <div class='help-text'>{{ run_model_form.max_time.help_text }}</div>
+                </div>
+            </div>
         </div>
         <div class="container" id='advanced_settings' >
             <div class="title-md">
@@ -49,34 +196,799 @@
                 <h2 class="jumbotron-heading text-center title-md">Advanced Settings</h2>
                 <hr class="dashed-line">
             </div>
-            {% for field in run_model_form.get_advanced_settings %}
-            <div class="row field
-                        {% if field.field.required %} required {% endif %}
-                        {% if field.errors %} error {% endif %}
-                        div-{{ field.name }}">
-
-                <!-- Label -->
-                <label class="col col-md-4 col-sm-6 col-sx-6 col-12 mb-2 field-label" 
-                    for="{{ field.auto_id }}">
-                    {{ field.label }}
-                </label>
-
-                <!-- Field -->
-                <div class="col col-md-3 col-sm-6 col-sx-6 col-12 mb-2">
-                    <div class="{% if field.errors %} error {% endif %}">{{ field }}</div>
-                
-                    <!-- <div>{{ field.errors }}</div> -->
-                    {% for err in field.errors%}
-                    <div class="field-error">{{err|escape}}</div>
-                    {% endfor %}
+            <div class="container" id="kick_settings">
+                <div class="title-sm">
+                    <h3 class="jumbotron-heading text-left title-sm" >Kick<sup>1</sup>
+                        <input type="checkbox" id="kick_enabled" checked></h3>
                 </div>
-                <!-- Help text and Errors-->
-                <div class="col col-md-5 col-sm-6 col-sx-6 col-12 mb-2">
-                    <div class='help-text'>{{ field.help_text }}</div>
+                <div class="row">
+                    <div class=" field col col-md-6
+                                {% if run_model_form.velocity_random_number_1.field.required %} required {% endif %}
+                                {% if run_model_form.velocity_random_number_1.errors %} error {% endif %}
+                                div-{{ run_model_form.velocity_random_number_1.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class=" field-label col col-md-6"
+                            for="{{ run_model_form.velocity_random_number_1.auto_id }}">
+                            {{ run_model_form.velocity_random_number_1.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.velocity_random_number_1 }}</div>
+                                {% for err in run_model_form.velocity_random_number_1.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="field col col-md-6
+                                {% if run_model_form.velocity_random_number_2.field.required %} required {% endif %}
+                                {% if run_model_form.velocity_random_number_2.errors %} error {% endif %}
+                                div-{{ run_model_form.velocity_random_number_2.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class="field-label col col-md-6"
+                                for="{{ run_model_form.velocity_random_number_2.auto_id }}">
+                                {{ run_model_form.velocity_random_number_2.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.velocity_random_number_2 }}</div>
+                                {% for err in run_model_form.velocity_random_number_2.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+                
+                <div class="row">
+                    <div class=" field col col-md-6
+                                {% if run_model_form.velocity_1.field.required %} required {% endif %}
+                                {% if run_model_form.velocity_1.errors %} error {% endif %}
+                                div-{{ run_model_form.velocity_1.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class=" field-label col col-md-6"
+                            for="{{ run_model_form.velocity_1.auto_id }}">
+                            {{ run_model_form.velocity_1.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.velocity_1 }}</div>
+                                {% for err in run_model_form.velocity_1.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="field col col-md-6
+                                {% if run_model_form.velocity_2.field.required %} required {% endif %}
+                                {% if run_model_form.velocity_2.errors %} error {% endif %} 
+                                div-{{ run_model_form.velocity_2.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class="field-label col col-md-6"
+                                for="{{ run_model_form.velocity_2.auto_id }}">
+                                {{ run_model_form.velocity_2.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.velocity_2 }}</div>
+                                {% for err in run_model_form.velocity_2.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+
+                <div class="row">
+                    <div class=" field col col-md-6
+                                {% if run_model_form.theta_1.field.required %} required {% endif %}
+                                {% if run_model_form.theta_1.errors %} error {% endif %}
+                                div-{{ run_model_form.theta_1.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class=" field-label col col-md-6"
+                            for="{{ run_model_form.theta_1.auto_id }}">
+                            {{ run_model_form.theta_1.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.theta_1 }}</div>
+                                {% for err in run_model_form.theta_1.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="field col col-md-6
+                                {% if run_model_form.theta_2.field.required %} required {% endif %}
+                                {% if run_model_form.theta_2.errors %} error {% endif %}
+                                div-{{ run_model_form.theta_2.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class="field-label col col-md-6"
+                                for="{{ run_model_form.theta_2.auto_id }}">
+                                {{ run_model_form.theta_2.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.theta_2 }}</div>
+                                {% for err in run_model_form.theta_2.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+
+                <div class="row">
+                    <div class=" field col col-md-6
+                                {% if run_model_form.phi_1.field.required %} required {% endif %}
+                                {% if run_model_form.phi_1.errors %} error {% endif %}
+                                div-{{ run_model_form.phi_1.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class=" field-label col col-md-6"
+                            for="{{ run_model_form.phi_1.auto_id }}">
+                            {{ run_model_form.phi_1.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.phi_1 }}</div>
+                                {% for err in run_model_form.phi_1.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="field col col-md-6
+                                {% if run_model_form.phi_2.field.required %} required {% endif %}
+                                {% if run_model_form.phi_2.errors %} error {% endif %}
+                                div-{{ run_model_form.phi_2.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class="field-label col col-md-6"
+                                for="{{ run_model_form.phi_2.auto_id }}">
+                                {{ run_model_form.phi_2.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.phi_2 }}</div>
+                                {% for err in run_model_form.phi_2.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+
+                <div class="row">
+                    <div class=" field col col-md-6
+                                {% if run_model_form.mean_anomaly_1.field.required %} required {% endif %}
+                                {% if run_model_form.mean_anomaly_1.errors %} error {% endif %}
+                                div-{{ run_model_form.mean_anomaly_1.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class=" field-label col col-md-6"
+                            for="{{ run_model_form.mean_anomaly_1.auto_id }}">
+                            {{ run_model_form.mean_anomaly_1.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.mean_anomaly_1 }}</div>
+                                {% for err in run_model_form.mean_anomaly_1.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="field col col-md-6
+                                {% if run_model_form.mean_anomaly_2.field.required %} required {% endif %}
+                                {% if run_model_form.mean_anomaly_2.errors %} error {% endif %}
+                                div-{{ run_model_form.mean_anomaly_2.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class="field-label col col-md-6"
+                                for="{{ run_model_form.mean_anomaly_2.auto_id }}">
+                                {{ run_model_form.mean_anomaly_2.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.mean_anomaly_2 }}</div>
+                                {% for err in run_model_form.mean_anomaly_2.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+
+            </div>
+
+            <div class="container" id="common_envelope_settings">
+                <div class="title-sm">
+                    <hr class="dashed-line">
+                    <h3 class="jumbotron-heading text-left title-sm" >Common Envelope<sup>2</sup> 
+                        <input type="checkbox" id="common_envelope_enabled" checked></h3>
+                    
+                </div>
+                <div class="row field
+                        {% if run_model_form.common_envelope_alpha.field.required %} required {% endif %}
+                        {% if run_model_form.common_envelope_alpha.errors %} error {% endif %} 
+                        div-{{ run_model_form.common_envelope_alpha.name }}">
+
+                    <!-- Label -->
+                    <label class="col col-md-3 col-sm-6 col-sx-6 col-12 mb-2 field-label"
+                        for="{{ run_model_form.common_envelope_alpha.auto_id }}">
+                        {{ run_model_form.common_envelope_alpha.label }}
+                    </label>
+
+                    <!-- Field -->
+                    <div class="col col-md-4 col-sm-6 col-sx-6 col-12 mb-2">
+                        <div>{{ run_model_form.common_envelope_alpha }}</div>
+                        {% for err in run_model_form.common_envelope_alpha.errors%}
+                        <div class="field-error">{{err|escape}}</div>
+                        {% endfor %}
+                    </div>
+                    <!-- Help text and Errors-->
+                    <div class="col col-md-5 col-sm-6 col-sx-6 col-12 mb-2">
+                        <div class='help-text'>{{ run_model_form.common_envelope_alpha.help_text }}</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class=" field col col-md-6
+                                {% if run_model_form.common_envelope_lambda_prescription.field.required %} required {% endif %}
+                                {% if run_model_form.common_envelope_lambda_prescription.errors %} error {% endif %}
+                                div-{{ run_model_form.common_envelope_lambda_prescription.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class=" field-label col col-md-6"
+                            for="{{ run_model_form.common_envelope_lambda_prescription.auto_id }}">
+                            {{ run_model_form.common_envelope_lambda_prescription.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.common_envelope_lambda_prescription }}</div>
+                                {% for err in run_model_form.common_envelope_lambda_prescription.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="field col col-md-6
+                                {% if run_model_form.common_envelope_lambda.field.required %} required {% endif %}
+                                {% if run_model_form.common_envelope_lambda.errors %} error {% endif %}
+                                div-{{ run_model_form.common_envelope_lambda.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class="field-label col col-md-6"
+                                for="{{ run_model_form.common_envelope_lambda.auto_id }}">
+                                {{ run_model_form.common_envelope_lambda.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.common_envelope_lambda }}</div>
+                                {% for err in run_model_form.common_envelope_lambda.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+
+            </div>
+
+            <div class="container" id="supernova_settings">
+                <div class="title-sm">
+                    <hr class="dashed-line">
+                    <h3 class="jumbotron-heading text-left title-sm" >Supernova<sup>3</sup>
+                        <input type="checkbox" id="supernova_enabled" checked></h3>
+                </div>
+
+                <div class="row">
+                    <div class=" field col col-md-6
+                                {% if run_model_form.remnant_mass_prescription.field.required %} required {% endif %}
+                                {% if run_model_form.remnant_mass_prescription.errors %} error {% endif %}
+                                div-{{ run_model_form.remnant_mass_prescription.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class=" field-label col col-md-6"
+                            for="{{ run_model_form.remnant_mass_prescription.auto_id }}">
+                            {{ run_model_form.remnant_mass_prescription.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.remnant_mass_prescription }}</div>
+                                {% for err in run_model_form.remnant_mass_prescription.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="field col col-md-6
+                                {% if run_model_form.fryer_supernova_engine.field.required %} required {% endif %}
+                                {% if run_model_form.fryer_supernova_engine.errors %} error {% endif %}
+                                div-{{ run_model_form.fryer_supernova_engine.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class="field-label col col-md-6"
+                                for="{{ run_model_form.fryer_supernova_engine.auto_id }}">
+                                {{ run_model_form.fryer_supernova_engine.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.fryer_supernova_engine }}</div>
+                                {% for err in run_model_form.fryer_supernova_engine.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+
+
+                <div class="row">
+                    <div class=" field col col-md-6
+                                {% if run_model_form.black_hole_kicks.field.required %} required {% endif %}
+                                {% if run_model_form.black_hole_kicks.errors %} error {% endif %}
+                                div-{{ run_model_form.black_hole_kicks.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class=" field-label col col-md-6"
+                            for="{{ run_model_form.black_hole_kicks.auto_id }}">
+                            {{ run_model_form.black_hole_kicks.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.black_hole_kicks }}</div>
+                                {% for err in run_model_form.black_hole_kicks.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="field col col-md-6
+                                {% if run_model_form.Kick_velocity_distribution.field.required %} required {% endif %}
+                                {% if run_model_form.Kick_velocity_distribution.errors %} error {% endif %}
+                                div-{{ run_model_form.Kick_velocity_distribution.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class="field-label col col-md-6"
+                                for="{{ run_model_form.Kick_velocity_distribution.auto_id }}">
+                                {{ run_model_form.Kick_velocity_distribution.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.Kick_velocity_distribution }}</div>
+                                {% for err in run_model_form.Kick_velocity_distribution.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+
+                <div class="row">
+                    <div class=" field col col-md-6
+                                {% if run_model_form.kick_velocity_sigma_CCSN_NS.field.required %} required {% endif %}
+                                {% if run_model_form.kick_velocity_sigma_CCSN_NS.errors %} error {% endif %}
+                                div-{{ run_model_form.kick_velocity_sigma_CCSN_NS.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class=" field-label col col-md-6"
+                            for="{{ run_model_form.kick_velocity_sigma_CCSN_NS.auto_id }}">
+                            {{ run_model_form.kick_velocity_sigma_CCSN_NS.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.kick_velocity_sigma_CCSN_NS }}</div>
+                                {% for err in run_model_form.kick_velocity_sigma_CCSN_NS.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="field col col-md-6
+                                {% if run_model_form.kick_velocity_sigma_CCSN_BH.field.required %} required {% endif %}
+                                {% if run_model_form.kick_velocity_sigma_CCSN_BH.errors %} error {% endif %}
+                                div-{{ run_model_form.kick_velocity_sigma_CCSN_BH.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class="field-label col col-md-6"
+                                for="{{ run_model_form.kick_velocity_sigma_CCSN_BH.auto_id }}">
+                                {{ run_model_form.kick_velocity_sigma_CCSN_BH.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.kick_velocity_sigma_CCSN_BH }}</div>
+                                {% for err in run_model_form.kick_velocity_sigma_CCSN_BH.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+
+                <div class="row">
+                    <div class=" field col col-md-6
+                                {% if run_model_form.kick_velocity_sigma_ECSN.field.required %} required {% endif %}
+                                {% if run_model_form.kick_velocity_sigma_ECSN.errors %} error {% endif %}
+                                div-{{ run_model_form.kick_velocity_sigma_ECSN.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class=" field-label col col-md-6"
+                            for="{{ run_model_form.kick_velocity_sigma_ECSN.auto_id }}">
+                            {{ run_model_form.kick_velocity_sigma_ECSN.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.kick_velocity_sigma_ECSN }}</div>
+                                {% for err in run_model_form.kick_velocity_sigma_ECSN.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="field col col-md-6
+                                {% if run_model_form.kick_velocity_sigma_USSN.field.required %} required {% endif %}
+                                {% if run_model_form.kick_velocity_sigma_USSN.errors %} error {% endif %}
+                                div-{{ run_model_form.kick_velocity_sigma_USSN.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class="field-label col col-md-6"
+                                for="{{ run_model_form.kick_velocity_sigma_USSN.auto_id }}">
+                                {{ run_model_form.kick_velocity_sigma_USSN.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.kick_velocity_sigma_USSN }}</div>
+                                {% for err in run_model_form.kick_velocity_sigma_USSN.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+
+                <div class="row">
+                    <div class=" field col col-md-6
+                                {% if run_model_form.pair_instability_supernovae.field.required %} required {% endif %}
+                                {% if run_model_form.pair_instability_supernovae.errors %} error {% endif %}
+                                div-{{ run_model_form.pair_instability_supernovae.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class=" field-label col col-md-6"
+                            for="{{ run_model_form.pair_instability_supernovae.auto_id }}">
+                            {{ run_model_form.pair_instability_supernovae.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.pair_instability_supernovae }}</div>
+                                {% for err in run_model_form.pair_instability_supernovae.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class=" field col col-md-6
+                                {% if run_model_form.pisn_lower_limit.field.required %} required {% endif %}
+                                {% if run_model_form.pisn_lower_limit.errors %} error {% endif %}
+                                div-{{ run_model_form.pisn_lower_limit.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class=" field-label col col-md-6"
+                            for="{{ run_model_form.pisn_lower_limit.auto_id }}">
+                            {{ run_model_form.pisn_lower_limit.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.pisn_lower_limit }}</div>
+                                {% for err in run_model_form.pisn_lower_limit.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="field col col-md-6
+                                {% if run_model_form.pisn_upper_limit.field.required %} required {% endif %}
+                                {% if run_model_form.pisn_upper_limit.errors %} error {% endif %}
+                                div-{{ run_model_form.pisn_upper_limit.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class="field-label col col-md-6"
+                                for="{{ run_model_form.pisn_upper_limit.auto_id }}">
+                                {{ run_model_form.pisn_upper_limit.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.pisn_upper_limit }}</div>
+                                {% for err in run_model_form.pisn_upper_limit.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+
+                <div class="row">
+                    <div class=" field col col-md-6
+                                {% if run_model_form.pulsational_pair_instability_supernovae.field.required %} required {% endif %}
+                                {% if run_model_form.pulsational_pair_instability_supernovae.errors %} error {% endif %}
+                                div-{{ run_model_form.pulsational_pair_instability_supernovae.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class=" field-label col col-md-6"
+                            for="{{ run_model_form.pulsational_pair_instability_supernovae.auto_id }}">
+                            {{ run_model_form.pulsational_pair_instability_supernovae.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.pulsational_pair_instability_supernovae }}</div>
+                                {% for err in run_model_form.pulsational_pair_instability_supernovae.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class=" field col col-md-6
+                                {% if run_model_form.ppi_lower_limit.field.required %} required {% endif %}
+                                {% if run_model_form.ppi_lower_limit.errors %} error {% endif %}
+                                div-{{ run_model_form.ppi_lower_limit.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class=" field-label col col-md-6"
+                            for="{{ run_model_form.ppi_lower_limit.auto_id }}">
+                            {{ run_model_form.ppi_lower_limit.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.ppi_lower_limit }}</div>
+                                {% for err in run_model_form.ppi_lower_limit.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="field col col-md-6
+                                {% if run_model_form.ppi_upper_limit.field.required %} required {% endif %}
+                                {% if run_model_form.ppi_upper_limit.errors %} error {% endif %}
+                                div-{{ run_model_form.ppi_upper_limit.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class="field-label col col-md-6"
+                                for="{{ run_model_form.ppi_upper_limit.auto_id }}">
+                                {{ run_model_form.ppi_upper_limit.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.ppi_upper_limit }}</div>
+                                {% for err in run_model_form.ppi_upper_limit.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+
+                <div class="row">
+                    <div class=" field col col-md-6
+                                {% if run_model_form.pulsational_pair_instability_prescription.field.required %} required {% endif %}
+                                {% if run_model_form.pulsational_pair_instability_prescription.errors %} error {% endif %}
+                                div-{{ run_model_form.pulsational_pair_instability_prescription.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class=" field-label col col-md-6"
+                            for="{{ run_model_form.pulsational_pair_instability_prescription.auto_id }}">
+                            {{ run_model_form.pulsational_pair_instability_prescription.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.pulsational_pair_instability_prescription }}</div>
+                                {% for err in run_model_form.pulsational_pair_instability_prescription.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="field col col-md-6
+                                {% if run_model_form.maximum_neutron_star_mass.field.required %} required {% endif %}
+                                {% if run_model_form.maximum_neutron_star_mass.errors %} error {% endif %}
+                                div-{{ run_model_form.maximum_neutron_star_mass.name }}">
+                        <div class="row">
+                            <!-- Label -->
+                            <label class="field-label col col-md-6"
+                                for="{{ run_model_form.maximum_neutron_star_mass.auto_id }}">
+                                {{ run_model_form.maximum_neutron_star_mass.label }}
+                            </label>
+    
+                            <!-- Field -->
+                            <div class="col col-md-6">
+                                <div>{{ run_model_form.maximum_neutron_star_mass }}</div>
+                                {% for err in run_model_form.maximum_neutron_star_mass.errors%}
+                                <div class="field-error">{{err|escape}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>     
                 </div>
             </div>
-            {% endfor %}
+
+            <div class="container" id="mass_transfer_settings">
+                <div class="title-sm">
+                    <hr class="dashed-line">
+                    <h3 class="jumbotron-heading text-left title-sm" >Mass Transfer<sup>4</sup>
+                        <input type="checkbox" id="mass_transfer_enabled" checked></h3>
+                </div>
+
+                <div class="row field
+                        {% if run_model_form.mass_transfer_angular_momentum_loss_prescription.field.required %} required {% endif %}
+                        {% if run_model_form.mass_transfer_angular_momentum_loss_prescription.errors %} error {% endif %} 
+                        div-{{ run_model_form.mass_transfer_angular_momentum_loss_prescription.name }}">
+
+                    <!-- Label -->
+                    <label class="col col-md-3 col-sm-6 col-sx-6 col-12 mb-2 field-label"
+                        for="{{ run_model_form.mass_transfer_angular_momentum_loss_prescription.auto_id }}">
+                        {{ run_model_form.mass_transfer_angular_momentum_loss_prescription.label }}
+                    </label>
+
+                    <!-- Field -->
+                    <div class="col col-md-4 col-sm-6 col-sx-6 col-12 mb-2">
+                        <div>{{ run_model_form.mass_transfer_angular_momentum_loss_prescription }}</div>
+                        {% for err in run_model_form.mass_transfer_angular_momentum_loss_prescription.errors%}
+                        <div class="field-error">{{err|escape}}</div>
+                        {% endfor %}
+                    </div>
+                    <!-- Help text and Errors-->
+                    <div class="col col-md-5 col-sm-6 col-sx-6 col-12 mb-2">
+                        <div class='help-text'>{{ run_model_form.mass_transfer_angular_momentum_loss_prescription.help_text }}</div>
+                    </div>
+                </div>
+
+                <div class="row field
+                        {% if run_model_form.mass_transfer_accertion_efficiency_prescription.field.required %} required {% endif %}
+                        {% if run_model_form.mass_transfer_accertion_efficiency_prescription.errors %} error {% endif %}
+                        div-{{ run_model_form.mass_transfer_accertion_efficiency_prescription.name }}">
+
+                    <!-- Label -->
+                    <label class="col col-md-3 col-sm-6 col-sx-6 col-12 mb-2 field-label"
+                        for="{{ run_model_form.mass_transfer_accertion_efficiency_prescription.auto_id }}">
+                        {{ run_model_form.mass_transfer_accertion_efficiency_prescription.label }}
+                    </label>
+
+                    <!-- Field -->
+                    <div class="col col-md-4 col-sm-6 col-sx-6 col-12 mb-2">
+                        <div>{{ run_model_form.mass_transfer_accertion_efficiency_prescription }}</div>
+                        {% for err in run_model_form.mass_transfer_accertion_efficiency_prescription.errors%}
+                        <div class="field-error">{{err|escape}}</div>
+                        {% endfor %}
+                    </div>
+                    <!-- Help text and Errors-->
+                    <div class="col col-md-5 col-sm-6 col-sx-6 col-12 mb-2">
+                        <div class='help-text'>{{ run_model_form.mass_transfer_accertion_efficiency_prescription.help_text }}</div>
+                    </div>
+                </div>
+
+                <div class="row field
+                        {% if run_model_form.mass_transfer_fa.field.required %} required {% endif %}
+                        {% if run_model_form.mass_transfer_fa.errors %} error {% endif %} 
+                        div-{{ run_model_form.mass_transfer_fa.name }}">
+
+                    <!-- Label -->
+                    <label class="col col-md-3 col-sm-6 col-sx-6 col-12 mb-2 field-label"
+                        for="{{ run_model_form.mass_transfer_fa.auto_id }}">
+                        {{ run_model_form.mass_transfer_fa.label }}
+                    </label>
+
+                    <!-- Field -->
+                    <div class="col col-md-4 col-sm-6 col-sx-6 col-12 mb-2">
+                        <div>{{ run_model_form.mass_transfer_fa }}</div>
+                        {% for err in run_model_form.mass_transfer_fa.errors%}
+                        <div class="field-error">{{err|escape}}</div>
+                        {% endfor %}
+                    </div>
+                    <!-- Help text and Errors-->
+                    <div class="col col-md-5 col-sm-6 col-sx-6 col-12 mb-2">
+                        <div class='help-text'>{{ run_model_form.mass_transfer_fa.help_text }}</div>
+                    </div>
+                </div>
+
+                <div class="row field
+                        {% if run_model_form.mass_transfer_jloss.field.required %} required {% endif %}
+                        {% if run_model_form.mass_transfer_jloss.errors %} error {% endif %} 
+                        div-{{ run_model_form.mass_transfer_jloss.name }}">
+
+                    <!-- Label -->
+                    <label class="col col-md-3 col-sm-6 col-sx-6 col-12 mb-2 field-label"
+                        for="{{ run_model_form.mass_transfer_jloss.auto_id }}">
+                        {{ run_model_form.mass_transfer_jloss.label }}
+                    </label>
+
+                    <!-- Field -->
+                    <div class="col col-md-4 col-sm-6 col-sx-6 col-12 mb-2">
+                        <div>{{ run_model_form.mass_transfer_jloss }}</div>
+                        {% for err in run_model_form.mass_transfer_jloss.errors%}
+                        <div class="field-error">{{err|escape}}</div>
+                        {% endfor %}
+                    </div>
+                    <!-- Help text and Errors-->
+                    <div class="col col-md-5 col-sm-6 col-sx-6 col-12 mb-2">
+                        <div class='help-text'>{{ run_model_form.mass_transfer_jloss.help_text }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container" id="settings_explanation">
+                <hr class="dashed-line">
+            </div>
+
         </div>
+        
+        
         <div class="text-right">
             <button type="button" class="btn btn-secondary" id="show_advanced">Show Advanced Settings</button>
             <button type="reset" class="btn btn-warning" name="reset">Reset</button>
@@ -89,5 +1001,3 @@
 </div>
 
 {% endblock content %}
-
-

@@ -1,0 +1,64 @@
+{% extends 'compasweb/base/base.html' %}
+{% block page_header %}
+<h1>COMPAS Model Output</h1>
+{%endblock page_header%}
+{% load static %}
+{% block content %}
+{% get_media_prefix as media_prefix %}
+<script>
+    function reload_plot(){
+        location.reload();
+        // console.log('interval');
+        // console.log(plot);
+        // $('#model_plot').attr("src", '{{plot}}')
+        
+    }
+    let mytimeout = setTimeout(reload_plot, 3000);
+    let finished = false;
+</script>
+
+<div class="jumbotron info-card">
+    <div class="container">
+        <div class="title-sm">
+            <h3 class="jumbotron-heading text-left title-sm" >Output Files </h3>
+            <hr class="dashed-line">
+        </div>
+    </div>
+    <diV class="container">
+        {% if model %}
+            {% if run_details %}
+            <div class="div-text-sm"><span class="div-text-sm-underline">Grid File:</span> <a href="{{ media_prefix }}{{grid}}">BSE_grid.txt</a></div>
+            <div class="div-text-sm"><span class="div-text-sm-underline">Run Details:</span> <a href="{{ media_prefix }}{{grid}}">Run_Details</a></div>
+            <div class="div-text-sm"><span class="div-text-sm-underline">Log File:</span> <a href="{{ media_prefix }}{{output}}">COMPAS_Output.h5</a></div>
+            <div class="div-text-sm"><span class="div-text-sm-underline">Grid File:</span> <a href="{{ media_prefix }}{{detailed_output}}">BSE_Detailed_Output_0.h5</a></div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+<div class="jumbotron info-card">
+    <div class="title-sm">
+        <h3 class="jumbotron-heading text-left title-sm" >Data Visualisation </h3>
+        <hr class="dashed-line">
+    </div>
+    <div class="container">
+    {% if model %}
+        {% if plot %}
+        <div>
+            <img id="model_plot" src="{{media_prefix}}{{plot}}" alt="No plot available">
+        </div>
+        <script>
+            finished = true;
+        </script>
+        {% else%}
+        <div><p>The plot is loading...</p></div>
+        {% endif%}
+    {% endif%}
+    </div>
+</div>
+<script>
+    // check if the job finished successfully or timed out to stop automatic reloading
+    if(finished === true){
+        clearTimeout(mytimeout);
+    }
+</script>
+{% endblock content %}

@@ -9,17 +9,22 @@ INITIAL_PARAMETERS = [
     'mass2',
     'metallicity',
     'eccentricity',
-    'seperation',
+    'separation',
     'orbital_period',
     'max_time',
 ]
 
 ADVANCED_SETTINGS = [
-    'velocity_random_number',
-    'velocity',
-    'theta',
-    'phi',
-    'mean_anomaly',
+    'velocity_random_number_1',
+    'velocity_1',
+    'theta_1',
+    'phi_1',
+    'mean_anomaly_1',
+    'velocity_random_number_2',
+    'velocity_2',
+    'theta_2',
+    'phi_2',
+    'mean_anomaly_2',
     'common_envelope_alpha',
     'common_envelope_lambda_prescription',
     'common_envelope_lambda',
@@ -94,14 +99,19 @@ LABELS = {
     'mass2': _(MASS_2_LABEL),
     'metallicity': _(METALICITY_LABEL),
     'eccentricity': _(ECCENTRICITY_LABEL),
-    'seperation': _(SEPERATION_LABEL),
+    'separation': _(SEPARATION_LABEL),
     'orbital_period': _(ORBITAL_PERIOD_LABEL),
     'max_time': _(MAX_TIME_LABEL),
-    'velocity_random_number': _(VELOCITY_RANDOM_NUMBER_LABEL),
-    'velocity': _(VELOCITY_LABEL),
-    'theta': _(THETA_LABEL),
-    'phi': _(PHI_LABEL),
-    'mean_anomaly': _(MEAN_ANOMALY_LABEL),
+    'velocity_random_number_1': _(VELOCITY_RANDOM_NUMBER_1_LABEL),
+    'velocity_1': _(VELOCITY_1_LABEL),
+    'theta_1': _(THETA_1_LABEL),
+    'phi_1': _(PHI_1_LABEL),
+    'mean_anomaly_1': _(MEAN_ANOMALY_1_LABEL),
+    'velocity_random_number_2': _(VELOCITY_RANDOM_NUMBER_2_LABEL),
+    'velocity_2': _(VELOCITY_2_LABEL),
+    'theta_2': _(THETA_2_LABEL),
+    'phi_2': _(PHI_2_LABEL),
+    'mean_anomaly_2': _(MEAN_ANOMALY_2_LABEL),
     'common_envelope_alpha': _(COMMON_ENVELOPE_ALPHA_LABEL),
     'common_envelope_lambda_prescription': _(COMMON_ENVELOPE_LAMBDA_PRESCRIPTION),
     'common_envelope_lambda': _(COMMON_ENVELOPE_LAMBDA_LABEL),
@@ -164,6 +174,18 @@ class COMPASModelRunForm(ModelForm):
                 msg = 'Mass 2 should be less than Mass 1'
                 self.add_error('mass1', msg)
                 self.add_error('mass2', msg)
+
+        separation = cleaned_data.get('separation')
+        orbital_period = cleaned_data.get('orbital_period')
+
+        if separation and orbital_period:
+            msg = 'Separation and Orbital Period cannot be used together. Specify only one of them'
+            self.add_error('separation', msg)
+            self.add_error('orbital_period', msg)
+        elif not separation and not orbital_period:
+            msg = 'Please specify either Separation or Orbital Period'
+            self.add_error('separation', msg)
+            self.add_error('orbital_period', msg)
 
         pisn_lower_limit = cleaned_data.get('pisn_lower_limit')
         pisn_upper_limit = cleaned_data.get('pisn_upper_limit')
