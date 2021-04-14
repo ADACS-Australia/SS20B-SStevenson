@@ -1,98 +1,13 @@
+from django import forms
 from django.forms import ModelForm
 from django.utils.translation import ugettext_lazy as _
 
 from ..models import COMPASModelRun
 from ..utils.constants import *
 
-INITIAL_PARAMETERS = [
-    'mass1',
-    'mass2',
-    'metallicity',
-    'eccentricity',
-    'separation',
-    'orbital_period',
-    'max_time',
-]
-
-ADVANCED_SETTINGS = [
-    'velocity_random_number_1',
-    'velocity_1',
-    'theta_1',
-    'phi_1',
-    'mean_anomaly_1',
-    'velocity_random_number_2',
-    'velocity_2',
-    'theta_2',
-    'phi_2',
-    'mean_anomaly_2',
-    'common_envelope_alpha',
-    'common_envelope_lambda_prescription',
-    'common_envelope_lambda',
-    'remnant_mass_prescription',
-    'fryer_supernova_engine',
-    'black_hole_kicks',
-    'Kick_velocity_distribution',
-    'kick_velocity_sigma_CCSN_NS',
-    'kick_velocity_sigma_CCSN_BH',
-    'kick_velocity_sigma_ECSN',
-    'kick_velocity_sigma_USSN',
-    'pair_instability_supernovae',
-    'pisn_lower_limit',
-    'pisn_upper_limit',
-    'pulsational_pair_instability_supernovae',
-    'ppi_lower_limit',
-    'ppi_upper_limit',
-    'pulsational_pair_instability_prescription',
-    'maximum_neutron_star_mass',
-    'mass_transfer_angular_momentum_loss_prescription',
-    'mass_transfer_accertion_efficiency_prescription',
-    'mass_transfer_fa',
-    'mass_transfer_jloss',
-]
 
 FIELDS = INITIAL_PARAMETERS + ADVANCED_SETTINGS
 
-# FIELDS = [
-#     'mass1',
-#     'mass2',
-#     'metallicity',
-#     'eccentricity',
-#     'seperation',
-#     'orbital_period',
-#     'max_time',
-
-#     'velocity_random_number',
-#     'velocity',
-#     'theta',
-#     'phi',
-#     'mean_anomaly',
-
-#     'common_envelope_alpha',
-#     'common_envelope_lambda_prescription',
-#     'common_envelope_lambda',
-
-#     'remnant_mass_prescription',
-#     'fryer_supernova_engine',
-#     'black_hole_kicks',
-#     'Kick_velocity_distribution',
-#     'kick_velocity_sigma_CCSN_NS',
-#     'kick_velocity_sigma_CCSN_BH',
-#     'kick_velocity_sigma_ECSN',
-#     'kick_velocity_sigma_USSN',
-#     'pair_instability_supernovae',
-#     'pisn_lower_limit',
-#     'pisn_upper_limit',
-#     'pulsational_pair_instability_supernovae',
-#     'ppi_lower_limit',
-#     'ppi_upper_limit',
-#     'pulsational_pair_instability_prescription',
-#     'maximum_neutron_star_mass',
-
-#     'mass_transfer_angular_momentum_loss_prescription',
-#     'mass_transfer_accertion_efficiency_prescription',
-#     'mass_transfer_fa',
-#     'mass_transfer_jloss',
-# ]
 
 LABELS = {
     'mass1': _(MASS_1_LABEL),

@@ -741,8 +741,23 @@ def run_compas_cmd(gridFileName, outputPath):
 
     # -- Get the program options
     programOptions = pythonProgramOptions()
+
+    # print(f'Output Path: {programOptions.output}')
+    # print(f'Exec Path: {programOptions.compas_executable}')
+    # print(f'Input Path: {programOptions.compas_input_path_override}')
+
+    with open(gridFileName, 'r') as f:
+        content = f.readlines()
+        print(content)
+
     programOptions.grid_filename = gridFileName
     programOptions.output = outputPath
+
+    # print(f'Output Path: {programOptions.output}')
+    # print(f'Grid Path: {programOptions.grid_filename}')
+    # print(f'Exec Path: {programOptions.compas_executable}')
+    # print(f'Input Path: {programOptions.compas_input_path_override}')
+
     commandOptions = programOptions.generateCommandLineOptionsDict()
 
     # -- Convert options into a shell string
@@ -751,3 +766,11 @@ def run_compas_cmd(gridFileName, outputPath):
     # -- Run exectute COMPAS shell string
     print(shellCommand)
     call(shellCommand, shell=True)
+
+
+if __name__ == "__main__":
+
+    grid_file_path = "/home/eman/development/projects/ss20b-sstevenson/src/../files/jobs/127/BSE_grid.txt"
+    output_path = "/home/eman/development/projects/ss20b-sstevenson/src/../files/jobs/127"
+
+    run_compas_cmd(grid_file_path, output_path)

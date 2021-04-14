@@ -7,11 +7,7 @@
 {% get_media_prefix as media_prefix %}
 <script>
     function reload_plot(){
-        location.reload();
-        // console.log('interval');
-        // console.log(plot);
-        // $('#model_plot').attr("src", '{{plot}}')
-        
+        location.reload();        
     }
     let mytimeout = setTimeout(reload_plot, 3000);
     let finished = false;
@@ -26,12 +22,20 @@
     </div>
     <diV class="container">
         {% if model %}
-            {% if run_details %}
             <div class="div-text-sm"><span class="div-text-sm-underline">Grid File:</span> <a href="{{ media_prefix }}{{grid}}">BSE_grid.txt</a></div>
-            <div class="div-text-sm"><span class="div-text-sm-underline">Run Details:</span> <a href="{{ media_prefix }}{{grid}}">Run_Details</a></div>
-            <div class="div-text-sm"><span class="div-text-sm-underline">Log File:</span> <a href="{{ media_prefix }}{{output}}">COMPAS_Output.h5</a></div>
-            <div class="div-text-sm"><span class="div-text-sm-underline">Grid File:</span> <a href="{{ media_prefix }}{{detailed_output}}">BSE_Detailed_Output_0.h5</a></div>
+            {% if run_details %}
+                <div class="div-text-sm"><span class="div-text-sm-underline">Run Details:</span> <a href="{{ media_prefix }}{{run_details}}">Run_Details</a></div>
+                {% if output %}
+                <div class="div-text-sm"><span class="div-text-sm-underline">Log File:</span> <a href="{{ media_prefix }}{{output}}">COMPAS_Output.h5</a></div>
+                <div class="div-text-sm"><span class="div-text-sm-underline">Detailed Output File:</span> <a href="{{ media_prefix }}{{detailed_output}}">BSE_Detailed_Output_0.h5</a></div>
+                {% else %}
+                <div class="div-text-sm"><span class="div-text-sm-underline">Log File:</span> Something went wrong. No log file generated</div>
+                <div class="div-text-sm"><span class="div-text-sm-underline">Detailed Output File:</span> Something went wrong. No detailed output file generated</div>
+                {% endif %}
+            {%else%}
+                <div class="div-text-sm">COMPAS model didn't run successfully</div>
             {% endif %}
+            <div><a href="{% url 'download_compas_output_as_tar' model_id=model.id %}">Download all files</a></div>
         {% endif %}
     </div>
 </div>
@@ -42,15 +46,34 @@
     </div>
     <div class="container">
     {% if model %}
-        {% if plot %}
-        <div>
-            <img id="model_plot" src="{{media_prefix}}{{plot}}" alt="No plot available">
-        </div>
+        <!-- check detailed output file was generated-->
+        {% if detailed_output %}
+            <!-- check plot was generated-->
+            {% if plot %}
+            <div>
+                <img id="model_plot" src="{{media_prefix}}{{plot}}" alt="No plot available">
+            </div>
+            <script>
+                //stop reloading the page if the plot was generated and displayed
+                finished = true;
+            </script>
+            <!-- Check number of page reloads done. -->
+            <!-- If no of reloads less than 3, then page keeps reloading untill plot is available-->
+            {% elif request.session.reloads_count > 0 %}
+            <div><p>The plot is loading...</p></div>
+            {% else %}
+            <!-- If plot is not generated after 3 page reloads, then there was a problem with generating the plot. Page reloading stops -->
+            <script>
+                finished = true;
+            </script>
+            <div>Something went wrong while generating the plot!</div>
+            {% endif%}
+        {% else %}
+        <!-- detailed output file wasn't generated. Plot is not available-->
         <script>
             finished = true;
         </script>
-        {% else%}
-        <div><p>The plot is loading...</p></div>
+        <div>Detailed output file wasn't generated. Cannot generate the plot!</div>
         {% endif%}
     {% endif%}
     </div>

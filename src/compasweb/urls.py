@@ -2,7 +2,11 @@ from django.conf.urls import url
 from django.urls import path, re_path
 from .views.published_job.published_job import KeywordView, DatasetDetailView, ModelDetailView
 from .views.common import index, about
-from .views.compas_model_run.compas_model_run import run_compas_model, compas_model_output
+from .views.compas_model_run.compas_model_run import (
+    run_compas_model,
+    compas_model_output,
+    download_compas_output_as_tar,
+)
 
 urlpatterns = [
     url(r"^$", index, name="homepage"),
@@ -17,4 +21,9 @@ urlpatterns = [
     path("model/<int:pk>/", ModelDetailView.as_view(), name="model_detail"),
     path("model/new/", run_compas_model, name="run_compas_model"),
     path("model/output/<int:model_id>/", compas_model_output, name="compas_model_output"),
+    path(
+        "model/output/<int:model_id>/output.tar.gz",
+        download_compas_output_as_tar,
+        name="download_compas_output_as_tar",
+    ),
 ]

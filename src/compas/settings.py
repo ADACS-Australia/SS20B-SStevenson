@@ -153,12 +153,13 @@ else:
 # Celery broker
 CELERY_BROKER_URL = env('CELERY_BROKER_URL')
 CELERY_RESULT_BACKEND = env('CELERY_RESULT_BACKEND')
+CELERYD_SOFT_TIME_LIMIT = 10
+CELERYD_TIME_LIMIT = 15
 
-COMPAS_IO_PATH = os.path.join(MEDIA_ROOT, 'jobs/')
+COMPAS_EXECUTABLE_PATH = env('COMPAS_EXECUTABLE_PATH')
+COMPAS_INPUT_DIR_PATH = os.environ.get('COMPAS_INPUT_DIR_PATH')
+COMPAS_LOGS_OUTPUT_DIR_PATH = os.environ.get('COMPAS_LOGS_OUTPUT_DIR_PATH')
 
-# COMPAS Python Submit command for Celery task
-# TODO update these settigs to work with COMPAS running in Docker container
-RUN_COMPAS_COMMAND = [
-    'python3',
-    os.path.join(BASE_DIR, 'compasweb/utils/celery_pythonSubmit.py'),
-]
+COMPAS_IO_PATH = (
+    COMPAS_LOGS_OUTPUT_DIR_PATH if COMPAS_LOGS_OUTPUT_DIR_PATH != '' else os.path.join(MEDIA_ROOT, 'jobs/')
+)

@@ -181,7 +181,6 @@ class COMPASJobModelTestCase(BaseModelTestCase):
         f = open(os.path.join(dirname, filename), "w")
         f.write("These are the file contents")
         f.close()
-        print()
 
         # Use absolute path to make sure UploadedFile uses the right directory (MEDIA_ROOT)
         tarfilepath = os.path.join(os.getcwd(), "test.tar.gz")

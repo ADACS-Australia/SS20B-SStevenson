@@ -7,8 +7,8 @@ import os
 import subprocess
 import traceback
 
-# from .celery_single_sys_plotter import main
-# from .celery_pythonSubmit import run_compas_cmd
+from .celery_single_sys_plotter import main
+from .celery_pythonSubmit import run_compas_cmd
 from .constants import TASK_SUCCESS, TASK_FAIL, TASK_FAIL_OTHER
 from celery.exceptions import TaskRevokedError, SoftTimeLimitExceeded
 
@@ -33,14 +33,6 @@ def run_compas(grid_file_path, output_path, detailed_output_file_path):
 
     result = None
     try:
-        # command = settings.RUN_COMPAS_COMMAND
-
-        # # Sending grid file path and output path to run compas
-        # # TODO: modify it to work with compas running in Docker
-        # command.append(grid_file_path)
-        # command.append(output_path)
-
-        # subprocess.call(command)
         run_compas_cmd(grid_file_path, output_path)
         result = check_output_file_generated(detailed_output_file_path)
 
@@ -51,7 +43,7 @@ def run_compas(grid_file_path, output_path, detailed_output_file_path):
         result = TASK_TIMEOUT
 
     except Exception as e:
-        # return fail code if job failed for someother reason
+        # return fail code if job failed for some other reason
         print(e)
         result = TASK_FAIL
     # An example of adding in another error (would need to go above Exception above)
@@ -79,9 +71,9 @@ def run_plotting(jobstate, detailed_output_file_path, plot_path):
         finally:
             return result
 
-    else:
+    elif jobstate == TASK_FAIL or jobstate == TASK_TIMEOUT:
         print("COMPAS Model didn't run successfully! Couldn't generate plot")
-        return TASK_SUCCESS
+        return TASK_FAIL
 
 
 @shared_task

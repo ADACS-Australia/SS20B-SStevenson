@@ -13,11 +13,13 @@ ENV PYTHONUNBUFFERED 1
 ENV VIRTUAL_ENV /opt/venv
 COPY --from=build ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 
+RUN mkdir /files
 RUN mkdir /code
 
 WORKDIR /code
 COPY src /code/
 
 ENV PATH="${VIRTUAL_ENV}/bin:$PATH"
+
 EXPOSE 8000
 

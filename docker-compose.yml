@@ -10,6 +10,9 @@ services:
       - DEBUG=False
       - ROOT_SUBDIRECTORY_PATH=${ROOT_SUBDIRECTORY_PATH}
       - COMPAS_HOST=${COMPAS_HOST}
+      - COMPAS_EXECUTABLE_PATH=/app/COMPAS/bin/COMPAS
+      - COMPAS_INPUT_DIR_PATH=${COMPAS_INPUT_DIR_PATH}
+      - COMPAS_LOGS_OUTPUT_DIR_PATH=${COMPAS_LOGS_OUTPUT_DIR_PATH}
     volumes:
       - ./src/static:/code/static-files
       - ./files:/files
@@ -42,7 +45,7 @@ services:
       - "5006"
     container_name: bokeh
     environment:
-      - ROOT_SUBDIRECTORY_PATH
+      - ROOT_SUBDIRECTORY_PATH=${ROOT_SUBDIRECTORY_PATH}
     volumes:
       # note: the mount point has to be the same as in the django container for path resolution to hdf5 fileys to work properly
       - ./files:/files/
@@ -56,7 +59,8 @@ services:
   celery:
     build: 
       context: .
-      dockerfile: docker/django.Dockerfile
+      dockerfile: docker/celery.Dockerfile
+    container_name: celery
     restart: always
     environment: 
       - CELERY_BROKER_URL:${CELERY_BROKER_URL}
@@ -65,9 +69,6 @@ services:
     volumes:
       - ./files:/files/
       - ./src:/code/
-    depends_on:
-      - redis
-      - django
     links: 
       - redis
       - django

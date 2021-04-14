@@ -1,10 +1,16 @@
-{% extends 'compasweb/base/base.html' %}
+{% extends 'compasweb/base/base.html' %} 
+{% load static %}
 {% block content %}
 <div class="container">
   <div class="jumbotron">
     <h1 class="jumbotron-heading text-center title-lg">COMPAS Web Portal</h1>
     <p class="lead p-text-md pt-5">
-      <u>Introduction</u>: what’s this website for; short descriptions about App1 and App2; refers to About for more details (science & code)
+      <u>Introduction</u>: Welcome to the COMPAS Web Portal!
+      This portal was designed to provide easy access to COMPAS and its associated data products, and lower the barrier-to-entry for people to use COMPAS.
+      COMPAS is a suite of tools including a rapid binary population synthesis code, post-processing codes and statistical tools to compare models to data. See below for more details on binary evolution and population synthesis.
+    <br/>Click "Run COMPAS Model" to evolve a binary star in real time using the COMPAS code. See "Binary Evolution" below for a brief overview of binary evolution.
+    <br/>Click "Explore Published Models" to view models and results for previously published COMPAS models.
+    <br/>For more details on COMPAS, see "About COMPAS"
     </p>
   
     <hr class="my-4">
@@ -19,11 +25,17 @@
   <div class="jumbotron">
     <h1 class="jumbotron-heading text-center title-lg">Binary System Evolution</h1>
     <p class="lead p-text-md pt-5">
-      <u>Introduction</u>: briefly description
+      <u>Introduction</u>: <br/>
+      Most massive stars in the Universe are in binary systems, orbiting comparable mass stars. These binaries are responsible for forming many of the most interesting astrophysical phenomena in the Universe, including x-ray binaries, gamma-ray bursts, millisecond pulsars, luminous red novae and merging compact object binaries, observable with gravitational waves. <br/>COMPAS includes a rapid binary population synthesis code, capable of evolving binary systems in a fraction of a second. COMPAS was initially developed to study the merging compact binaries now regularly being observed by the LIGO <a target="_blank" href="https://www.ligo.caltech.edu">(www.ligo.caltech.edu)</a> and Virgo <a target="_blank" href="https://www.virgo-gw.eu/">(https://www.virgo-gw.eu/)</a> gravitational-wave observatories. <br/>Binary evolution is complicated, and involves many poorly understood astrophysical processes such as massive stellar evolution, mass transfer and common envelope evolution and supernovae. Population synthesis codes like COMPAS parameterise these pieces of physics with simple models fit to more detailed simulations, which can be updated as we gain greater understanding of these processes.
+      <br/>
+      Have a go and evolve a binary <a href="{% url 'run_compas_model' %}">here</a>! 
     </p>
   
     <hr class="my-4">
-    <p>javascript cartoon/video to show the whole process</p>
+    <div class="text-center">
+      <img src="{% static 'compasweb/images/BSE_Flowchart.png' %}">
+    </div>
+    
   </div>
 </div>
 
