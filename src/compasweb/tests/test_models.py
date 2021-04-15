@@ -120,15 +120,11 @@ class COMPASJobModelTestCase(BaseModelTestCase):
         Upload them to one of the jobs
         Check the file is uploaded and decompressed successfully then removed
         """
-        # coverage reportprint(os.getcwd())
-        # filename = tempfile.mkstemp()[1]
         filename = "file1.txt"
         f = open(filename, "w")
         f.write("These are the file contents")
         f.close()
-        print()
 
-        # filename1 = tempfile.mkstemp()[1]
         filename1 = "file2.txt"
         f1 = open(filename1, "w")
         f1.write("These are the file contents")

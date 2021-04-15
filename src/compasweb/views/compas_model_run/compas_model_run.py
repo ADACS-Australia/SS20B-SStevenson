@@ -4,9 +4,10 @@ from django.http import HttpResponse
 from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render, redirect, reverse, get_object_or_404
+from celery import chain
 from ...models import COMPASModelRun
 from ...forms.model_parameters import COMPASModelRunForm
-from compasweb.utils.tasks import test_task, run_compas, run_plotting
+from compasweb.utils.tasks import test_task, run_compas, run_plotting, compress_output
 from ...utils.constants import TASK_FAIL, TASK_FAIL_OTHER, TASK_SUCCESS, TASK_RUNNING, TASK_TIMEOUT
 from ...utils.handle_tar_files import compress_files_into_tarball
 
@@ -42,6 +43,7 @@ def compas_model_output(request, model_id):
         settings.COMPAS_IO_PATH, model_id, 'COMPAS_Output', 'Detailed_Output', 'BSE_Detailed_Output_0.h5'
     )
     plot_path = os.path.join(settings.COMPAS_IO_PATH, model_id, 'COMPAS_Output', 'Detailed_Output', 'gw151226evol.png')
+    tar_file_path = output_path + ".tar.gz"
 
     run_details_url = None
     plot_url = None
@@ -56,11 +58,12 @@ def compas_model_output(request, model_id):
     # this runs when first loading output view
 
     if model_id not in request.session:
-        # run compas as a Celery task
-        task = run_compas.apply_async(
-            (grid_file_path, output_path, detailed_output_file_path),
-            link=run_plotting.s(detailed_output_file_path, plot_path),
-        )
+        task = chain(
+            run_compas.s(grid_file_path, output_path, detailed_output_file_path),
+            run_plotting.s(detailed_output_file_path, plot_path),
+            compress_output.s(output_path, tar_file_path),
+        )()
+
         request.session[model_id] = task.id
         request.session['reloads_count'] = 3
     else:
@@ -82,11 +85,7 @@ def compas_model_output(request, model_id):
 
         if not os.path.exists(plot_path):
             plot_url = None
-        # else:
-        # compress output files located in output_path in a tarball (tar_file_path) after all files and plots are generated
-        # tar_file_path = output_path + ".tar.gz"
-        # size = compress_files_into_tarball(output_path, tar_file_path)
-        # print(size)
+
     # Updating error codes according to task state to display proper text in template
     elif result == TASK_TIMEOUT:
         error_code = 2
@@ -114,12 +113,9 @@ def download_compas_output_as_tar(request, model_id):
 
     model_id = str(model_id)
     # path to compas model directory where all output files exist
-    tar_file_path = os.path.join(settings.COMPAS_IO_PATH, model_id + ".tar.gz")
-    # compress compas model directory content
-    # size = compress_files_into_tarball(output_path)
+    tar_file_path = os.path.join(settings.COMPAS_IO_PATH, (model_id + ".tar.gz"))
     outputtarfile = open(file=tar_file_path, mode="rb")
-    response = HttpResponse(outputtarfile, 'application/x-gzip')
-    # response['Content-Length'] = size
-    # response['Content-Disposition'] = 'attachment; filename="output.tar.gz"'
+    response = HttpResponse(outputtarfile, 'application/tar+gzip')
+    response['Content-Disposition'] = 'attachment; filename="output.tar.gz"'
 
     return response

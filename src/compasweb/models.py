@@ -522,26 +522,16 @@ class COMPASModelRun(models.Model):
             field_value = getattr(self, field.name)
             if field_value and (field.name in FIELD_COMMANDS):
                 if field.name in INITIAL_PARAMETERS:
-                    # or (self.kick_enabled and (field.name in KICK_SETTINGS))\
-                    # or (self.common_envelope_enabled and (field.name in COMMON_ENVELOPE_SETTINGS))\
-                    # or (self.supernova_enabled and (field.name in SUPERNOVA_SETTINGS))\
-                    # or (self.mass_transfer_enabled and (field.name in MASS_TRANSFER_SETTINGS)):
-                    # print (f'Name: {field.name}, Value: {field_value} Initial')
                     content += f'{FIELD_COMMANDS[field.name]} {field_value}' + " "
                 elif self.kick_enabled and (field.name in KICK_SETTINGS):
-                    # print (f'Name: {field.name}, Value: {field_value} Kick')
                     content += f'{FIELD_COMMANDS[field.name]} {field_value}' + " "
                 elif self.common_envelope_enabled and (field.name in COMMON_ENVELOPE_SETTINGS):
-                    # print (f'Name: {field.name}, Value: {field_value} COMMON_ENVELOPE')
                     content += f'{FIELD_COMMANDS[field.name]} {field_value}' + " "
                 elif self.supernova_enabled and (field.name in SUPERNOVA_SETTINGS):
-                    # print (f'Name: {field.name}, Value: {field_value} supernova')
                     content += f'{FIELD_COMMANDS[field.name]} {field_value}' + " "
                 elif self.mass_transfer_enabled and (field.name in MASS_TRANSFER_SETTINGS):
-                    # print (f'Name: {field.name}, Value: {field_value} mass transfer')
                     content += f'{FIELD_COMMANDS[field.name]} {field_value}' + " "
 
-        print(content)
         # path where the file is saved: media_root/job_key
         storage_location = os.path.join(settings.MEDIA_ROOT, 'jobs', str(self.id))
         # create directory
@@ -555,8 +545,3 @@ class COMPASModelRun(models.Model):
         # write parameters string to file
         with open(grid_file_path, 'w') as f:
             f.write(content)
-
-        # # save file url to database
-        # self.parameter_file_url = self.job_key + "/galaxia_param"
-        # # save file content to database as bytes
-        # self.parameters = bytes(content, encoding='utf-8')

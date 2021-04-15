@@ -11,6 +11,10 @@
     }
     let mytimeout = setTimeout(reload_plot, 3000);
     let finished = false;
+
+    function download_tar_file(){
+        window.location = "{% url 'download_compas_output_as_tar' model_id=model.id %}";
+    }
 </script>
 
 <div class="jumbotron info-card">
@@ -35,7 +39,9 @@
             {%else%}
                 <div class="div-text-sm">COMPAS model didn't run successfully</div>
             {% endif %}
-            <div><a href="{% url 'download_compas_output_as_tar' model_id=model.id %}">Download all files</a></div>
+            <div class="text-right">
+                <button type="button" class="btn btn-secondary" onclick="download_tar_file()">Download All Files</button>
+            </div>
         {% endif %}
     </div>
 </div>

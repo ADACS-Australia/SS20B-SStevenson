@@ -11,6 +11,7 @@ from .celery_single_sys_plotter import main
 from .celery_pythonSubmit import run_compas_cmd
 from .constants import TASK_SUCCESS, TASK_FAIL, TASK_FAIL_OTHER
 from celery.exceptions import TaskRevokedError, SoftTimeLimitExceeded
+from .handle_tar_files import compress_files_into_tarball
 
 
 def check_output_file_generated(outputfilepath):
@@ -74,6 +75,21 @@ def run_plotting(jobstate, detailed_output_file_path, plot_path):
     elif jobstate == TASK_FAIL or jobstate == TASK_TIMEOUT:
         print("COMPAS Model didn't run successfully! Couldn't generate plot")
         return TASK_FAIL
+
+
+@shared_task
+def compress_output(jobstate, output_path, tar_file_path):
+
+    result = None
+    if jobstate == TASK_SUCCESS:
+        try:
+            compress_files_into_tarball(output_path, tar_file_path)
+            # result = check_output_file_generated(tar_file_path)
+        except Exception as e:
+            print(e)
+            # result = TASK_FAIL
+        finally:
+            return TASK_SUCCESS
 
 
 @shared_task

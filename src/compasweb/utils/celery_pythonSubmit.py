@@ -739,24 +739,14 @@ def combineCommandLineOptionsDictIntoShellCommand(commandOptions):
 
 def run_compas_cmd(gridFileName, outputPath):
 
-    # -- Get the program options
+    # -- Get program options
     programOptions = pythonProgramOptions()
-
-    # print(f'Output Path: {programOptions.output}')
-    # print(f'Exec Path: {programOptions.compas_executable}')
-    # print(f'Input Path: {programOptions.compas_input_path_override}')
 
     with open(gridFileName, 'r') as f:
         content = f.readlines()
-        print(content)
 
     programOptions.grid_filename = gridFileName
     programOptions.output = outputPath
-
-    # print(f'Output Path: {programOptions.output}')
-    # print(f'Grid Path: {programOptions.grid_filename}')
-    # print(f'Exec Path: {programOptions.compas_executable}')
-    # print(f'Input Path: {programOptions.compas_input_path_override}')
 
     commandOptions = programOptions.generateCommandLineOptionsDict()
 

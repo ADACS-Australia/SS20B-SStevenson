@@ -15,13 +15,6 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
 
-# Retrieve task timout limits from environment file
-# app.conf.update(
-#     task_soft_time_limit = 300,
-#     task_time_limit = 330,
-# )
-
-
 @app.task(bind=True)
 def debug_task(self):
     print('Request: {0!r}'.format(self.request))
