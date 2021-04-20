@@ -230,10 +230,10 @@ class COMPASModelRun(models.Model):
 
     # advanced settings
     # kicks
-    kick_enabled = models.BooleanField(default=True)
-    common_envelope_enabled = models.BooleanField(default=True)
-    mass_transfer_enabled = models.BooleanField(default=True)
-    supernova_enabled = models.BooleanField(default=True)
+    kick_enabled = models.BooleanField(default=False)
+    common_envelope_enabled = models.BooleanField(default=False)
+    mass_transfer_enabled = models.BooleanField(default=False)
+    supernova_enabled = models.BooleanField(default=False)
 
     # --kick-magnitude-random-1
     velocity_random_number_1 = models.FloatField(

@@ -34,8 +34,6 @@
     --tab-font: normal 500 24px Roboto, sans-serif;
     --tab-height: 48px;
     --tab-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
-    
 }
 
 
@@ -224,8 +222,7 @@ td.block-cell-center {
 
 
 #datasetmodels-table tr td {
-   border-top: 0; 
-  
+    border-top: 0; 
 } 
 
 
@@ -287,7 +284,7 @@ td.block-cell-center {
 /*                nav tab                   */
 /*                                          */
 /********************************************/
- #detaildes {
+#detaildes {
     /* padding: 50px 35px;
     border: 50px 35px; */
     margin: 50px;
@@ -323,11 +320,11 @@ td.block-cell-center {
 /********************************************/
 
 .card {
-   background-color: var(--gray6);
-   border: 0;
-   margin-right: 0.1rem;
-   margin-bottom: 2rem;
-   max-width: 33rem;
+    background-color: var(--gray6);
+    border: 0;
+    margin-right: 0.1rem;
+    margin-bottom: 2rem;
+    max-width: 33rem;
 }
 
 .card-header{
@@ -410,7 +407,7 @@ td.block-cell-center {
 /********************************************/
 
 
-.field  input, select{
+.field  input:not([type='checkbox']), select {
     /* Rectangle */
     left: 0%;
     right: 0%;
@@ -476,23 +473,31 @@ td.block-cell-center {
     /* Gray 2 */
     color: #4F4F4F;
 }
-.field  input[type=checkbox] {
+input[type=checkbox] {
     left: 0%;
     right: 0%;
     top: 0%;
     bottom: 0%;
-    
-    /* Light / White */
-    
+    appearance: none;
+    padding: 9px;
     background: #FFFFFF;
-    /* Light / Gray */
-    
     border: 2px solid #C3CBCD;
     box-sizing: border-box;
 }
 
-.field input[type=checkbox]:checked {
-color: #373F41;
+input[type=checkbox]:checked {
+    color: #373F41;
+    /* background-color: #4F4F4F; */
+}
+
+input[type=checkbox]:checked:after {
+    content: '\2714';
+    position: absolute;
+    top: 0;
+    left: 3px;
+    left: 17px;
+    font-size: 14px;
+    color: green;
 }
 
 .field.required .field-label:after {
@@ -530,4 +535,18 @@ color: #373F41;
 
 .error label{
     color: salmon;
+}
+
+.explanation_link {
+    text-decoration: underline;
+    color: #828282;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.explanation_link:hover {
+    text-decoration: underline;
+    text-decoration-color: #4F4F4F;
+    color: #4F4F4F;
 }

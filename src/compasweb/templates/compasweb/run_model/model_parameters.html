@@ -204,12 +204,25 @@
                 <h2 class="jumbotron-heading text-center title-md">Advanced Settings</h2>
                 <hr class="dashed-line">
             </div>
-            <div class="container" id="kick_settings">
-                <div class="title-sm">
-                    <h3 class="jumbotron-heading text-left title-sm" >Kick<a href="#kick_explanation"><sup>1</sup></a>
-                        <span>{{ run_model_form.kick_enabled }}</span></h3>
-                        <!-- <input type="checkbox" id="kick_enabled" checked></h3> -->
+            <div class="container">
+                <div style="padding-left:12px;">
+                    <div class="row">
+                        <div class="field col col-md-6">
+                            <div class="row">
+                                <!-- Label -->
+                                <h3 class="text-left title-sm">Kick</h3>
+        
+                                <!-- Field -->
+                                <div class="col col-md-6">
+                                    <div>{{ run_model_form.kick_enabled }}</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div class="container" id="kick_settings">
                 <div class="row">
                     <div class=" field col col-md-6
                                 {% if run_model_form.velocity_random_number_1.field.required %} required {% endif %}
@@ -435,16 +448,51 @@
                     </div>     
                 </div>
 
-            </div>
-
-            <div class="container" id="common_envelope_settings">
                 <div class="title-sm">
-                    <hr class="dashed-line">
-                    <h3 class="jumbotron-heading text-left title-sm" >Common Envelope<a href="#common_envelope_explanation"><sup>2</sup></a> 
-                        <span>{{ run_model_form.common_envelope_enabled }}</span></h3>
-                        <!-- <input type="checkbox" id="common_envelope_enabled" checked></h3> -->
-                    
+                    <a id="kick_explanation_link" class="explanation_link text-left">Kick options explanations</a>
                 </div>
+
+                <div class="d-none" id="kick_explanation">
+                    <div>
+                        <p class="p-text-sm">
+                            <span class="help-text">{{run_model_form.velocity_random_number_1.help_text}}</span>
+                            <span class="help-text">{{run_model_form.velocity_random_number_2.help_text}}</span>
+                            <span class="help-text">{{run_model_form.velocity_1.help_text}}</span>
+                            <span class="help-text">{{run_model_form.velocity_2.help_text}}</span>
+                            <span class="help-text">{{run_model_form.theta_1.help_text}}</span>
+                            <span class="help-text">{{run_model_form.theta_2.help_text}}</span>
+                            <span class="help-text">{{run_model_form.phi_1.help_text}}</span>
+                            <span class="help-text">{{run_model_form.phi_2.help_text}}</span>                  
+                            <span class="help-text">{{run_model_form.mean_anomaly_1.help_text}}</span>
+                            <span class="help-text">{{run_model_form.mean_anomaly_2.help_text}}</span>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="title-sm">
+                <hr class="dashed-line">    
+            </div>
+            <div class="container">
+                <div style="padding-left:12px;">
+                    <div class="row">
+                        <div class="field col col-md-6">
+                            <div class="row">
+                                <!-- Label -->
+                                <h3 class="text-left title-sm">Common Envelope<a href="#common_envelope_explanation"></a>
+                                </h3>
+        
+                                <!-- Field -->
+                                <div class="col col-md-6">
+                                    <div>{{ run_model_form.common_envelope_enabled }}</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" id="common_envelope_settings">
                 <div class="row field
                         {% if run_model_form.common_envelope_alpha.field.required %} required {% endif %}
                         {% if run_model_form.common_envelope_alpha.errors %} error {% endif %} 
@@ -510,16 +558,44 @@
                     </div>     
                 </div>
 
-            </div>
-
-            <div class="container" id="supernova_settings">
                 <div class="title-sm">
-                    <hr class="dashed-line">
-                    <h3 class="jumbotron-heading text-left title-sm" >Supernova<a href="#supernova_explanation"><sup>3</sup></a>
-                        <!-- <input type="checkbox" id="supernova_enabled" checked></h3> -->
-                        <span>{{ run_model_form.supernova_enabled }}</span></h3>
+                    <a id="common_envelope_explanation_link" class="explanation_link text-left">Common Envelope options explanations</a>
                 </div>
 
+                <div id="common_envelope_explanation" class="d-none">
+                    <div>
+                        <p class="p-text-sm">
+                            <span class="help-text">{{run_model_form.common_envelope_alpha.help_text}}</span>
+                            <span class="help-text">{{run_model_form.common_envelope_lambda_prescription.help_text}}</span>
+                            <span class="help-text">{{run_model_form.common_envelope_lambda.help_text}}</span>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="title-sm">
+                <hr class="dashed-line">    
+            </div>
+            <div class="container">
+                <div style="padding-left:12px;">
+                    <div class="row">
+                        <div class="field col col-md-6">
+                            <div class="row">
+                                <!-- Label -->
+                                <h3 class="text-left title-sm">Supernova</h3>
+        
+                                <!-- Field -->
+                                <div class="col col-md-6">
+                                    <div>{{ run_model_form.supernova_enabled }}</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" id="supernova_settings">
                 <div class="row">
                     <div class=" field col col-md-6
                                 {% if run_model_form.remnant_mass_prescription.field.required %} required {% endif %}
@@ -883,16 +959,56 @@
                         </div>
                     </div>     
                 </div>
+                <div class="title-sm">
+                    <a id="supernova_explanation_link" class="explanation_link">Supernova options explanations</a>
+                </div>
+                <div id="supernova_explanation" class="d-none">  
+                    <div>
+                        <p class="p-text-sm">
+                            <span class="help-text">{{run_model_form.remnant_mass_prescription.help_text}}</span>
+                            <span class="help-text">{{run_model_form.fryer_supernova_engine.help_text}}</span>
+                            <span class="help-text">{{run_model_form.black_hole_kicks.help_text}}</span>
+                            <span class="help-text">{{run_model_form.Kick_velocity_distribution.help_text}}</span>
+                            <span class="help-text">{{run_model_form.kick_velocity_sigma_CCSN_NS.help_text}}</span>
+                            <span class="help-text">{{run_model_form.kick_velocity_sigma_CCSN_BH.help_text}}</span>
+                            <span class="help-text">{{run_model_form.kick_velocity_sigma_ECSN.help_text}}</span>
+                            <span class="help-text">{{run_model_form.kick_velocity_sigma_USSN.help_text}}</span>
+                            <span class="help-text">{{run_model_form.pair_instability_supernovae.help_text}}</span>
+                            <span class="help-text">{{run_model_form.pisn_lower_limit.help_text}}</span>
+                            <span class="help-text">{{run_model_form.pisn_upper_limit.help_text}}</span>
+                            <span class="help-text">{{run_model_form.pulsational_pair_instability_supernovae.help_text}}</span>
+                            <span class="help-text">{{run_model_form.ppi_lower_limit.help_text}}</span>
+                            <span class="help-text">{{run_model_form.ppi_upper_limit.help_text}}</span>
+                            <span class="help-text">{{run_model_form.pulsational_pair_instability_prescription.help_text}}</span>
+                            <span class="help-text">{{run_model_form.maximum_neutron_star_mass.help_text}}</span>              
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="title-sm">
+                <hr class="dashed-line">    
+            </div>
+            <div class="container">
+                <div style="padding-left:12px;">
+                    <div class="row">
+                        <div class="field col col-md-6">
+                            <div class="row">
+                                <!-- Label -->
+                                <h3 class="text-left title-sm">Mass Transfer</h3>
+        
+                                <!-- Field -->
+                                <div class="col col-md-6">
+                                    <div>{{ run_model_form.mass_transfer_enabled }}</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="container" id="mass_transfer_settings">
-                <div class="title-sm">
-                    <hr class="dashed-line">
-                    <h3 class="jumbotron-heading text-left title-sm" >Mass Transfer<a href="#mass_transfer_explanation"><sup>4</sup></a>
-                        <!-- <input type="checkbox" id="mass_transfer_enabled" checked></h3> -->
-                        <span>{{ run_model_form.mass_transfer_enabled }}</span></h3>
-                </div>
-
                 <div class="row field
                         {% if run_model_form.mass_transfer_angular_momentum_loss_prescription.field.required %} required {% endif %}
                         {% if run_model_form.mass_transfer_angular_momentum_loss_prescription.errors %} error {% endif %} 
@@ -972,76 +1088,12 @@
                         {% endfor %}
                     </div>
                 </div>
-            </div>
+                
+                <div class="title-sm">
+                    <a id="mass_transfer_explanation_link" class="explanation_link text-left">Mass Transfer options explanations</a>
+                </div>
 
-            <div class="container" id="settings_explanation">
-                <div class="container" id="kick_explanation">
-                    <div class="title-sm">
-                        <hr class="dashed-line">
-                        <h3 class="jumbotron-heading text-left field-label">1. Kick parameters explanations</h3>
-                    </div>
-                    <div>
-                        <p class="p-text-sm">
-                            <span class="help-text">{{run_model_form.velocity_random_number_1.help_text}}</span>
-                            <span class="help-text">{{run_model_form.velocity_random_number_2.help_text}}</span>
-                            <span class="help-text">{{run_model_form.velocity_1.help_text}}</span>
-                            <span class="help-text">{{run_model_form.velocity_2.help_text}}</span>
-                            <span class="help-text">{{run_model_form.theta_1.help_text}}</span>
-                            <span class="help-text">{{run_model_form.theta_2.help_text}}</span>
-                            <span class="help-text">{{run_model_form.phi_1.help_text}}</span>
-                            <span class="help-text">{{run_model_form.phi_2.help_text}}</span>                  
-                            <span class="help-text">{{run_model_form.mean_anomaly_1.help_text}}</span>
-                            <span class="help-text">{{run_model_form.mean_anomaly_2.help_text}}</span>
-                        </p>
-                    </div>
-                </div>
-    
-                <div class="container" id="common_envelope_explanation">
-                    <div class="title-sm">
-                        <hr class="dashed-line">
-                        <h3 class="jumbotron-heading text-left field-label">2. Common Envelope options explanations</h3>
-                    </div>
-                    <div>
-                        <p class="p-text-sm">
-                            <span class="help-text">{{run_model_form.common_envelope_alpha.help_text}}</span>
-                            <span class="help-text">{{run_model_form.common_envelope_lambda_prescription.help_text}}</span>
-                            <span class="help-text">{{run_model_form.common_envelope_lambda.help_text}}</span>
-                        </p>
-                    </div>
-                </div>
-    
-                <div class="container" id="supernova_explanation">
-                    <div class="title-sm">
-                        <hr class="dashed-line">
-                        <h3 class="jumbotron-heading text-left field-label">3. Supernova options explanations</h3>
-                    </div>
-                    <div>
-                        <p class="p-text-sm">
-                            <span class="help-text">{{run_model_form.remnant_mass_prescription.help_text}}</span>
-                            <span class="help-text">{{run_model_form.fryer_supernova_engine.help_text}}</span>
-                            <span class="help-text">{{run_model_form.black_hole_kicks.help_text}}</span>
-                            <span class="help-text">{{run_model_form.Kick_velocity_distribution.help_text}}</span>
-                            <span class="help-text">{{run_model_form.kick_velocity_sigma_CCSN_NS.help_text}}</span>
-                            <span class="help-text">{{run_model_form.kick_velocity_sigma_CCSN_BH.help_text}}</span>
-                            <span class="help-text">{{run_model_form.kick_velocity_sigma_ECSN.help_text}}</span>
-                            <span class="help-text">{{run_model_form.kick_velocity_sigma_USSN.help_text}}</span>
-                            <span class="help-text">{{run_model_form.pair_instability_supernovae.help_text}}</span>
-                            <span class="help-text">{{run_model_form.pisn_lower_limit.help_text}}</span>
-                            <span class="help-text">{{run_model_form.pisn_upper_limit.help_text}}</span>
-                            <span class="help-text">{{run_model_form.pulsational_pair_instability_supernovae.help_text}}</span>
-                            <span class="help-text">{{run_model_form.ppi_lower_limit.help_text}}</span>
-                            <span class="help-text">{{run_model_form.ppi_upper_limit.help_text}}</span>
-                            <span class="help-text">{{run_model_form.pulsational_pair_instability_prescription.help_text}}</span>
-                            <span class="help-text">{{run_model_form.maximum_neutron_star_mass.help_text}}</span>              
-                        </p>
-                    </div>
-                </div>
-    
-                <div class="container" id="mass_transfer_explanation">
-                    <div class="title-sm">
-                        <hr class="dashed-line">
-                        <h3 class="jumbotron-heading text-left field-label">4. Mass Transfer options explanations</h3>
-                    </div>
+                <div id="mass_transfer_explanation" class="d-none">
                     <div>
                         <p class="p-text-sm">
                             <span class="help-text">{{run_model_form.mass_transfer_angular_momentum_loss_prescription.help_text}}</span>
@@ -1061,8 +1113,6 @@
         </div>
     </form>
     </div>
-    <!-- <span>Plots</span>: different types of plots (grouped by physics) -->
-    <!-- </p> -->
 </div>
 
 {% endblock content %}

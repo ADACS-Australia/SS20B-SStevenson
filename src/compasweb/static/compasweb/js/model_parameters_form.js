@@ -53,6 +53,21 @@ let ready = $(document).ready(function() {
         mass_transfer_enabled_onchange();      
     });
 
+    $('#supernova_explanation_link').click(function() { 
+        show_supernova_explanation();      
+    });
+
+    $('#common_envelope_explanation_link').click(function() { 
+        show_common_envelope_explanation();      
+    });
+
+    $('#kick_explanation_link').click(function() { 
+        show_kick_explanation();      
+    });
+    $('#mass_transfer_explanation_link').click(function() { 
+        show_mass_transfer_explanation();      
+    });
+
 
 
     function lambda_prescription_onChange(){
@@ -105,54 +120,84 @@ let ready = $(document).ready(function() {
 
     function kick_enabled_onchange(){
         let checked = $('#id_kick_enabled').is(":checked");
-        $('#id_velocity_random_number_1').prop("disabled", !(checked) );
-        $('#id_velocity_random_number_2').prop("disabled", !(checked) );
-        $('#id_velocity_1').prop("disabled", !(checked) );
-        $('#id_velocity_2').prop("disabled", !(checked) );
-        $('#id_theta_1').prop("disabled", !(checked) );
-        $('#id_theta_2').prop("disabled", !(checked) );
-        $('#id_phi_1').prop("disabled", !(checked) );
-        $('#id_phi_2').prop("disabled", !(checked) );
-        $('#id_mean_anomaly_1').prop("disabled", !(checked) );
-        $('#id_mean_anomaly_2').prop("disabled", !(checked) );
+        
+        if(checked){
+            $('#kick_settings').removeClass('d-none');
+        }
+        else{
+            $('#kick_settings').addClass('d-none');
+        }
+    }
+
+    function show_kick_explanation(){
+        
+        if($('#kick_explanation').hasClass('d-none') === true){
+            $('#kick_explanation').removeClass('d-none');
+        }
+        else{
+            $('#kick_explanation').addClass('d-none');
+        }
     }
 
     function common_envelope_enabled_onchange(){
         let checked = $('#id_common_envelope_enabled').is(":checked");
 
-        $('#id_common_envelope_alpha').prop("disabled", !(checked) );
-        $('#id_common_envelope_lambda_prescription').prop("disabled", !(checked) );
-        $('#id_common_envelope_lambda').prop("disabled", !(checked) );
+        if(checked){
+            $('#common_envelope_settings').removeClass('d-none');
+        }
+        else{
+            $('#common_envelope_settings').addClass('d-none');
+        }
+    }
+
+    function show_common_envelope_explanation(){
+        
+        if($('#common_envelope_explanation').hasClass('d-none') === true){
+            $('#common_envelope_explanation').removeClass('d-none');
+        }
+        else{
+            $('#common_envelope_explanation').addClass('d-none');
+        }
     }
 
     function supernova_enabled_onchange(){
         let checked = $('#id_supernova_enabled').is(":checked");
-
-        $('#id_remnant_mass_prescription').prop("disabled", !(checked) );
-        $('#id_fryer_supernova_engine').prop("disabled", !(checked) );
-        $('#id_black_hole_kicks').prop("disabled", !(checked) );
-        $('#id_Kick_velocity_distribution').prop("disabled", !(checked) );
-        $('#id_kick_velocity_sigma_CCSN_NS').prop("disabled", !(checked) );
-        $('#id_kick_velocity_sigma_CCSN_BH').prop("disabled", !(checked) );
-        $('#id_kick_velocity_sigma_ECSN').prop("disabled", !(checked) );
-        $('#id_kick_velocity_sigma_USSN').prop("disabled", !(checked) );
-        $('#id_pair_instability_supernovae').prop("disabled", !(checked) );
-        $('#id_pisn_lower_limit').prop("disabled", !(checked) );
-        $('#id_pisn_upper_limit').prop("disabled", !(checked) );
-        $('#id_pulsational_pair_instability_supernovae').prop("disabled", !(checked) );
-        $('#id_ppi_lower_limit').prop("disabled", !(checked) );
-        $('#id_ppi_upper_limit').prop("disabled", !(checked) );
-        $('#id_pulsational_pair_instability_prescription').prop("disabled", !(checked) );
-        $('#id_maximum_neutron_star_mass').prop("disabled", !(checked) );
-
+        if(checked){
+            $('#supernova_settings').removeClass('d-none');
+        }
+        else{
+            $('#supernova_settings').addClass('d-none');
+        }
+    }
+    function show_supernova_explanation(){
+        
+        if($('#supernova_explanation').hasClass('d-none') === true){
+            $('#supernova_explanation').removeClass('d-none');
+        }
+        else{
+            $('#supernova_explanation').addClass('d-none');
+        }
     }
 
     function mass_transfer_enabled_onchange(){
         let checked = $('#id_mass_transfer_enabled').is(":checked");
-
-        $('#id_mass_transfer_angular_momentum_loss_prescription').prop("disabled", !(checked) );
-        $('#id_mass_transfer_accertion_efficiency_prescription').prop("disabled", !(checked) );
-        $('#id_mass_transfer_fa').attr( "disabled", !(checked) );
-        $('#id_mass_transfer_jloss').attr( "disabled", !(checked) );
+        if(checked){
+            $('#mass_transfer_settings').removeClass('d-none');
+        }
+        else{
+            $('#mass_transfer_settings').addClass('d-none');
+        }
+        
     }
+
+    function show_mass_transfer_explanation(){
+        
+        if($('#mass_transfer_explanation').hasClass('d-none') === true){
+            $('#mass_transfer_explanation').removeClass('d-none');
+        }
+        else{
+            $('#mass_transfer_explanation').addClass('d-none');
+        }
+    }
+
 });

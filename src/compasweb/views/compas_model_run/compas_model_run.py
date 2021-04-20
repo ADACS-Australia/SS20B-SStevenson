@@ -18,6 +18,7 @@ def run_compas_model(request):
     if request.method == "POST":
 
         form = COMPASModelRunForm(request.POST)
+        print(request.POST)
 
         if form.is_valid():
             form.save(commit=True)
