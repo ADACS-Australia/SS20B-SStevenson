@@ -9,6 +9,8 @@ Run `poetry install --no-dev` for minimum install. This only installs required p
 Run `poetry install` to also install development packages such as testing tools.
 
 3. `cd src`
+3. Create a copy from `.env.template` and rename it to `.env`
+and modify database connection details and other configurations if needed  
 3. Initialise the DB with `poetry run python manage.py migrate`
     - Optional: load test data with `poetry run python manage.py loaddata compasweb/fixtures/test_data.json`
 4. Start the development server.
@@ -17,9 +19,12 @@ Run `poetry install` to also install development packages such as testing tools.
 ### To run the application using docker-compose
 
 1. Clone the repository.
-2. Run `ROOT_SUBDIRECTORY_PATH="" docker-compose up --build` and open the [development server](http://localhost:8080).
-    - You can also have ROOT_SUBDIRECTORY_PATH in your environment. 
-
+2. Create a copy from `.env.template` and rename it to `.env`
+modify database connection details  
+3. Run `ROOT_SUBDIRECTORY_PATH="" COMPAS_HOST="" docker-compose up --build` and open the [development server](http://localhost:8080).
+    - You can also have ROOT_SUBDIRECTORY_PATH in your environment. Ex. `live/compasweb`
+    - Set the value of COMPAS_HOST to your IP address or domain name if you're not running it locally. Ex. `https://compasportal.com/`
+    - Application URL would be `<COMPAS_HOST><ROOT_SUBDIRECTORY_PATH>`
 ### Adding requirements
 
 Requirements are managed using [python poetry](https://python-poetry.org/).

@@ -13,13 +13,13 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 import environ
 
-env = environ.Env(
-    DEBUG=(bool, False),
-)
-environ.Env.read_env(".env")
+# env = environ.Env(DEBUG=(bool, False),)
+# environ.Env.read_env(".env")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DEBUG")
+# DEBUG = env("DEBUG")
+
+DEBUG = os.environ.get("DEBUG", False)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -82,9 +82,17 @@ WSGI_APPLICATION = "compas.wsgi.application"
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    # "default": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    # }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get("MYSQL_DATABASE"),
+        'USER': os.environ.get("MYSQL_USER"),
+        'PASSWORD': os.environ.get("MYSQL_PASSWORD"),
+        'HOST': os.environ.get("MYSQL_HOST"),
+        'PORT': '3306',
     }
 }
 
@@ -125,7 +133,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-ROOT_SUBDIRECTORY_PATH = env("ROOT_SUBDIRECTORY_PATH", default="")
+# ROOT_SUBDIRECTORY_PATH = env("ROOT_SUBDIRECTORY_PATH", default="")
+ROOT_SUBDIRECTORY_PATH = os.environ.get("ROOT_SUBDIRECTORY_PATH", "")
 
 STATIC_URL = os.path.join("/", ROOT_SUBDIRECTORY_PATH, "static/")
 
@@ -143,7 +152,7 @@ STATICFILES_DIRS = [
 FIXTURE_DIRS = (os.path.join(BASE_DIR, "compasweb/fixtures/"),)
 
 # Bokeh server configuration. If not specified, assume a default local server which means the COMPAS_HOST needs to be empty
-COMPAS_HOST = env("COMPAS_HOST", default="")
+COMPAS_HOST = os.environ.get("COMPAS_HOST", default="")
 if COMPAS_HOST:
     BOKEH_SERVER = os.path.join(COMPAS_HOST, ROOT_SUBDIRECTORY_PATH, "bokeh/compas_hexbinplot")
 else:
@@ -151,12 +160,12 @@ else:
     BOKEH_SERVER = "http://localhost:5006/compas_hexbinplot"
 
 # Celery broker
-CELERY_BROKER_URL = env('CELERY_BROKER_URL')
-CELERY_RESULT_BACKEND = env('CELERY_RESULT_BACKEND')
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
 CELERYD_SOFT_TIME_LIMIT = 10
 CELERYD_TIME_LIMIT = 15
 
-COMPAS_EXECUTABLE_PATH = env('COMPAS_EXECUTABLE_PATH')
+COMPAS_EXECUTABLE_PATH = os.environ.get('COMPAS_EXECUTABLE_PATH')
 COMPAS_INPUT_DIR_PATH = os.environ.get('COMPAS_INPUT_DIR_PATH')
 COMPAS_LOGS_OUTPUT_DIR_PATH = os.environ.get('COMPAS_LOGS_OUTPUT_DIR_PATH')
 

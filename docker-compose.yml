@@ -6,23 +6,20 @@ services:
       context: .
       dockerfile: docker/django.Dockerfile
     container_name: django
-    environment:
-      - DEBUG=False
-      - ROOT_SUBDIRECTORY_PATH=${ROOT_SUBDIRECTORY_PATH}
-      - COMPAS_HOST=${COMPAS_HOST}
-      - COMPAS_EXECUTABLE_PATH=/app/COMPAS/bin/COMPAS
-      - COMPAS_INPUT_DIR_PATH=${COMPAS_INPUT_DIR_PATH}
-      - COMPAS_LOGS_OUTPUT_DIR_PATH=${COMPAS_LOGS_OUTPUT_DIR_PATH}
+    env_file: ./src/.env
     volumes:
       - ./src/static:/code/static-files
       - ./files:/files
     command: >
-      bash -c "python manage.py migrate
+      bash -c "dockerize -wait tcp://db:3306 -timeout 20s
+      && python manage.py migrate
       && python manage.py collectstatic --noinput
       && python manage.py loaddata compasweb/fixtures/test_data.json
       && gunicorn --bind=0.0.0.0:8000 compas.wsgi:application"
     ports:
       - "8000"
+    depends_on: 
+      - db
   nginx:
     build:
       context: .
@@ -32,8 +29,7 @@ services:
     container_name: nginx
     depends_on:
       - django
-    environment:
-      - ROOT_SUBDIRECTORY_PATH=${ROOT_SUBDIRECTORY_PATH}
+    env_file: ./src/.env
     volumes:
       - ./src/static:/static
       - ./files:/files
@@ -44,8 +40,7 @@ services:
     ports:
       - "5006"
     container_name: bokeh
-    environment:
-      - ROOT_SUBDIRECTORY_PATH=${ROOT_SUBDIRECTORY_PATH}
+    env_file: ./src/.env
     volumes:
       # note: the mount point has to be the same as in the django container for path resolution to hdf5 fileys to work properly
       - ./files:/files/
@@ -62,9 +57,7 @@ services:
       dockerfile: docker/celery.Dockerfile
     container_name: celery
     restart: always
-    environment: 
-      - CELERY_BROKER_URL:${CELERY_BROKER_URL}
-      - CELERY_RESULT_BACKEND:${CELERY_RESULT_BACKEND}
+    env_file: ./src/.env
     command: celery -A compas worker -l info
     volumes:
       - ./files:/files/
@@ -72,3 +65,16 @@ services:
     links: 
       - redis
       - django
+  db:
+    image: mysql:5.7
+    ports:
+      - '3307:3306'
+    volumes:
+      - ./src:/code/
+    env_file: 
+      - ./src/.env
+    # environment:
+    #   - MYSQL_DATABASE:${DB_NAME}
+    #   - MYSQL_USER:${DB_USERNAME}
+    #   - MYSQL_PASSWORD:${DB_PASSWORD}
+    #   - MYSQL_ROOT_PASSWORD:${DB_ROOT_PASSWORD}
