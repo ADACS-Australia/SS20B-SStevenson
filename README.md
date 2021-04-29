@@ -8,23 +8,42 @@
 Run `poetry install --no-dev` for minimum install. This only installs required production packages.  
 Run `poetry install` to also install development packages such as testing tools.
 
-3. `cd src`
-3. Create a copy from `.env.template` and rename it to `.env`
-and modify database connection details and other configurations if needed  
-3. Initialise the DB with `poetry run python manage.py migrate`
+3. Create a copy from `src/.env.template` and rename it to `src/.env` and REMOVE ALL DB CONNECTION CONFIG (to use the django sqlite db server)
+
+4. [Download](https://redis.io/download) and install Redis  
+5. In a new terminal, run Redis server `redis-server`
+6. In a new terminal, run Celery worker in  
+    ```
+    cd src
+    poetry run celery -A compas.celery worker --loglevel=info
+    ```
+7. In a new terminal `cd src`
+8. Initialise the DB with `poetry run python manage.py migrate`
     - Optional: load test data with `poetry run python manage.py loaddata compasweb/fixtures/test_data.json`
-4. Start the development server.
+9. Start the development server.
   Run `poetry run python manage.py runserver` and open the [development server](http://localhost:8000/).
 
 ### To run the application using docker-compose
 
 1. Clone the repository.
 2. Create a copy from `.env.template` and rename it to `.env`
-modify database connection details  
-3. Run `ROOT_SUBDIRECTORY_PATH="" COMPAS_HOST="" docker-compose up --build` and open the [development server](http://localhost:8080).
-    - You can also have ROOT_SUBDIRECTORY_PATH in your environment. Ex. `live/compasweb`
+    - modify database connection details 
+      ```
+      MYSQL_DATABASE=name of your MySQL DB
+      MYSQL_USER=username to log in to DB
+      MYSQL_PASSWORD=password
+      MYSQL_ROOT_PASSWORD=root password
+      DB_PORT=MySQL Server port
+      ```
+    - Modify `DJANGO_SECRET_KEY` however you prefer
+    - Keep everything else as is
+3. If you're running it on your local machine, Run `ROOT_SUBDIRECTORY_PATH="" COMPAS_HOST="" docker-compose up --build` and open the [development server](http://localhost:8080).
+4. Alternatively, if you're running on a production server
     - Set the value of COMPAS_HOST to your IP address or domain name if you're not running it locally. Ex. `https://compasportal.com/`
-    - Application URL would be `<COMPAS_HOST><ROOT_SUBDIRECTORY_PATH>`
+    - Optional: You can set the value of `ROOT_SUBDIRECTORY_PATH`. This is the part that appears after your server IP/domain name. Ex. `live/compasweb`
+    
+    - Application URL would be `<IP address/Domain><ROOT_SUBDIRECTORY_PATH>`. Ex. `https://compasportal.com/live/compasweb`
+
 ### Adding requirements
 
 Requirements are managed using [python poetry](https://python-poetry.org/).
