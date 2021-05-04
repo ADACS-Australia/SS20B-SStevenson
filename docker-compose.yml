@@ -11,14 +11,14 @@ services:
       - ./src/static:/code/static-files
       - ./files:/files
     command: >
-      bash -c "dockerize -wait tcp://db:3306 -timeout 20s
+      bash -c "dockerize -wait tcp://db:3306 -timeout 360s -wait-retry-interval 5s
       && python manage.py migrate
       && python manage.py collectstatic --noinput
       && python manage.py loaddata compasweb/fixtures/test_data.json
       && gunicorn --bind=0.0.0.0:8000 compas.wsgi:application"
     ports:
       - "8000"
-    depends_on: 
+    depends_on:
       - db
   nginx:
     build:
@@ -52,7 +52,7 @@ services:
     ports:
       - '6379:6379'
   celery:
-    build: 
+    build:
       context: .
       dockerfile: docker/celery.Dockerfile
     container_name: celery
@@ -62,7 +62,7 @@ services:
     volumes:
       - ./files:/files/
       - ./src:/code/
-    links: 
+    links:
       - redis
       - django
   db:
@@ -71,7 +71,7 @@ services:
       - '3307:3306'
     volumes:
       - ./src:/code/
-    env_file: 
+    env_file:
       - ./src/.env
     # environment:
     #   - MYSQL_DATABASE:${DB_NAME}
