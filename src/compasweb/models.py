@@ -185,8 +185,8 @@ class COMPASModelRun(models.Model):
     mass2 = models.FloatField(
         blank=False,
         null=False,
-        default=0.0,
-        validators=[MinValueValidator(0.0), MaxValueValidator(150.0)],
+        default=0.1,
+        validators=[MinValueValidator(0.1), MaxValueValidator(150.0)],
         help_text="Mass of the initially less massive star. 0 < Value < 150",
     )
     # --metalicity

@@ -139,7 +139,7 @@ PAIR_INSTABILITY_SUPERNOVAE_LABEL = 'Pair Instability Supernovae'
 PISN_LOWER_LIMIT_LABEL = 'PISN_lower_limit'
 PISN_UPPER_LIMIT_LABEL = 'PISN_upper_limit'
 
-PULSATIONAL_PAIR_INSTABILITY_SUPERNOVAE_LABEL = 'Pair Instability Supernovae'
+PULSATIONAL_PAIR_INSTABILITY_SUPERNOVAE_LABEL = 'Pulsational Pair Instability Supernovae'
 PPI_LOWER_LIMIT_LABEL = 'PPI_lower_limit'
 PPI_UPPER_LIMIT_LABEL = 'PPI_upper_limit'
 

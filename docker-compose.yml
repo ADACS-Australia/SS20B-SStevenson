@@ -69,10 +69,14 @@ services:
     image: mysql:5.7
     ports:
       - '3307:3306'
+    container_name: db
     volumes:
-      - ./src:/code/
+      - db_data:/var/lib/mysql
     env_file:
       - ./src/.env
+
+volumes:
+  db_data:
     # environment:
     #   - MYSQL_DATABASE:${DB_NAME}
     #   - MYSQL_USER:${DB_USERNAME}
