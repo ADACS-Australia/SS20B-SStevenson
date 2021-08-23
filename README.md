@@ -27,7 +27,7 @@ Run `poetry install` to also install development packages such as testing tools.
 
 1. Clone the repository.
 2. Create a copy from `.env.template` and rename it to `.env`
-    - Uncomment the database connection details and modify usernames + passwords as necessary
+    - To use MySQL db in production environment, uncomment the database connection details and modify usernames + passwords as necessary, otherwise leave uncommented to use sqlite db
       ```
       DB_ENGINE=django.db.backends.mysql
       MYSQL_DATABASE=<name of your MySQL DB>
@@ -43,6 +43,12 @@ Run `poetry install` to also install development packages such as testing tools.
       ```
       CELERY_BROKER_URL=redis://redis:6379
       CELERY_RESULT_BACKEND=redis://redis:6379
+      ```
+    - Modify COMPAS IO settings
+      ```
+      COMPAS_EXECUTABLE_PATH=/app/COMPAS/bin/COMPAS
+      COMPAS_INPUT_DIR_PATH=/files/jobs/
+      COMPAS_LOGS_OUTPUT_DIR_PATH=/files/jobs/
       ```
     - Keep everything else as is
 3. If you're running it on your local machine, Run `ROOT_SUBDIRECTORY_PATH="" COMPAS_HOST="" docker-compose up --build` and open the [development server](http://localhost:8080).
