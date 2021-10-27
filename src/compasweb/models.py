@@ -10,8 +10,10 @@ from django.core.files.uploadedfile import UploadedFile
 import tarfile
 from bokeh.embed import server_document
 import h5py
+import numpy as np
 
 from .utils.constants import *
+from .utils.plotting_functions import *
 
 
 class Keyword(models.Model):
@@ -33,6 +35,11 @@ def job_directory_path(instance, filename):
     model_id = str(instance.compasmodel.id)
     # dataset files will be saved in MEDIA_ROOT/datasets/dataset_id/model_id/
     return os.path.join("datasets", dataset_id, model_id, fname)
+
+def grabSubGroup(file, key):
+    subgroup = file[key]
+    print(list(subgroup.keys()))
+    return list(subgroup.keys())
 
 
 class COMPASJob(models.Model):
@@ -152,7 +159,65 @@ class Upload(models.Model):
             script = server_document(settings.BOKEH_SERVER, arguments={"filename": input, "is_mobile": is_mobile})
         else:
             script = "<p>No data was provided for plots</p>"
-        return script
+            return script
+
+    def get_react_keys(self):
+
+        first_file = h5py.File(self.file, 'r')
+        first_keys = {}
+        first_keys["menu"] = list(first_file.keys())
+
+        return first_keys
+
+    def return_react_subgroup(self, request):
+
+        first_file = h5py.File(self.file, 'r')
+        main_group = request.POST.get("main_group")
+        subgroup_list = grabSubGroup(first_file, main_group)
+
+        total_length = first_file[main_group][subgroup_list[0]].shape[0]
+        
+        if(total_length > 1e6):
+            strided_length = int(total_length/5e5)
+        else:
+            strided_length = 1
+
+        file_length = int(np.ceil(total_length/strided_length))
+
+        initial_values = [0,1]
+
+        default_values = default_prefs[default_prefs[:,0] == main_group]
+
+        if(default_values.any()):
+            default_values = default_values[0][1]
+            if(np.isin(default_values, subgroup_list).all()):
+                initial_values = [int(np.where(np.asarray(subgroup_list) == default_values[0])[0][0]), int(np.where(np.asarray(subgroup_list) == default_values[1])[0][0])] 
+
+        context = {
+            "subgroup_list": subgroup_list,
+            "subgroup_init": initial_values,
+            "num_samples": [int(file_length), int(total_length)],
+            "strided_length": strided_length,
+        }
+
+        return context
+
+    def return_react_data(self, request):
+        main_group, subgroup_1, subgroup_2, strided_length = request.POST.getlist("data_request")
+
+        first_file = h5py.File(self.file, 'r')
+        strided_length = int(strided_length)
+
+        total_length = first_file[main_group][subgroup_1].shape[0]
+        file_length = int(np.ceil(total_length/strided_length))
+
+        data_json = dataQuery(first_file, main_group, subgroup_1, subgroup_2, strided_length)
+
+        context = {"trunc_data": data_json,
+                   "num_samples": [int(file_length), int(total_length)],
+        }
+
+        return context
 
     def read_stats(self):
         """

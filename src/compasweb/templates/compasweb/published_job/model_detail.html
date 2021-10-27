@@ -77,7 +77,8 @@
 
 
   <div class="tab-pane fade" id="setting" role="tabpanel" aria-labelledby="setting-tab">
- {{ compas_setting | linebreaks }}
+ <!-- {{ compas_setting | linebreaks }} -->
+   <p class="tab-content-text"><span class="div-text-sm-underline">sdfsfds of downloadable files</span>: </p>
 
   </div>
 
@@ -90,8 +91,10 @@
   </div>
 
     <div class="tab-pane fade" id="visualization" role="tabpanel" aria-labelledby="visualization-tab">
-      {{ bokeh_autoload|safe }}
-  </div>
+      {{ react_menu|json_script:"menu_list" }}
+      {{ kwargs_id|json_script:"id" }}
+
+    </div>
 
   <div class="tab-pane fade" id="download" role="tabpanel" aria-labelledby="download-tab">
     <p class="tab-content-text"><span class="div-text-sm-underline">Summary of downloadable files</span>: </p>
@@ -110,4 +113,6 @@
                         href="{% url 'dataset_detail' datasetmodel.compasjob.id %}">Back to Models</a>
 </div>
 </div>
+
+<script src='{% static "compasweb/js/bundle.js" %}'></script>
 {% endblock content %}
